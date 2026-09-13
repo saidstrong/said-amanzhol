@@ -1,48 +1,135 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/lib/content";
+import ProjectVisual from "@/components/ProjectVisual";
+import SiteHeader from "@/components/SiteHeader";
+import { copy, localePath, projects, statusLabel, type Locale, type ProjectSlug } from "@/lib/content";
 
-const details = {
+type ProjectDetail = {
+  eyebrow: string;
+  headline: string;
+  problemLabel: string;
+  problem: string;
+  systemLabel: string;
+  decisionsLabel: string;
+  decisions: string[];
+  resultLabel: string;
+  result: string;
+  lessonsLabel: string;
+  lessons: string[];
+};
+
+const details: Partial<Record<ProjectSlug, Record<Locale, ProjectDetail>>> = {
   "nu-atrium": {
-    headline: "A unified digital layer for campus life.",
-    problem: "Campus information, communities, listings, opportunities, events, and communication are fragmented across chats, social platforms, spreadsheets, and informal channels.",
-    decisions: ["Unified identity across modules", "Shared information architecture", "Role and permission boundaries", "Reusable product patterns"],
-    system: ["Profiles","Communities","Marketplace","Events","Messaging","Jobs","Notifications","Admin"],
-    result: "The project reached the stage of a deployed full-stack prototype. It was not launched to a real student user base, so no adoption, retention, or usage metrics are claimed.",
-    lessons: ["Scope compounds quickly across product domains.", "Architecture matters earlier than expected.", "A working product is not the same thing as a validated product."]
+    en: {
+      eyebrow: "Selected work / 01",
+      headline: "A unified digital layer for campus life.",
+      problemLabel: "Problem / objective",
+      problem: "Campus information, communities, listings, opportunities, events, and communication are fragmented across chats, social platforms, spreadsheets, and informal channels.",
+      systemLabel: "System direction",
+      decisionsLabel: "Key decisions",
+      decisions: ["Unified identity across modules", "Shared information architecture", "Role and permission boundaries", "Reusable product patterns"],
+      resultLabel: "Result / status",
+      result: "The project reached the stage of a deployed full-stack prototype. It was not launched to a real student user base, so no adoption, retention, or usage metrics are claimed.",
+      lessonsLabel: "What I learned",
+      lessons: ["Scope compounds quickly across product domains.", "Architecture matters earlier than expected.", "A working product is not the same thing as a validated product."]
+    },
+    ru: {
+      eyebrow: "Избранный проект / 01",
+      headline: "Единый цифровой слой для жизни кампуса.",
+      problemLabel: "Проблема / задача",
+      problem: "Информация кампуса, сообщества, объявления, возможности, события и коммуникация распределены между чатами, социальными сетями, таблицами и неформальными каналами.",
+      systemLabel: "Направление системы",
+      decisionsLabel: "Ключевые решения",
+      decisions: ["Единая идентичность между модулями", "Общая информационная архитектура", "Границы ролей и разрешений", "Переиспользуемые продуктовые паттерны"],
+      resultLabel: "Результат / статус",
+      result: "Проект достиг стадии развернутого full-stack прототипа. Он не запускался на реальной студенческой аудитории, поэтому метрики использования, удержания и принятия не заявляются.",
+      lessonsLabel: "Что я понял",
+      lessons: ["Масштаб быстро растет между продуктовыми доменами.", "Архитектура становится важной раньше, чем ожидаешь.", "Работающий продукт не равен валидированному продукту."]
+    }
   },
   "invitation-platform": {
-    headline: "Flexibility without uncontrolled complexity.",
-    problem: "The product explores what a real invitation-building system could look like beyond fixed templates: mobile-first editing, reusable blocks, media, RSVP, publishing, and monetization logic.",
-    decisions: ["Mobile-first creation", "One responsive design", "Bounded customization", "Stable versioned publishing"],
-    system: ["Create","Customize","Preview","Publish","Share","RSVP"],
-    result: "The project reached the stage of a deployed product prototype. Core editor, publishing, media, RSVP, authentication, customization, and payment/entitlement systems were implemented. No traction or revenue claims are made.",
-    lessons: ["Product flexibility creates architectural complexity quickly.", "Mobile editing is harder than mobile viewing.", "Publishing needs a different mental model from editing."]
+    en: {
+      eyebrow: "Selected work / 02",
+      headline: "Flexibility without uncontrolled complexity.",
+      problemLabel: "Problem / objective",
+      problem: "The product explores what a real invitation-building system could look like beyond fixed templates: mobile-first editing, reusable blocks, media, RSVP, publishing, and monetization logic.",
+      systemLabel: "Product flow",
+      decisionsLabel: "Key decisions",
+      decisions: ["Mobile-first creation", "One responsive design system", "Bounded customization", "Stable versioned publishing"],
+      resultLabel: "Result / status",
+      result: "The project reached the stage of a deployed product prototype. Core editor, publishing, media, RSVP, authentication, customization, and payment/entitlement systems were implemented. No traction or revenue claims are made.",
+      lessonsLabel: "What I learned",
+      lessons: ["Product flexibility creates architectural complexity quickly.", "Mobile editing is harder than mobile viewing.", "Publishing needs a different mental model from editing."]
+    },
+    ru: {
+      eyebrow: "Избранный проект / 02",
+      headline: "Гибкость без неконтролируемой сложности.",
+      problemLabel: "Проблема / задача",
+      problem: "Проект исследует, как может выглядеть настоящая система создания приглашений за пределами фиксированных шаблонов: mobile-first редактирование, переиспользуемые блоки, медиа, RSVP, публикация и логика монетизации.",
+      systemLabel: "Продуктовый поток",
+      decisionsLabel: "Ключевые решения",
+      decisions: ["Создание с учетом mobile-first", "Единая адаптивная система", "Ограниченная кастомизация", "Стабильная версионная публикация"],
+      resultLabel: "Результат / статус",
+      result: "Проект достиг стадии развернутого продуктового прототипа. Реализованы редактор, публикация, медиа, RSVP, аутентификация, кастомизация и системы оплаты/доступа. Тракшн и выручка не заявляются.",
+      lessonsLabel: "Что я понял",
+      lessons: ["Гибкость продукта быстро создает архитектурную сложность.", "Редактирование на мобильном сложнее, чем просмотр.", "Публикация требует другой ментальной модели, чем редактирование."]
+    }
   },
   "quant-trade-ai": {
-    headline: "Exploring autonomous agents for quantitative trading workflows.",
-    problem: "This project is still in development. The current portfolio deliberately avoids claiming architecture, profitability, live-capital deployment, or performance that has not been verified.",
-    decisions: ["Evidence before claims", "Risk-aware system direction", "Separation of analysis and execution", "Quantitative evaluation"],
-    system: ["Market Data","Analysis","Agent","Risk","Execution","Evaluation"],
-    result: "In development. No live demo, public repository, returns, or backtest statistics are claimed yet.",
-    lessons: ["The implementation and evidence should define the case study, not the project name.", "Trading systems require unusually high discipline around validation and risk."]
+    en: {
+      eyebrow: "Selected work / 03",
+      headline: "Exploring autonomous agents for quantitative trading workflows.",
+      problemLabel: "Scope / objective",
+      problem: "This project is still in development. The current portfolio deliberately avoids claiming architecture, profitability, live-capital deployment, or performance that has not been verified.",
+      systemLabel: "Conceptual pipeline",
+      decisionsLabel: "Working principles",
+      decisions: ["Evidence before claims", "Risk-aware system direction", "Separation of analysis and execution", "Quantitative evaluation"],
+      resultLabel: "Result / status",
+      result: "In development. No live demo, public repository, returns, or backtest statistics are claimed yet.",
+      lessonsLabel: "What I learned",
+      lessons: ["The implementation and evidence should define the case study, not the project name.", "Trading systems require unusually high discipline around validation and risk."]
+    },
+    ru: {
+      eyebrow: "Избранный проект / 03",
+      headline: "Исследование автономных агентов для количественных торговых процессов.",
+      problemLabel: "Объем / задача",
+      problem: "Проект находится в разработке. В текущем портфолио намеренно не заявляются архитектура, прибыльность, работа с реальным капиталом или неподтвержденные результаты.",
+      systemLabel: "Концептуальный поток",
+      decisionsLabel: "Рабочие принципы",
+      decisions: ["Доказательства важнее заявлений", "Риск-ориентированное направление", "Разделение анализа и исполнения", "Количественная оценка"],
+      resultLabel: "Результат / статус",
+      result: "В разработке. Публичный демо-доступ, репозиторий, доходность и статистика бэктестов пока не заявляются.",
+      lessonsLabel: "Что я понял",
+      lessons: ["Реализация и доказательства должны определять кейс, а не название проекта.", "Торговые системы требуют особенно строгой дисциплины валидации и управления риском."]
+    }
   }
-} as const;
+};
 
 export default async function ProjectPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
   if ((locale !== "en" && locale !== "ru") || !(slug in details)) notFound();
-  const p = projects.find(x=>x.slug===slug);
-  if (!p) notFound();
-  const d = details[slug as keyof typeof details];
-  return <main className="pb-20 pt-8"><div className="shell">
-    <div className="flex justify-between border-b border-line pb-5 text-xs uppercase tracking-[.14em]"><Link href={`/${locale}#work`}>← Back to work</Link><span>{p.year} · {p.status}</span></div>
-    <section className="py-20"><div className="eyebrow mb-5">Selected Work</div><h1 className="display max-w-5xl text-6xl leading-[.88] md:text-9xl">{p.title}</h1><p className="display mt-10 max-w-3xl text-3xl leading-tight md:text-5xl">{d.headline}</p><div className="mt-10 flex flex-wrap gap-6 text-sm">{p.live&&<a className="linkline" target="_blank" href={p.live}>Live Demo ↗</a>}{p.github&&<a className="linkline" target="_blank" href={p.github}>GitHub ↗</a>}</div></section>
-    <section className="section"><div className="grid gap-10 md:grid-cols-[.7fr_1.3fr]"><div className="eyebrow">Problem / Objective</div><p className="max-w-3xl text-2xl leading-9">{d.problem}</p></div></section>
-    <section className="section"><div className="eyebrow mb-10">System Direction</div><div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">{d.system.map((x,i)=><div key={x} className="border border-line p-5"><div className="eyebrow text-burgundy">0{i+1}</div><div className="mt-6 text-lg">{x}</div></div>)}</div></section>
-    <section className="section"><div className="grid gap-10 md:grid-cols-[.7fr_1.3fr]"><div className="eyebrow">Key Decisions</div><div>{d.decisions.map((x,i)=><div key={x} className="grid grid-cols-[50px_1fr] border-t border-line py-5"><span className="text-burgundy">0{i+1}</span><span className="text-xl">{x}</span></div>)}</div></div></section>
-    <section className="section"><div className="grid gap-10 md:grid-cols-[.7fr_1.3fr]"><div className="eyebrow">Result / Status</div><p className="max-w-3xl text-2xl leading-9">{d.result}</p></div></section>
-    <section className="section"><div className="grid gap-10 md:grid-cols-[.7fr_1.3fr]"><div className="eyebrow">What I learned</div><div>{d.lessons.map(x=><p key={x} className="border-t border-line py-5 text-xl leading-8">{x}</p>)}</div></div></section>
-    <div className="border-t border-line pt-8"><Link className="linkline" href={`/${locale}#work`}>← All work</Link></div>
-  </div></main>;
+  const currentLocale = locale as Locale;
+  const project = projects.find((item) => item.slug === slug);
+  const detail = details[slug as ProjectSlug]?.[currentLocale];
+  if (!project || !detail) notFound();
+  return (
+    <main className="case-page">
+      <SiteHeader locale={currentLocale} currentPath={`/projects/${project.slug}`} />
+      <div className="shell case-shell">
+        <div className="case-topline"><Link href={localePath(currentLocale, "#work")}>← {currentLocale === "ru" ? "Назад к проектам" : "Back to work"}</Link><span>{project.year} · {statusLabel[currentLocale][project.status]}</span></div>
+        <section className="case-hero">
+          <div className="eyebrow">{detail.eyebrow}</div>
+          <h1 className="display case-title">{project.title}</h1>
+          <p className="display case-headline">{detail.headline}</p>
+          <div className="case-links">{project.live && <a className="linkline" target="_blank" rel="noreferrer" href={project.live}>{copy[currentLocale].live} demo <span aria-hidden="true">↗</span></a>}{project.github && <a className="linkline" target="_blank" rel="noreferrer" href={project.github}>{copy[currentLocale].github} <span aria-hidden="true">↗</span></a>}</div>
+        </section>
+        <section className="case-section"><div className="case-grid"><div className="eyebrow">{detail.problemLabel}</div><p className="case-large-copy">{detail.problem}</p></div></section>
+        <section className="case-section"><div className="eyebrow case-section-label">{detail.systemLabel}</div><ProjectVisual slug={project.slug} compact /></section>
+        <section className="case-section"><div className="case-grid"><div className="eyebrow">{detail.decisionsLabel}</div><div className="case-records">{detail.decisions.map((decision, index) => <div key={decision} className="case-record"><span className="eyebrow">0{index + 1}</span><span>{decision}</span></div>)}</div></div></section>
+        <section className="case-section"><div className="case-grid"><div className="eyebrow">{detail.resultLabel}</div><p className="case-large-copy">{detail.result}</p></div></section>
+        <section className="case-section"><div className="case-grid"><div className="eyebrow">{detail.lessonsLabel}</div><div className="case-records">{detail.lessons.map((lesson) => <p key={lesson} className="case-record case-lesson">{lesson}</p>)}</div></div></section>
+        <div className="case-bottom"><Link className="linkline" href={localePath(currentLocale, "#work")}>← {currentLocale === "ru" ? "Все проекты" : "All work"}</Link></div>
+      </div>
+    </main>
+  );
 }
