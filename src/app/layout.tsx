@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Geist } from "next/font/google";
 import DocumentLanguage from "@/components/DocumentLanguage";
 import "./globals.css";
 
 const geist = Geist({
   subsets: ["latin", "cyrillic"],
   variable: "--font-geist",
-});
-const instrument = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-instrument",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +19,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${instrument.variable}`}>
+    <html lang="en" className={geist.variable}>
       <body className="font-sans antialiased">
         <DocumentLanguage />
         {children}
