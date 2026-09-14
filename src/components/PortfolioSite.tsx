@@ -242,12 +242,21 @@ export default function PortfolioSite({ locale }: { locale: Locale }) {
 
         <section id="about" className="section" aria-labelledby="about-title">
           <div className="shell about-grid">
+            <div className="portrait-frame">
+              <div className="portrait-crop">
+                <Image
+                  src="/portrait.jpg"
+                  alt={c.portraitAlt}
+                  fill
+                  className="portrait-image"
+                  sizes="(max-width: 499px) calc(150vw - 87px), 663px"
+                />
+              </div>
+            </div>
             <div className="about-copy">
               <div className="eyebrow">05 / {c.about}</div>
               <h2 id="about-title" className="display about-title">
-                Said
-                <br />
-                Amanzhol
+                Said Amanzhol
               </h2>
               <p className="about-body">{c.aboutBody}</p>
               <div className="about-handle">@sherlockzini</div>
@@ -258,15 +267,6 @@ export default function PortfolioSite({ locale }: { locale: Locale }) {
               >
                 {c.viewCV} <span aria-hidden="true">↗</span>
               </Link>
-            </div>
-            <div className="portrait-frame">
-              <Image
-                src="/portrait.jpg"
-                alt={c.portraitAlt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 819px) calc(100vw - 40px), 42vw"
-              />
             </div>
           </div>
         </section>

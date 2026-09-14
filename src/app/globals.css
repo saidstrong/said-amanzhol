@@ -63,14 +63,15 @@ main:focus {
   margin-inline: auto;
 }
 .display {
-  font-family: var(--font-instrument), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.045em;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: -0.04em;
 }
 .eyebrow {
   color: #9d9497;
-  font-size: 10px;
-  letter-spacing: 0.17em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
   line-height: 1.5;
   text-transform: uppercase;
 }
@@ -106,8 +107,8 @@ main:focus {
   align-items: center;
   gap: 32px;
   color: #9d9497;
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .desktop-nav a,
@@ -185,10 +186,11 @@ main:focus {
   align-items: baseline;
   gap: 22px;
   padding-block: 14px;
-  font-family: var(--font-instrument), Georgia, serif;
-  font-size: clamp(40px, 11vw, 76px);
-  letter-spacing: -0.035em;
-  line-height: 1.15;
+  font-family: inherit;
+  font-size: clamp(32px, 8vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
 }
 .mobile-nav a span {
   font-family: var(--font-geist), sans-serif;
@@ -218,8 +220,9 @@ main:focus {
 }
 .hero-title {
   max-width: 100%;
-  font-size: clamp(4rem, 19vw, 15rem);
-  line-height: 0.83;
+  font-size: clamp(3rem, 15vw, 12.25rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
 }
 .hero-lower {
   display: grid;
@@ -227,9 +230,11 @@ main:focus {
   margin-top: 48px;
 }
 .hero-statement {
-  max-width: 700px;
-  font-size: clamp(2rem, 4.2vw, 4.5rem);
-  line-height: 1.08;
+  max-width: 660px;
+  font-size: clamp(1.5rem, 2.7vw, 2.625rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
   text-wrap: pretty;
 }
 .hero-support {
@@ -246,7 +251,7 @@ main:focus {
   gap: 24px;
   margin-top: 26px;
   font-size: 11px;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .hero-footerline {
@@ -257,8 +262,8 @@ main:focus {
   margin-top: 48px;
   padding-top: 14px;
   color: #9d9497;
-  font-size: 9px;
-  letter-spacing: 0.13em;
+  font-size: 10px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -272,8 +277,8 @@ main:focus {
   margin-bottom: 58px;
 }
 .section-title {
-  font-size: clamp(3rem, 7vw, 6rem);
-  line-height: 1.03;
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  line-height: 1.12;
   text-wrap: balance;
 }
 .section-note {
@@ -299,8 +304,8 @@ main:focus {
 }
 .project-title {
   max-width: 780px;
-  font-size: clamp(3rem, 7vw, 7rem);
-  line-height: 0.98;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.1;
   text-wrap: balance;
 }
 .project-status {
@@ -319,8 +324,8 @@ main:focus {
 }
 .project-description {
   max-width: 760px;
-  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
-  line-height: 1.45;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  line-height: 1.6;
 }
 .project-aside {
   display: flex;
@@ -333,7 +338,7 @@ main:focus {
   flex-wrap: wrap;
   gap: 18px 24px;
   font-size: 11px;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .project-links-compact {
@@ -386,8 +391,8 @@ main:focus {
 }
 .secondary-title {
   margin-top: 26px;
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
-  line-height: 1.03;
+  font-size: clamp(1.5rem, 2.3vw, 2.25rem);
+  line-height: 1.2;
 }
 .secondary-description {
   margin-top: 24px;
@@ -413,9 +418,9 @@ main:focus {
 }
 .record-row h3 {
   max-width: 450px;
-  font-size: 21px;
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 .record-row p,
 .record-row > div:last-child {
@@ -425,7 +430,8 @@ main:focus {
 }
 .record-number {
   color: #b27a81;
-  font-size: 35px;
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 .milestone-row {
@@ -438,40 +444,57 @@ main:focus {
 
 .about-grid {
   display: grid;
-  gap: 46px;
+  grid-template-areas: "portrait" "copy";
+  gap: 36px;
   align-items: center;
 }
+.about-copy {
+  grid-area: copy;
+  min-width: 0;
+}
 .about-title {
-  margin-top: 24px;
-  font-size: clamp(4rem, 9vw, 8rem);
-  line-height: 0.83;
+  margin-top: 20px;
+  font-size: clamp(2.125rem, 3.5vw, 3.25rem);
+  line-height: 1.12;
 }
 .about-body {
-  max-width: 570px;
-  margin-top: 30px;
-  font-size: clamp(1.3rem, 2.6vw, 2rem);
-  line-height: 1.4;
+  max-width: 490px;
+  margin-top: 24px;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  line-height: 1.65;
 }
 .about-handle {
   margin-top: 24px;
   color: #9d9497;
   font-size: 13px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
 }
 .about-cv-link {
   margin-top: 32px;
   font-size: 11px;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .portrait-frame {
+  grid-area: portrait;
+  width: 100%;
+  max-width: 460px;
+  padding: 8px;
+  border: 1px solid #342d30;
+  background: #181516;
+}
+.portrait-crop {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: #161315;
 }
-.portrait-frame img {
-  object-position: 50% 65%;
+.portrait-image {
+  object-fit: cover;
+  object-position: 50% 55%;
+  /* Static head-to-mid-torso crop; keep the original image and its colors. */
+  transform: scale(1.5);
+  transform-origin: 50% 55%;
 }
 
 .footer-section {
@@ -480,8 +503,8 @@ main:focus {
 .contact-title {
   max-width: 1000px;
   margin-top: 26px;
-  font-size: clamp(3.2rem, 9vw, 9rem);
-  line-height: 1;
+  font-size: clamp(2.25rem, 5.5vw, 5rem);
+  line-height: 1.12;
   text-wrap: balance;
 }
 .contact-links {
@@ -499,8 +522,8 @@ main:focus {
   margin-top: 88px;
   padding-top: 18px;
   color: #9d9497;
-  font-size: 9px;
-  letter-spacing: 0.15em;
+  font-size: 10px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -521,8 +544,8 @@ main:focus {
   border-bottom: 1px solid #2b2527;
   padding: 18px 0;
   color: #9d9497;
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .cv-layout {
@@ -535,8 +558,8 @@ main:focus {
 }
 .cv-title {
   margin-top: 26px;
-  font-size: clamp(4.5rem, 9vw, 8.5rem);
-  line-height: 0.8;
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  line-height: 1.04;
 }
 .cv-tagline {
   margin-top: 26px;
@@ -549,7 +572,7 @@ main:focus {
   gap: 22px;
   margin-top: 34px;
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .cv-contact {
@@ -562,6 +585,10 @@ main:focus {
 .cv-content {
   min-width: 0;
 }
+.cv-content h3 {
+  font-weight: 500;
+  line-height: 1.4;
+}
 .cv-section {
   border-top: 1px solid #2b2527;
   padding: 32px 0;
@@ -571,8 +598,8 @@ main:focus {
 }
 .cv-lead {
   max-width: 670px;
-  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
-  line-height: 1.4;
+  font-size: clamp(1.25rem, 1.7vw, 1.625rem);
+  line-height: 1.5;
 }
 .cv-record-list {
   border-top: 1px solid rgba(43, 37, 39, 0.72);
@@ -639,7 +666,7 @@ main:focus {
   border-top: 1px solid #2b2527;
   padding-top: 22px;
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -649,15 +676,17 @@ main:focus {
 .case-title {
   max-width: 1100px;
   margin-top: 24px;
-  font-size: clamp(4rem, 10vw, 10rem);
-  line-height: 0.96;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.08;
   text-wrap: balance;
 }
 .case-headline {
   max-width: 900px;
   margin-top: 36px;
-  font-size: clamp(1.9rem, 4vw, 4.5rem);
-  line-height: 1.13;
+  font-size: clamp(1.5rem, 2.7vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
   text-wrap: pretty;
 }
 .case-links {
@@ -666,7 +695,7 @@ main:focus {
   gap: 22px;
   margin-top: 34px;
   font-size: 11px;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .case-visual {
@@ -682,8 +711,8 @@ main:focus {
 }
 .case-large-copy {
   max-width: 810px;
-  font-size: clamp(1.45rem, 2.8vw, 2.6rem);
-  line-height: 1.35;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  line-height: 1.5;
 }
 .case-section-label {
   margin-bottom: 28px;
@@ -716,7 +745,7 @@ main:focus {
   gap: 20px;
   color: #b1a7aa;
   font-size: 10px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   line-height: 1.6;
   text-transform: uppercase;
 }
@@ -787,8 +816,8 @@ main:focus {
   letter-spacing: 0.12em;
 }
 .network-core span:first-child {
-  font-family: var(--font-instrument), Georgia, serif;
-  font-size: 28px;
+  font-size: 24px;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -829,9 +858,10 @@ main:focus {
 }
 .publishing-title {
   display: block;
-  font-family: var(--font-instrument), Georgia, serif;
-  font-size: 30px;
-  line-height: 1.12;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 .publishing-note {
   display: block;
@@ -970,30 +1000,6 @@ main:focus {
   }
 }
 
-[lang="ru"] .display {
-  letter-spacing: -0.03em;
-}
-[lang="ru"] .hero-title,
-[lang="ru"] .about-title,
-[lang="ru"] .cv-title {
-  letter-spacing: -0.045em;
-}
-[lang="ru"] .hero-statement {
-  font-size: clamp(1.85rem, 3.5vw, 3.65rem);
-  line-height: 1.18;
-}
-[lang="ru"] .section-title {
-  font-size: clamp(2.75rem, 6vw, 5.5rem);
-  line-height: 1.12;
-}
-[lang="ru"] .publishing-title {
-  font-size: 23px;
-  line-height: 1.2;
-}
-[lang="ru"] .mobile-nav a {
-  font-size: clamp(38px, 10vw, 68px);
-}
-
 @media (min-width: 640px) {
   .project-heading {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1130,8 +1136,12 @@ main:focus {
     gap: 40px;
   }
   .about-grid {
+    grid-template-areas: "copy portrait";
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
     gap: 8%;
+  }
+  .portrait-frame {
+    justify-self: end;
   }
   .pipeline-stage {
     font-size: 12px;
@@ -1195,11 +1205,11 @@ main:focus {
     padding: 48px 0;
   }
   .case-title {
-    font-size: clamp(3.4rem, 15vw, 6rem);
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
   }
   .case-headline {
     margin-top: 28px;
-    font-size: clamp(1.8rem, 7vw, 3rem);
+    font-size: clamp(1.5rem, 5vw, 1.75rem);
   }
   .case-section {
     padding: 60px 0;

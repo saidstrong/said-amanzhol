@@ -12,8 +12,7 @@ const config: Config = {
         line: "#2b2527"
       },
       fontFamily: {
-        sans: ["var(--font-geist)", "Arial", "sans-serif"],
-        serif: ["var(--font-instrument)", "Georgia", "serif"]
+        sans: ["var(--font-geist)", "Arial", "sans-serif"]
       },
       letterSpacing: {
         tightish: "-0.04em"
