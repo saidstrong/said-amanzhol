@@ -10,19 +10,20 @@ import {
   type Locale,
   type Project,
 } from "@/lib/content";
+import styles from "./WorkSection.module.css";
 
-const featuredProjects = projects.filter((project) => project.featured);
+const [leadProject, ...featuredProjects] = projects.filter((project) => project.featured);
 const otherProjects = projects.filter((project) => !project.featured);
 
 function ProjectLinks({ project, locale }: { project: Project; locale: Locale }) {
   const c = copy[locale];
 
   return (
-    <div className="work-links">
+    <div className={styles.links}>
       {project.featured && (
         <Link
           prefetch={false}
-          className="linkline work-case-link"
+          className={`linkline ${styles.caseLink}`}
           href={localePath(locale, `/projects/${project.slug}`)}
           aria-label={`${c.caseStudy} · ${project.title}`}
         >
@@ -57,12 +58,13 @@ function ProjectLinks({ project, locale }: { project: Project; locale: Locale })
 
 function ProjectStatus({ project, locale }: { project: Project; locale: Locale }) {
   return (
-    <div className="work-status">
-      <span className="work-year">{project.year}</span>
-      <span className="work-status-label" data-status={project.status}>
+    <p className={styles.status}>
+      <span>{project.year}</span>
+      <span aria-hidden="true">·</span>
+      <span data-status={project.status}>
         {statusLabel[locale][project.status]}
       </span>
-    </div>
+    </p>
   );
 }
 
@@ -76,16 +78,16 @@ function FeaturedWork({
   lead?: boolean;
 }) {
   return (
-    <article className={lead ? "work-card work-card-lead" : "work-card"}>
-      <div className="work-visual">
-        <ProjectVisual slug={project.slug} locale={locale} />
-      </div>
-      <div className="work-copy">
+    <article className={lead ? styles.lead : styles.study}>
+      <div className={styles.projectCopy}>
         <ProjectStatus project={project} locale={locale} />
-        <h3 className="display work-title">{project.title}</h3>
-        <p className="work-category eyebrow">{projectCategory(project, locale)}</p>
-        <p className="work-description">{copy[locale].featured[project.slug]}</p>
+        <h3 className={styles.projectTitle}>{project.title}</h3>
+        <p className={styles.category}>{projectCategory(project, locale)}</p>
+        <p className={styles.description}>{copy[locale].featured[project.slug]}</p>
         <ProjectLinks project={project} locale={locale} />
+      </div>
+      <div className={styles.visual}>
+        <ProjectVisual slug={project.slug} locale={locale} compact={!lead} />
       </div>
     </article>
   );
@@ -95,36 +97,32 @@ export function WorkSection({ locale }: { locale: Locale }) {
   const c = copy[locale];
 
   return (
-    <>
-      <section className="portfolio-section shell" id="work" aria-labelledby="work-title">
-        <div className="portfolio-section-heading">
-          <h2 className="display portfolio-heading" id="work-title">{c.selectedWork}</h2>
-        </div>
-        <div className="work-grid">
-          {featuredProjects.map((project, index) => (
-            <FeaturedWork key={project.slug} project={project} locale={locale} lead={index === 0} />
-          ))}
-        </div>
-      </section>
-      <section className="portfolio-section portfolio-more" aria-labelledby="more-work-title">
-        <div className="shell">
-          <div className="portfolio-section-heading">
-            <h2 className="display portfolio-heading" id="more-work-title">{c.moreWork}</h2>
-            <p>{c.moreNote}</p>
-          </div>
-          <div className="more-work-grid">
-            {otherProjects.map((project) => (
-              <article className="more-work-card" key={project.slug}>
+    <section className={`shell ${styles.work}`} id="work" aria-labelledby="work-title">
+      <h2 className={styles.heading} id="work-title">{c.selectedWork}</h2>
+      {leadProject && <FeaturedWork project={leadProject} locale={locale} lead />}
+      <div className={styles.studies}>
+        {featuredProjects.map((project) => (
+          <FeaturedWork key={project.slug} project={project} locale={locale} />
+        ))}
+      </div>
+      <section className={styles.directory} aria-labelledby="more-work-title">
+        <h3 className={styles.directoryHeading} id="more-work-title">{c.moreWork}</h3>
+        <ul className={styles.directoryList} role="list">
+          {otherProjects.map((project) => (
+            <li className={styles.directoryRow} key={project.slug}>
+              <div className={styles.directoryIdentity}>
+                <h4>{project.title}</h4>
+                <p className={styles.category}>{projectCategory(project, locale)}</p>
+              </div>
+              <p className={styles.description}>{c.secondary[project.slug]}</p>
+              <div className={styles.directoryActions}>
                 <ProjectStatus project={project} locale={locale} />
-                <h3 className="display work-title">{project.title}</h3>
-                <p className="work-category eyebrow">{projectCategory(project, locale)}</p>
-                <p className="work-description">{c.secondary[project.slug]}</p>
                 <ProjectLinks project={project} locale={locale} />
-              </article>
-            ))}
-          </div>
-        </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
-    </>
+    </section>
   );
 }

@@ -8,10 +8,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
     <footer id="contact" className="portfolio-footer" aria-labelledby="contact-title">
       <div className="shell">
         <div className="footer-contact">
-          <div>
-            <p className="eyebrow">{c.nav.contact}</p>
-            <h2 className="display" id="contact-title">{c.contact}</h2>
-          </div>
+          <h2 className="display" id="contact-title">{c.contact}</h2>
           <a className="footer-email linkline" href={`mailto:${contact.email}`}>
             {contact.email} <span className="arrow-up-right" aria-hidden="true" />
           </a>

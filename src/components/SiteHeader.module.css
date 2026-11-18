@@ -9,7 +9,7 @@
 
 .headerInner,
 .mobileNav {
-  width: min(calc(100% - 48px), 1240px);
+  width: min(calc(100% - 56px), 1232px);
   margin-inline: auto;
 }
 
@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: var(--header-height);
+  min-height: calc(var(--header-height) - 1px);
 }
 
 .brand {
@@ -26,26 +26,26 @@
   flex: none;
   align-items: center;
   justify-self: start;
-  gap: 11px;
+  gap: 12px;
   min-width: 44px;
   min-height: 44px;
   color: var(--ink);
-  font-size: 0.9rem;
-  font-weight: 630;
-  letter-spacing: -0.025em;
+  font-size: 0.8125rem;
+  font-weight: 620;
+  letter-spacing: -0.015em;
   white-space: nowrap;
+  transition: color 180ms ease;
 }
 
 .brandMark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  background: var(--accent);
-  color: var(--paper);
-  font-size: 0.7rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-size: 1.25rem;
+  font-weight: 760;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.brandMark span {
+  color: var(--accent);
 }
 
 .brand:hover,
@@ -61,22 +61,23 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 13px;
+  gap: 8px;
 }
 
 .languages {
   display: flex;
   flex: none;
   align-items: center;
+  gap: 1px;
   font-size: 0.75rem;
   font-weight: 620;
   letter-spacing: 0.035em;
 }
 
 .currentLanguage {
-  padding: 4px 7px;
-  background: var(--ink);
-  color: var(--paper);
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
 }
 
 .languageLink {
@@ -95,6 +96,10 @@
 
 .menuToggle,
 .closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-width: 64px;
   min-height: 44px;
   padding-inline: 10px;
@@ -102,15 +107,50 @@
   background: transparent;
   color: var(--ink);
   font-size: 0.8rem;
-  font-weight: 560;
+  font-weight: 580;
   cursor: pointer;
   transition: border-color 160ms ease, color 160ms ease;
 }
 
 .menuToggle:hover,
-.closeButton:hover {
+.menuToggle:focus-visible,
+.closeButton:hover,
+.closeButton:focus-visible {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+.menuIcon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.menuIcon::before {
+  transform: translateY(-3px);
+}
+
+.menuIcon::after {
+  transform: translateY(2px);
+}
+
+.closeButton .menuIcon::before {
+  transform: rotate(45deg);
+}
+
+.closeButton .menuIcon::after {
+  transform: rotate(-45deg);
 }
 
 .mobileMenu {
@@ -137,7 +177,7 @@
 }
 
 .mobileNav {
-  padding-block: clamp(28px, 8dvh, 92px) 32px;
+  padding-block: clamp(32px, 9dvh, 96px) 32px;
 }
 
 .mobileNav a {
@@ -148,8 +188,8 @@
   min-height: 72px;
   padding-block: 14px;
   border-bottom: 1px solid var(--rule);
-  font-size: clamp(2rem, 7vw, 4rem);
-  font-weight: 540;
+  font-size: clamp(2.25rem, 7.5vw, 4.5rem);
+  font-weight: 625;
   letter-spacing: -0.055em;
   line-height: 1.1;
   transition: color 160ms ease;
@@ -160,13 +200,15 @@
 }
 
 .mobileNav a:hover,
+.mobileNav a:focus-visible,
 .mobileNav a[aria-current="page"] {
   color: var(--accent);
 }
 
 .mobileNav a span {
   color: var(--accent);
-  font-size: 0.5em;
+  font-size: 0.44em;
+  font-weight: 500;
 }
 
 .skipLink {
@@ -205,7 +247,7 @@
   .desktopNav {
     display: flex;
     align-items: center;
-    gap: clamp(24px, 3vw, 44px);
+    gap: clamp(23px, 3vw, 42px);
   }
 
   .desktopNav a {
@@ -215,25 +257,75 @@
     min-height: 44px;
     color: var(--muted);
     font-size: 0.875rem;
-    font-weight: 520;
-    transition: color 160ms ease;
+    font-weight: 560;
+    transition: color 180ms ease;
   }
 
   .desktopNav a:hover,
+  .desktopNav a:focus-visible,
   .desktopNav a[aria-current="page"] {
     color: var(--accent);
   }
 
-  .desktopNav a[aria-current="page"]::after {
+  .desktopNav a::after {
     position: absolute;
-    inset: auto 0 6px;
+    inset: auto 0 7px;
     height: 1px;
     background: currentColor;
     content: "";
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .desktopNav a:hover::after,
+  .desktopNav a:focus-visible::after,
+  .desktopNav a[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .menuToggle {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mobileMenu[open] .mobileNav a {
+    animation: menu-row-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .mobileMenu[open] .mobileNav a:nth-child(2) {
+    animation-delay: 24ms;
+  }
+
+  .mobileMenu[open] .mobileNav a:nth-child(3) {
+    animation-delay: 48ms;
+  }
+
+  .mobileMenu[open] .mobileNav a:nth-child(4) {
+    animation-delay: 72ms;
+  }
+
+  .mobileNav a span {
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .mobileNav a:focus-visible span,
+  .mobileNav a:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes menu-row-enter {
+  from {
+    opacity: 0.65;
+    transform: translateY(9px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

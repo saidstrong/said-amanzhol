@@ -88,18 +88,15 @@ const labels = {
 };
 
 const nodePositions = [
-  [50, 9],
-  [24, 29],
-  [76, 29],
-  [24, 71],
-  [76, 71],
-  [50, 91],
+  [17.5, 17],
+  [82.5, 17],
+  [17.5, 50],
+  [82.5, 50],
+  [17.5, 83],
+  [82.5, 83],
 ];
-const campusOutline = [0, 2, 4, 5, 3, 1]
-  .map((index) => nodePositions[index].join(","))
-  .join(" ");
-const delay = (index: number): CSSProperties =>
-  ({ "--step": index }) as CSSProperties;
+const delay = (milliseconds: number): CSSProperties =>
+  ({ "--visual-delay": `${milliseconds}ms` }) as CSSProperties;
 
 export default function ProjectVisual({
   slug,
@@ -115,7 +112,11 @@ export default function ProjectVisual({
 
   useEffect(() => {
     const figure = ref.current;
-    if (!figure || typeof IntersectionObserver === "undefined") return;
+    if (
+      !figure ||
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) return;
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.intersectionRatio < 0.25) return;
@@ -161,17 +162,13 @@ export default function ProjectVisual({
             preserveAspectRatio="none"
             className="network-links"
           >
-            <polygon
-              className="network-perimeter"
-              points={campusOutline}
-            />
             {nodePositions.map(([x, y], i) => (
               <path
                 key={`${x}-${y}`}
                 pathLength="1"
                 className="network-connection"
-                style={delay(i)}
-                d={`M50 50 L${x} ${y}`}
+                style={delay(Math.floor(i / 2) * 125)}
+                d={`M50 50 H${x < 50 ? 36 : 64} V${y} H${x}`}
               />
             ))}
           </svg>
@@ -186,7 +183,7 @@ export default function ProjectVisual({
               style={{
                 left: `${nodePositions[index][0]}%`,
                 top: `${nodePositions[index][1]}%`,
-                ...delay(index),
+                ...delay(250 + Math.floor(index / 2) * 125),
               }}
             >
               {label}
@@ -194,31 +191,40 @@ export default function ProjectVisual({
           ))}
         </div>
       ) : variant === "publishing" ? (
-        <ol className="publishing-stages" aria-hidden="true">
-          {c.stages.map((stage, i) => (
-            <li
-              className={`publishing-stage ${i === 3 ? "publishing-stage-release" : ""}`}
-              key={stage}
-              style={delay(i)}
-            >
-              <span className="stage-number">0{i + 1}</span>
-              <div className="publishing-sheet">
-                <span className="publishing-title">{stage}</span>
-                <span className="publishing-note">{c.stageNotes[i]}</span>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <div className="publishing-compose" aria-hidden="true">
+          <ol className="publishing-stages">
+            {c.stages.map((stage, i) => (
+              <li
+                className={`publishing-stage ${i === 3 ? "publishing-stage-release" : ""}`}
+                key={stage}
+                style={delay(i * 94)}
+              >
+                <span className="stage-number">0{i + 1}</span>
+                <div className="publishing-sheet">
+                  <span className="publishing-title">{stage}</span>
+                  <span className="publishing-note">{c.stageNotes[i]}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="publishing-art">
+            <div className="publishing-envelope">
+              <span className="publishing-letter"><span>RSVP</span></span>
+              <span className="publishing-fold" />
+            </div>
+          </div>
+        </div>
       ) : (
         <ol className="quant-pipeline" aria-hidden="true">
           {c.pipeline.map((stage, i) => (
             <li
-              className={`pipeline-stage ${i === 2 || i === 3 ? "pipeline-stage-emphasis" : ""}`}
+              className={`pipeline-stage ${i === 3 ? "pipeline-stage-gate" : ""}`}
               key={stage}
-              style={delay(i)}
+              style={delay(i * 112 + (i > 3 ? 100 : 0))}
             >
               <span className="stage-number">0{i + 1}</span>
               <span>{stage}</span>
+              {i < c.pipeline.length - 1 && <span className="pipeline-connector" />}
             </li>
           ))}
         </ol>

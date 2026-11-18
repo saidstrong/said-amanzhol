@@ -99,8 +99,8 @@ export default async function CVPage({
               </h1>
               <p className={styles.cvTagline}>
                 {ru
-                  ? "Экономика · Технологии · Продукты"
-                  : "Economics · Technology · Product"}
+                  ? "Разработка продуктов и экономика"
+                  : "Product development & economics"}
               </p>
             </div>
             <a

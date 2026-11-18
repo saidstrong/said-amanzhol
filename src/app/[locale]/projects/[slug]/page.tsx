@@ -57,6 +57,13 @@ export default async function ProjectPage({
   const liveLabel = project.slug === "invitation-platform"
     ? liveLabels.example
     : liveLabels.prototype;
+  const sections = [
+    ["case-objective", detail.problemLabel],
+    ["case-system", detail.systemLabel],
+    ["case-decisions", detail.decisionsLabel],
+    ["case-result", detail.resultLabel],
+    ["case-lessons", detail.lessonsLabel],
+  ];
 
   return (
     <>
@@ -109,44 +116,78 @@ export default async function ProjectPage({
               </div>
             </div>
           </header>
-          <section className={styles.caseSplit} aria-labelledby="case-objective">
-            <h2 id="case-objective" className={styles.sectionTitle}>
-              {detail.problemLabel}
-            </h2>
-            <p className={styles.caseProse}>{detail.problem}</p>
-          </section>
-          <section className={styles.systemSection} aria-labelledby="case-system">
-            <h2 id="case-system" className={styles.sectionTitle}>
-              {detail.systemLabel}
-            </h2>
-            <ProjectVisual slug={project.slug} locale={currentLocale} compact />
-          </section>
-          <div className={styles.caseSummary}>
-            <section aria-labelledby="case-decisions">
-              <h2 id="case-decisions" className={styles.sectionTitle}>
-                {detail.decisionsLabel}
-              </h2>
-              <ul className={styles.caseList}>
-                {detail.decisions.map((decision) => (
-                  <li key={decision}>{decision}</li>
+          <div className={styles.caseLayout}>
+            <nav className={styles.caseContents} aria-labelledby="case-contents">
+              <p className={styles.contentsLabel} id="case-contents">
+                {ru ? "В этом кейсе" : "In this case study"}
+              </p>
+              <ul>
+                {sections.map(([id, label]) => (
+                  <li key={id}>
+                    <a href={`#${id}`}>{label}</a>
+                  </li>
                 ))}
               </ul>
-            </section>
-            <section className={styles.caseResult} aria-labelledby="case-result">
-              <h2 id="case-result" className={styles.sectionTitle}>
-                {detail.resultLabel}
-              </h2>
-              <p className={styles.caseProse}>{detail.result}</p>
-            </section>
+            </nav>
+            <div className={styles.caseContent}>
+              <section
+                id="case-objective"
+                className={styles.caseSection}
+                aria-labelledby="case-objective-title"
+              >
+                <h2 id="case-objective-title" className={styles.sectionTitle}>
+                  {detail.problemLabel}
+                </h2>
+                <p className={styles.caseProse}>{detail.problem}</p>
+              </section>
+              <section
+                id="case-system"
+                className={styles.caseSection}
+                aria-labelledby="case-system-title"
+              >
+                <h2 id="case-system-title" className={styles.sectionTitle}>
+                  {detail.systemLabel}
+                </h2>
+                <ProjectVisual slug={project.slug} locale={currentLocale} compact />
+              </section>
+              <div className={styles.caseSummary}>
+                <section id="case-decisions" aria-labelledby="case-decisions-title">
+                  <h2 id="case-decisions-title" className={styles.sectionTitle}>
+                    {detail.decisionsLabel}
+                  </h2>
+                  <ul className={styles.caseList}>
+                    {detail.decisions.map((decision) => (
+                      <li key={decision}>{decision}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section
+                  id="case-result"
+                  className={styles.caseResult}
+                  aria-labelledby="case-result-title"
+                >
+                  <h2 id="case-result-title" className={styles.sectionTitle}>
+                    {detail.resultLabel}
+                  </h2>
+                  <p className={styles.caseProse}>{detail.result}</p>
+                </section>
+              </div>
+              <section
+                id="case-lessons"
+                className={styles.caseSection}
+                aria-labelledby="case-lessons-title"
+              >
+                <h2 id="case-lessons-title" className={styles.sectionTitle}>
+                  {detail.lessonsLabel}
+                </h2>
+                <ul className={styles.caseList}>
+                  {detail.lessons.map((lesson) => (
+                    <li key={lesson}>{lesson}</li>
+                  ))}
+                </ul>
+              </section>
+            </div>
           </div>
-          <section className={styles.caseSplit} aria-labelledby="case-lessons">
-            <h2 id="case-lessons" className={styles.sectionTitle}>
-              {detail.lessonsLabel}
-            </h2>
-            <ul className={styles.caseList}>
-              {detail.lessons.map((lesson) => <li key={lesson}>{lesson}</li>)}
-            </ul>
-          </section>
           <div className={styles.caseBottom}>
             <Link prefetch={false} href={allWork} className={styles.quietLink}>
               <span aria-hidden="true">←</span>{" "}

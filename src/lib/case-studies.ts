@@ -16,11 +16,11 @@ type ProjectDetail = {
 export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDetail>> = {
   "nu-atrium": {
     en: {
-      headline: "A unified digital layer for campus life.",
-      problemLabel: "Problem / objective",
+      headline: "One place for campus events, communities, and opportunities.",
+      problemLabel: "The problem",
       problem:
         "Campus information, communities, listings, opportunities, events, and communication are fragmented across chats, social platforms, spreadsheets, and informal channels.",
-      systemLabel: "System direction",
+      systemLabel: "System design",
       decisionsLabel: "Key decisions",
       decisions: [
         "Unified identity across modules",
@@ -28,22 +28,22 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
         "Role and permission boundaries",
         "Reusable product patterns",
       ],
-      resultLabel: "Result / status",
+      resultLabel: "Outcome",
       result:
-        "The project reached the stage of a deployed full-stack prototype. It was not launched to a real student user base, so no adoption, retention, or usage metrics are claimed.",
+        "The full-stack prototype is deployed. This case covers design and implementation through the prototype release, before a student launch.",
       lessonsLabel: "What I learned",
       lessons: [
-        "Scope compounds quickly across product domains.",
-        "Architecture matters earlier than expected.",
-        "A working product is not the same thing as a validated product.",
+        "Every campus module adds to the shared design and permissions work.",
+        "Decide on the shared data model before adding more modules.",
+        "A working prototype makes it possible to test whether students need the product.",
       ],
     },
     ru: {
-      headline: "Единый цифровой слой для жизни кампуса.",
-      problemLabel: "Проблема / задача",
+      headline: "События, сообщества и возможности кампуса в одном месте.",
+      problemLabel: "Задача",
       problem:
         "Информация кампуса, сообщества, объявления, возможности, события и коммуникация распределены между чатами, социальными сетями, таблицами и неформальными каналами.",
-      systemLabel: "Направление системы",
+      systemLabel: "Устройство платформы",
       decisionsLabel: "Ключевые решения",
       decisions: [
         "Один профиль для всех разделов",
@@ -51,24 +51,24 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
         "Разделение ролей и прав доступа",
         "Переиспользуемые продуктовые решения",
       ],
-      resultLabel: "Результат / статус",
+      resultLabel: "Результат",
       result:
-        "Полнофункциональный прототип опубликован. Запуска на реальную студенческую аудиторию еще не было, поэтому данные о привлечении, удержании и активности пользователей не заявляются.",
+        "Полнофункциональный прототип опубликован. Кейс охватывает проектирование, разработку и публикацию прототипа до возможного запуска для студентов.",
       lessonsLabel: "Что я понял",
       lessons: [
-        "Каждый новый раздел увеличивает сложность всей системы.",
-        "Архитектура становится важной раньше, чем ожидаешь.",
-        "Работоспособность продукта еще не доказывает спрос на него.",
+        "Каждый новый раздел добавляет работу над общей архитектурой и правами доступа.",
+        "Общую модель данных стоит определить до добавления новых разделов.",
+        "Рабочий прототип позволяет проверить, нужен ли продукт студентам.",
       ],
     },
   },
   "invitation-platform": {
     en: {
-      headline: "Flexibility without uncontrolled complexity.",
-      problemLabel: "Problem / objective",
+      headline: "An invitation builder designed for phones.",
+      problemLabel: "The problem",
       problem:
         "The product explores what a real invitation-building system could look like beyond fixed templates: mobile-first editing, reusable blocks, media, RSVP, publishing, and monetization logic.",
-      systemLabel: "Product flow",
+      systemLabel: "From editing to RSVP",
       decisionsLabel: "Key decisions",
       decisions: [
         "Mobile-first creation",
@@ -76,9 +76,9 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
         "Bounded customization",
         "Stable versioned publishing",
       ],
-      resultLabel: "Result / status",
+      resultLabel: "Outcome",
       result:
-        "The project reached the stage of a deployed product prototype. Core editor, publishing, media, RSVP, authentication, customization, and payment/entitlement systems were implemented. No traction or revenue claims are made.",
+        "The deployed prototype includes the editor, media, guest RSVPs, publishing, sign-in, customization, and payments with paid access.",
       lessonsLabel: "What I learned",
       lessons: [
         "Product flexibility creates architectural complexity quickly.",
@@ -87,11 +87,11 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
       ],
     },
     ru: {
-      headline: "Гибкость без неконтролируемой сложности.",
-      problemLabel: "Проблема / задача",
+      headline: "Конструктор приглашений для телефона.",
+      problemLabel: "Задача",
       problem:
         "Проект исследует создание приглашений за пределами фиксированных шаблонов: удобный редактор для телефона, переиспользуемые блоки, медиа, RSVP, публикация и логика платного доступа.",
-      systemLabel: "Продуктовый поток",
+      systemLabel: "От редактора до RSVP",
       decisionsLabel: "Ключевые решения",
       decisions: [
         "Создание с телефона",
@@ -99,9 +99,9 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
         "Гибкая настройка с понятными границами",
         "Стабильная публикация с управлением версиями",
       ],
-      resultLabel: "Результат / статус",
+      resultLabel: "Результат",
       result:
-        "Продуктовый прототип опубликован. Реализованы редактор, публикация, медиа, RSVP, аутентификация, настройка и логика оплаты и прав доступа. Подтвержденные данные о спросе и выручке не заявляются.",
+        "В опубликованном прототипе работают редактор, медиа, ответы гостей, публикация, вход в аккаунт, настройки, оплата и платный доступ.",
       lessonsLabel: "Что я понял",
       lessons: [
         "Гибкость продукта быстро усложняет архитектуру.",
@@ -113,8 +113,8 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
   "quant-trade-ai": {
     en: {
       headline:
-        "Exploring autonomous agents for quantitative trading workflows.",
-      problemLabel: "Scope / objective",
+        "Researching how AI agents could support quantitative trading.",
+      problemLabel: "Research scope",
       problem:
         "The project explores how AI agents could support market analysis, strategy reasoning, and risk assessment. The diagram presents the research direction.",
       systemLabel: "Conceptual pipeline",
@@ -125,9 +125,9 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
         "Separation of analysis and execution",
         "Quantitative evaluation",
       ],
-      resultLabel: "Result / status",
+      resultLabel: "Status",
       result:
-        "In development. No live demo, public repository, returns, or backtest statistics are claimed yet.",
+        "The project is in development. This case documents the research direction and evaluation principles.",
       lessonsLabel: "What I learned",
       lessons: [
         "Base the case study on the implementation and available evidence.",
@@ -136,8 +136,8 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
     },
     ru: {
       headline:
-        "Исследование автономных агентов для количественных торговых процессов.",
-      problemLabel: "Объем / задача",
+        "Исследование применения ИИ-агентов в количественном трейдинге.",
+      problemLabel: "Цель исследования",
       problem:
         "Проект исследует, как AI-агенты могут помочь с анализом рынка, разработкой стратегий и оценкой рисков. Схема отражает направление исследования.",
       systemLabel: "Концептуальный поток",
@@ -148,9 +148,9 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
         "Разделение анализа и исполнения",
         "Количественная оценка",
       ],
-      resultLabel: "Результат / статус",
+      resultLabel: "Статус",
       result:
-        "В разработке. Публичный демо-доступ, репозиторий, доходность и статистика бэктестов пока не заявляются.",
+        "Проект в разработке. Здесь описаны направление исследования и принципы оценки.",
       lessonsLabel: "Что я понял",
       lessons: [
         "Кейс должен опираться на реализацию и доступные доказательства.",

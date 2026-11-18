@@ -4,14 +4,15 @@
 
 :root {
   color-scheme: light;
-  --paper: #f6f3ec;
-  --surface: #fcfaf5;
-  --ink: #211e1c;
-  --muted: #625850;
-  --rule: #d9d0c4;
-  --accent: #a33124;
-  --accent-dark: #82261c;
-  --header-height: 76px;
+  --paper: #f4f2ec;
+  --surface: #fcfbf7;
+  --ink: #181918;
+  --muted: #575a55;
+  --rule: #cfcec5;
+  --accent: #2348cb;
+  --accent-dark: #1936a1;
+  --header-height: 68px;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
@@ -43,28 +44,26 @@ main:focus {
 }
 
 ::selection {
-  background: #ead0c7;
+  background: #d5def9;
   color: var(--ink);
 }
 
 .shell {
-  width: min(calc(100% - 48px), 1240px);
+  width: min(calc(100% - 56px), 1232px);
   margin-inline: auto;
 }
 
 .display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  letter-spacing: -0.055em;
+  font-weight: 620;
+  letter-spacing: -0.045em;
 }
 
 .eyebrow {
   color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  line-height: 1.55;
-  text-transform: uppercase;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.015em;
+  line-height: 1.5;
 }
 
 .muted {

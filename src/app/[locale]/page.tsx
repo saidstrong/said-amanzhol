@@ -13,8 +13,8 @@ export async function generateMetadata({
   return pageMetadata(
     locale,
     locale === "ru"
-      ? "Саид Аманжол — Технологии, экономика и продукты"
-      : "Said Amanzhol — Technology, Economics & Product",
+      ? "Саид Аманжол — Портфолио и резюме"
+      : "Said Amanzhol — Portfolio & CV",
     copy[locale].heroSub,
   );
 }

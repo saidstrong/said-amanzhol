@@ -30,11 +30,9 @@ function HomeLink({
       onClick={onNavigate}
     >
       <span className={styles.brandMark} aria-hidden="true">
-        SA
+        SA<span>.</span>
       </span>
-      <span className={styles.brandName}>
-        {locale === "en" ? "Said Amanzhol" : "Саид Аманжол"}
-      </span>
+      <span className={styles.brandName}>{copy[locale].name.join(" ")}</span>
     </Link>
   );
 }
@@ -71,7 +69,9 @@ function LanguageSwitch({
             return;
           onNavigate?.();
         }}
-        onAuxClick={(event) => prepareNavigation(event.currentTarget)}
+        onAuxClick={(event) => {
+          if (event.button === 1) prepareNavigation(event.currentTarget);
+        }}
         className={styles.languageLink}
         aria-label={copy[locale].switchLanguage}
       >
@@ -94,8 +94,8 @@ export default function SiteHeader({
   const links = [
     { label: c.nav.work, href: currentPath ? `${home}#work` : "#work" },
     {
-      label: c.nav.milestones,
-      href: currentPath ? `${home}#milestones` : "#milestones",
+      label: c.about,
+      href: currentPath ? `${home}#about` : "#about",
     },
     {
       label: c.nav.cv,
@@ -186,6 +186,7 @@ export default function SiteHeader({
             onClick={openMenu}
           >
             {c.menu}
+            <span className={styles.menuIcon} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -233,6 +234,7 @@ export default function SiteHeader({
                 onClick={closeMenu}
               >
                 {c.close}
+                <span className={styles.menuIcon} aria-hidden="true" />
               </button>
             </div>
           </div>

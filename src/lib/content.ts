@@ -135,24 +135,21 @@ export const copy = {
   en: {
     nav: {
       work: "Work",
-      milestones: "Milestones",
       cv: "CV",
       contact: "Contact",
     },
     name: ["Said", "Amanzhol"],
-    heroEyebrow: "Product development & economics",
     heroSub:
-      "I study economics at Nazarbayev University and build software for education, communities, and operations.",
+      "I study economics at Nazarbayev University and build software for the teams and communities around me.",
     viewWork: "View work",
     viewCV: "View CV",
     selectedWork: "Selected work",
-    moreNote: "Products for education, hospitality, and community operations.",
     moreWork: "More work",
     milestones: "Selected milestones",
     experience: "Experience",
     about: "About",
     education: "Education",
-    contact: "Let’s connect.",
+    contact: "Say hello.",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     menu: "Menu",
@@ -168,7 +165,7 @@ export const copy = {
     concept: "Concept / system direction",
     location: "Astana, Kazakhstan",
     aboutBody:
-      "I’m interested in how technology can simplify the way teams work. My projects span campus services, education, and business operations. As technical lead at SapaSpeakers, I work on internal systems and technology strategy.",
+      "I like starting with a problem I can see up close. Where do students find out what’s happening on campus? How do teams keep track of stock and requests? I build prototypes to explore those questions. At SapaSpeakers, I lead work on internal tools and technology strategy.",
     featured: {
       "nu-atrium":
         "A full-stack campus platform designed for the Nazarbayev University community, bringing communities, marketplace, events, jobs, messaging, and student activity into one system.",
@@ -191,25 +188,21 @@ export const copy = {
   ru: {
     nav: {
       work: "Проекты",
-      milestones: "Этапы",
       cv: "CV",
       contact: "Контакты",
     },
     name: ["Саид", "Аманжол"],
-    heroEyebrow: "Разработка продуктов и экономика",
     heroSub:
-      "Я изучаю экономику в Назарбаев Университете и разрабатываю цифровые продукты для образования, сообществ и бизнеса.",
+      "Я изучаю экономику в Назарбаев Университете и создаю цифровые инструменты для команд и сообществ, с которыми работаю.",
     viewWork: "Смотреть проекты",
     viewCV: "Открыть CV",
     selectedWork: "Избранные проекты",
-    moreNote:
-      "Продукты для образования, сферы гостеприимства и работы сообществ.",
     moreWork: "Другие проекты",
     milestones: "Ключевые этапы",
     experience: "Опыт",
     about: "Обо мне",
     education: "Образование",
-    contact: "Связаться со мной.",
+    contact: "Напишите мне.",
     openMenu: "Открыть меню",
     closeMenu: "Закрыть меню",
     menu: "Меню",
@@ -226,7 +219,7 @@ export const copy = {
     concept: "Концепция / направление системы",
     location: "Астана, Казахстан",
     aboutBody:
-      "Мне интересно, как технологии помогают командам работать проще. Я создаю сервисы для студентов, образовательные платформы и инструменты для бизнеса. В SapaSpeakers отвечаю за внутренние системы и технологическую стратегию.",
+      "Я начинаю с задач, которые вижу вокруг. Где студенты узнают о событиях в кампусе? Как команде следить за запасами и заявками? Чтобы проверить свои идеи, я собираю прототипы. В SapaSpeakers руковожу разработкой внутренних инструментов и отвечаю за технологическую стратегию.",
     featured: {
       "nu-atrium":
         "Полноценная кампус-платформа для сообщества Назарбаев Университета: сообщества, маркетплейс, события, вакансии, сообщения и студенческая активность в одной системе.",

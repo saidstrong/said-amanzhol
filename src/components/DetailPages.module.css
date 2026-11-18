@@ -1,7 +1,7 @@
 .page {
   color: var(--ink);
-  padding-block: calc(var(--header-height) + clamp(1.75rem, 5vw, 4rem))
-    clamp(3.5rem, 8vw, 7rem);
+  padding-block: calc(var(--header-height) + clamp(1rem, 3vw, 2.5rem))
+    clamp(3rem, 7vw, 6rem);
 }
 
 .topline,
@@ -19,6 +19,18 @@
 .topline {
   min-height: 3.25rem;
   border-bottom: 1px solid var(--rule);
+}
+
+.topline p,
+.category,
+.caseStatus,
+.contentsLabel,
+.recordMeta,
+.nextCase > span:first-child {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.45;
 }
 
 .topline a,
@@ -42,11 +54,10 @@
 
 .pageTitle {
   margin: 0;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(3.3rem, 8.75vw, 8.75rem);
-  font-weight: 500;
-  line-height: 0.96;
-  letter-spacing: -0.073em;
+  font-size: clamp(2.8rem, 6.1vw, 6rem);
+  font-weight: 650;
+  line-height: 0.99;
+  letter-spacing: -0.048em;
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -77,21 +88,35 @@
 }
 
 .sectionTitle {
-  color: var(--accent);
-  font-size: 0.75rem;
-  font-weight: 650;
-  letter-spacing: 0.09em;
-  line-height: 1.4;
-  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  font-weight: 620;
+  letter-spacing: -0.05em;
+  line-height: 1.12;
 }
 
 .cvHero,
 .caseHero {
   display: grid;
   align-items: end;
-  gap: 2rem 3rem;
-  padding-block: clamp(3rem, 8vw, 7rem) clamp(3rem, 7vw, 6rem);
+  gap: clamp(1.3rem, 3vw, 2.5rem);
+  padding-block: clamp(2.4rem, 6vw, 5.5rem) clamp(2.3rem, 5vw, 4.5rem);
   border-bottom: 1px solid var(--rule);
+}
+
+.caseHero {
+  position: relative;
+  border-bottom: 0;
+}
+
+.caseHero::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent) 76px, var(--rule) 76px);
+  transform-origin: left;
+  content: "";
 }
 
 .cvHero .pageTitle {
@@ -99,7 +124,7 @@
 }
 
 .cvTagline {
-  margin-top: 1.15rem;
+  margin-top: 0.85rem;
   color: var(--muted);
   font-size: clamp(1rem, 1.8vw, 1.25rem);
 }
@@ -111,17 +136,17 @@
 }
 
 .cvSection {
-  padding-block: clamp(2rem, 5vw, 3.5rem);
+  padding-block: clamp(1.6rem, 4vw, 2.8rem);
   border-bottom: 1px solid var(--rule);
 }
 
 .cvSection .sectionTitle {
-  margin-bottom: clamp(1.2rem, 2vw, 1.75rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
 .profileLead {
   max-width: 28ch;
-  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
   line-height: 1.45;
   letter-spacing: -0.027em;
   text-wrap: pretty;
@@ -194,8 +219,6 @@
 .recordMeta,
 .recordDescription {
   color: var(--muted);
-  font-size: 0.875rem;
-  line-height: 1.5;
   text-wrap: pretty;
 }
 
@@ -205,6 +228,8 @@
 
 .recordDescription {
   margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .skills {
@@ -224,18 +249,15 @@
 }
 
 .category {
-  margin-bottom: clamp(1rem, 2vw, 1.75rem);
+  margin-bottom: clamp(0.7rem, 2vw, 1.3rem);
   color: var(--accent);
-  font-size: 0.875rem;
-  font-weight: 550;
-  line-height: 1.5;
 }
 
 .caseHeadline {
-  max-width: 32ch;
-  margin-top: clamp(1rem, 3vw, 2rem);
+  max-width: 35ch;
+  margin-top: clamp(0.8rem, 2.4vw, 1.65rem);
   color: var(--muted);
-  font-size: clamp(1.2rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.13rem, 2.25vw, 1.8rem);
   line-height: 1.3;
   letter-spacing: -0.035em;
   text-wrap: pretty;
@@ -246,12 +268,19 @@
 }
 
 .caseStatus {
+  display: flex;
   width: fit-content;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid var(--rule);
+  align-items: baseline;
+  gap: 0.5rem;
   color: var(--muted);
-  font-size: 0.8125rem;
-  line-height: 1.4;
+}
+
+.caseStatus::before {
+  width: 0.38rem;
+  height: 0.38rem;
+  flex: none;
+  background: var(--accent);
+  content: "";
 }
 
 .caseLinks {
@@ -265,34 +294,32 @@
   margin-top: 0.9rem;
 }
 
-.caseSplit,
-.systemSection,
+.caseContents {
+  display: none;
+}
+
+.caseContent {
+  min-width: 0;
+}
+
+.caseSection,
 .caseSummary {
-  display: grid;
-  gap: 1.1rem 3rem;
-  padding-block: clamp(2.3rem, 5vw, 4.5rem);
+  padding-block: clamp(1.9rem, 4vw, 3.4rem);
   border-bottom: 1px solid var(--rule);
 }
 
 .caseProse,
 .caseList {
-  max-width: 60ch;
-  font-size: clamp(1.04rem, 1.9vw, 1.4rem);
+  max-width: 67ch;
+  font-size: clamp(1.03rem, 1.5vw, 1.27rem);
   line-height: 1.58;
   letter-spacing: -0.019em;
   text-wrap: pretty;
 }
 
-.systemSection {
-  gap: 1.6rem;
-}
-
 .caseSummary {
-  gap: clamp(2rem, 5vw, 4.75rem);
-}
-
-.caseSummary .sectionTitle {
-  margin-bottom: 1.2rem;
+  display: grid;
+  gap: clamp(1.4rem, 4vw, 3.5rem);
 }
 
 .caseList li {
@@ -319,9 +346,9 @@
 
 .caseResult {
   align-self: start;
-  padding: clamp(1.25rem, 3.5vw, 2.5rem);
+  padding: clamp(1.1rem, 2.5vw, 2rem);
   border-left: 2px solid var(--accent);
-  background: color-mix(in srgb, var(--rule) 40%, var(--paper));
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
 }
 
 .caseResult .caseProse {
@@ -340,13 +367,15 @@
   gap: 0.15rem 1.5rem;
   padding: 1rem 1.2rem;
   border: 1px solid var(--rule);
+  background: var(--surface);
   color: var(--muted);
   font-size: 0.8125rem;
-  transition: border-color 160ms ease;
+  transition: border-color 160ms ease, background-color 160ms ease;
 }
 
 .nextCase:hover {
   border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, var(--surface));
 }
 
 .nextCase strong {
@@ -363,6 +392,31 @@
   grid-row: 1 / span 2;
   color: var(--accent);
   font-size: 1.5rem;
+  transition: transform 200ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .caseHero::after {
+    animation: case-rule-draw 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .caseHero .pageTitle {
+    animation: case-title-settle 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .nextCase:is(:hover, :focus-visible) .nextArrow {
+    transform: translateX(0.2em);
+  }
+}
+
+@keyframes case-rule-draw {
+  from { transform: scaleX(0.04); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes case-title-settle {
+  from { transform: translateY(0.12em); }
+  to { transform: translateY(0); }
 }
 
 @media (min-width: 640px) {
@@ -380,6 +434,10 @@
     justify-self: end;
     text-align: right;
   }
+
+  .caseSummary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 820px) {
@@ -396,20 +454,52 @@
   }
 
   .caseHero {
-    grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.29fr);
+    grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.27fr);
   }
 
   .caseHero .pageTitle {
     text-wrap: wrap;
   }
 
-  .caseSplit {
-    grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
-    align-items: baseline;
+  .caseMeta {
+    padding-left: 1rem;
+    border-left: 1px solid var(--rule);
+  }
+}
+
+@media (min-width: 1024px) {
+  .caseLayout {
+    display: grid;
+    grid-template-columns: minmax(9.75rem, 0.2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.6rem, 5vw, 5rem);
   }
 
-  .caseSummary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .caseContents {
+    position: sticky;
+    top: calc(var(--header-height) + 1rem);
+    display: grid;
+    gap: 0.8rem;
+    margin-top: clamp(1.9rem, 4vw, 3.4rem);
+  }
+
+  .contentsLabel {
+    color: var(--muted);
+  }
+
+  .caseContents a {
+    display: flex;
+    min-height: 2.5rem;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-underline-offset: 0.25em;
+  }
+
+  .caseContents a:hover {
+    color: var(--accent);
+    text-decoration: underline;
   }
 }
 
@@ -480,6 +570,9 @@
   .cvSection .sectionTitle {
     margin-bottom: 0.35rem;
     break-after: avoid;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0;
   }
 
   .cvContact {
