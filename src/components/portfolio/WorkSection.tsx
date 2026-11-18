@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProjectVisual from "@/components/ProjectVisual";
+import { caseStudies } from "@/lib/case-studies";
 import {
   copy,
   localePath,
@@ -22,6 +23,8 @@ const otherProjects = projects.filter((project) => !project.featured);
 const labels = {
   en: {
     watchWalkthrough: "Watch walkthrough",
+    openPrototype: "Open prototype",
+    invitationExample: "View example invitation",
     researchStatus: "In progress",
     researchQuestion:
       "How could AI agents help analyze markets, develop trading strategies, and assess risk?",
@@ -29,6 +32,8 @@ const labels = {
   },
   ru: {
     watchWalkthrough: "Смотреть видеообзор",
+    openPrototype: "Открыть прототип",
+    invitationExample: "Пример приглашения",
     researchStatus: "В работе",
     researchQuestion:
       "Как ИИ-агенты могут помочь в анализе рынков, разработке торговых стратегий и оценке рисков?",
@@ -46,8 +51,14 @@ function ProjectLinks({
   caseLabel?: string;
 }) {
   const c = copy[locale];
-  const walkthroughLabel = labels[locale].watchWalkthrough;
+  const { watchWalkthrough, openPrototype, invitationExample } = labels[locale];
   const casePath = localePath(locale, `/projects/${project.slug}`);
+  const liveLabel =
+    project.slug === "nu-atrium"
+      ? openPrototype
+      : project.slug === "invitation-platform"
+        ? invitationExample
+        : c.live;
 
   return (
     <div className={styles.links}>
@@ -56,10 +67,10 @@ function ProjectLinks({
           prefetch={false}
           className={`linkline ${styles.walkthroughLink}`}
           href={`${casePath}#walkthrough`}
-          aria-label={`${walkthroughLabel} · ${project.title}`}
+          aria-label={`${watchWalkthrough} · ${project.title}`}
         >
           <span className={styles.playIcon} aria-hidden="true" />
-          {walkthroughLabel}
+          {watchWalkthrough}
         </Link>
       )}
       {project.featured && (
@@ -78,9 +89,9 @@ function ProjectLinks({
           href={project.live}
           target="_blank"
           rel="noreferrer"
-          aria-label={`${c.live} · ${project.title}`}
+          aria-label={`${liveLabel} · ${project.title}`}
         >
-          {c.live} <span className="arrow-up-right" aria-hidden="true" />
+          {liveLabel} <span className="arrow-up-right" aria-hidden="true" />
         </a>
       )}
       {project.github && (
@@ -124,6 +135,7 @@ function FeaturedWork({
         <ProjectStatus project={project} locale={locale} />
         <p className={styles.category}>{projectCategory(project, locale)}</p>
         <p className={styles.description}>{copy[locale].featured[project.slug]}</p>
+        <p className={styles.contribution}>{caseStudies[project.slug][locale].contribution}</p>
         <ProjectLinks project={project} locale={locale} />
       </div>
       <div className={styles.visual}>

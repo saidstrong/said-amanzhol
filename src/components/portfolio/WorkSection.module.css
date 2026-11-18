@@ -75,6 +75,15 @@
   line-height: 1.58;
 }
 
+.contribution {
+  max-width: 46ch;
+  margin-top: 0.75rem;
+  border-inline-start: 2px solid var(--accent);
+  padding-inline-start: 0.7rem;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
 .links {
   display: flex;
   flex-wrap: wrap;

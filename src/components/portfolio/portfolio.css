@@ -232,7 +232,7 @@
   }
 }
 
-@media (min-width: 820px) {
+@media (min-width: 700px) {
   .portfolio-hero {
     padding-block: calc(var(--header-height) + clamp(28px, 2.6vw, 38px)) clamp(30px, 2.8vw, 40px);
   }
@@ -257,7 +257,7 @@
   }
 
   .hero-name {
-    font-size: clamp(4.5rem, 8vw, 6.5rem);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
   }
 
   .hero-location {
@@ -271,7 +271,9 @@
   .hero-actions {
     margin-top: 19px;
   }
+}
 
+@media (min-width: 820px) {
   .profile-grid {
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
   }

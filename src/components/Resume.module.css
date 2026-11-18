@@ -1,0 +1,309 @@
+.resume {
+  padding-block: calc(var(--header-height) + clamp(1rem, 3vw, 2.5rem))
+    clamp(3rem, 7vw, 5.5rem);
+}
+
+.sheet {
+  max-width: 960px;
+}
+
+.topline {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.header {
+  display: grid;
+  align-items: start;
+  gap: 1.2rem;
+  padding-block: clamp(2.2rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 2.65rem);
+  border-bottom: 2px solid var(--accent);
+}
+
+.intro h1 {
+  font-size: clamp(2.65rem, 7vw, 5.5rem);
+  font-weight: 630;
+  letter-spacing: -0.073em;
+  line-height: 0.99;
+  text-wrap: balance;
+}
+
+.intro p {
+  max-width: 52ch;
+  margin-top: 0.95rem;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+  text-wrap: pretty;
+}
+
+.download {
+  width: fit-content;
+}
+
+.contacts,
+.contacts > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.18rem 1rem;
+}
+
+.contacts {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+.contacts a {
+  padding-block: 0.25em;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.24em;
+}
+
+.contacts a:hover,
+.recordHeader a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+.printPath {
+  display: none;
+}
+
+.section {
+  display: grid;
+  gap: 0.9rem 2rem;
+  padding-block: clamp(1.45rem, 3.7vw, 2.6rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.section h2 {
+  color: var(--accent);
+  font-size: clamp(1.05rem, 1.8vw, 1.42rem);
+  font-weight: 620;
+  line-height: 1.2;
+  letter-spacing: -0.034em;
+}
+
+.records {
+  min-width: 0;
+  list-style: none;
+}
+
+.records li + li {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.recordHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 0.6rem;
+}
+
+.records h3,
+.skills dt {
+  min-width: 0;
+  color: var(--ink);
+  font-size: clamp(1.01rem, 1.7vw, 1.16rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.records h3 a {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.23em;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.records li > p,
+.skills dd {
+  max-width: 68ch;
+  margin-top: 0.28rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.52;
+  text-wrap: pretty;
+}
+
+.date {
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.73rem;
+}
+
+.skills {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.skills > div {
+  display: grid;
+  gap: 0.15rem 0.75rem;
+}
+
+.skills dd {
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .header {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .download {
+    justify-self: end;
+  }
+
+  .contacts {
+    grid-column: 1 / -1;
+  }
+
+  .section {
+    grid-template-columns: minmax(8.5rem, 0.27fr) minmax(0, 1fr);
+  }
+
+  .skills > div {
+    grid-template-columns: minmax(8.5rem, 0.27fr) minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+@media print {
+  .resume {
+    --ink: #111;
+    --muted: #333;
+    --accent: #1936a1;
+    --rule: #bbb;
+    padding: 0;
+    background: #fff;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .resume .sheet {
+    width: 100%;
+    max-width: none;
+  }
+
+  .topline,
+  .download,
+  .screenLabel {
+    display: none;
+  }
+
+  .printPath {
+    display: inline;
+  }
+
+  .header {
+    display: block;
+    padding: 0 0 0.62rem;
+    border-bottom-width: 1px;
+  }
+
+  .intro h1 {
+    font-size: 29pt;
+    letter-spacing: -0.045em;
+  }
+
+  .intro p {
+    max-width: none;
+    margin-top: 0.4rem;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .contacts {
+    display: grid;
+    gap: 0;
+    margin-top: 0.3rem;
+    font-size: 9pt;
+  }
+
+  .contacts > div {
+    gap: 0 0.7rem;
+  }
+
+  .contacts a {
+    padding: 0;
+  }
+
+  .section {
+    display: block;
+    padding-block: 0.65rem;
+    break-inside: avoid;
+  }
+
+  .section h2 {
+    margin-bottom: 0.25rem;
+    font-size: 10pt;
+    letter-spacing: 0;
+  }
+
+  .recordHeader {
+    display: block;
+  }
+
+  .recordHeader h3,
+  .date,
+  .skills dt,
+  .skills dd {
+    display: inline;
+  }
+
+  .date::before {
+    content: " · ";
+  }
+
+  .records h3,
+  .skills dt {
+    font-size: 11pt;
+    letter-spacing: 0;
+  }
+
+  .records li + li {
+    margin-top: 0.35rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .records li > p,
+  .skills dd {
+    max-width: none;
+    margin-top: 0.08rem;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .date {
+    font: inherit;
+    font-size: 9pt;
+  }
+
+  .skills {
+    display: block;
+  }
+
+  .skills > div {
+    display: block;
+  }
+
+  .skills dt {
+    margin-inline-end: 0.7em;
+  }
+}
