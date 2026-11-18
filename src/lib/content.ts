@@ -170,7 +170,7 @@ export const copy = {
       "nu-atrium":
         "A full-stack campus platform designed for the Nazarbayev University community, bringing communities, marketplace, events, jobs, messaging, and student activity into one system.",
       "invitation-platform":
-        "A mobile-first event invitation builder with deep customization, reusable blocks, publishing, RSVP, media, and payment-gated access.",
+        "A mobile-friendly wedding invitation with a shareable page, guest RSVPs, and a response dashboard for the organizer.",
       "quant-trade-ai":
         "An experimental autonomous trading-agent project exploring AI-driven market analysis, strategy reasoning, risk-aware execution, and quantitative evaluation.",
     },
@@ -224,7 +224,7 @@ export const copy = {
       "nu-atrium":
         "Полноценная кампус-платформа для сообщества Назарбаев Университета: сообщества, маркетплейс, события, вакансии, сообщения и студенческая активность в одной системе.",
       "invitation-platform":
-        "Платформа для создания приглашений с телефона: гибкая настройка, переиспользуемые блоки, медиа, публикация, RSVP и управление платным доступом.",
+        "Свадебное приглашение, которое удобно открыть с телефона. Гости отвечают на приглашение, а организатор видит ответы в отдельной панели.",
       "quant-trade-ai":
         "Экспериментальный автономный торговый AI-агент: исследование анализа рынка, принятия стратегических решений, исполнения с учетом рисков и количественной оценки.",
     },

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AtriumWalkthrough from "@/components/AtriumWalkthrough";
 import styles from "@/components/DetailPages.module.css";
 import ProjectVisual from "@/components/ProjectVisual";
 import SiteHeader from "@/components/SiteHeader";
-import { caseStudies } from "@/lib/case-studies";
+import { caseDecisionSources, caseStudies } from "@/lib/case-studies";
 import {
   copy,
   localePath,
@@ -49,6 +50,26 @@ export default async function ProjectPage({
   const { locale, slug } = await params;
   const { locale: currentLocale, project, detail } = resolveCaseStudy(locale, slug);
   const ru = currentLocale === "ru";
+  const isAtrium = project.slug === "nu-atrium";
+  const isResearch = project.slug === "quant-trade-ai";
+  const decisionSource = caseDecisionSources[project.slug];
+  const briefLabels = ru
+    ? {
+        role: "Мой вклад",
+        scope: "Текущее направление",
+        decision: "Ключевое решение",
+        concept: "Решение в концепции",
+        source: "Смотреть коммит на GitHub",
+        walkthrough: "Обзор прототипа",
+      }
+    : {
+        role: "My contribution",
+        scope: "Current scope",
+        decision: "Key decision",
+        concept: "Design choice",
+        source: "See the change on GitHub",
+        walkthrough: "Prototype walkthrough",
+      };
   const allWork = localePath(currentLocale, "#work");
   const next = featuredProjects[featuredProjects.indexOf(project) + 1];
   const liveLabels = ru
@@ -58,6 +79,7 @@ export default async function ProjectPage({
     ? liveLabels.example
     : liveLabels.prototype;
   const sections = [
+    ...(isAtrium ? [["walkthrough", briefLabels.walkthrough]] : []),
     ["case-objective", detail.problemLabel],
     ["case-system", detail.systemLabel],
     ["case-decisions", detail.decisionsLabel],
@@ -115,7 +137,30 @@ export default async function ProjectPage({
                 )}
               </div>
             </div>
+            <dl className={styles.caseBrief}>
+              <div>
+                <dt>{isResearch ? briefLabels.scope : briefLabels.role}</dt>
+                <dd>{detail.contribution}</dd>
+              </div>
+              <div>
+                <dt>{isResearch ? briefLabels.concept : briefLabels.decision}</dt>
+                <dd>
+                  {detail.decision}
+                  {decisionSource && (
+                    <a
+                      className={styles.briefSource}
+                      href={decisionSource}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {briefLabels.source} <span className="arrow-up-right" aria-hidden="true" />
+                    </a>
+                  )}
+                </dd>
+              </div>
+            </dl>
           </header>
+          {isAtrium && <AtriumWalkthrough locale={currentLocale} />}
           <div className={styles.caseLayout}>
             <nav className={styles.caseContents} aria-labelledby="case-contents">
               <p className={styles.contentsLabel} id="case-contents">

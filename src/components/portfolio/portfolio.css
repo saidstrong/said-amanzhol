@@ -233,6 +233,10 @@
 }
 
 @media (min-width: 820px) {
+  .portfolio-hero {
+    padding-block: calc(var(--header-height) + clamp(28px, 2.6vw, 38px)) clamp(30px, 2.8vw, 40px);
+  }
+
   .hero-grid {
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.1fr);
   }
@@ -245,6 +249,7 @@
   .hero-portrait {
     grid-column: 1;
     grid-row: 1;
+    max-width: 390px;
   }
 
   .hero-portrait-image {
@@ -252,7 +257,19 @@
   }
 
   .hero-name {
-    font-size: clamp(4.5rem, 9vw, 8.125rem);
+    font-size: clamp(4.5rem, 8vw, 6.5rem);
+  }
+
+  .hero-location {
+    margin-bottom: 19px;
+  }
+
+  .hero-intro {
+    margin-top: 20px;
+  }
+
+  .hero-actions {
+    margin-top: 19px;
   }
 
   .profile-grid {

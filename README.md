@@ -34,6 +34,7 @@ Run `npm start` to serve the production build locally.
 - Update translated site copy, project links, and statuses in [`src/lib/content.ts`](src/lib/content.ts).
 - Update shared résumé and contact details in [`src/lib/resume.ts`](src/lib/resume.ts).
 - Update case study copy in [`src/lib/case-studies.ts`](src/lib/case-studies.ts).
+- The [NU Atrium walkthrough files](public/project-media) record the [prototype’s event pages](https://github.com/saidstrong/NU-Hub/tree/74e3540/app/(app)/events) running locally with sample data. The clip includes English and Russian captions and a transcript on the case-study page.
 - Replace the [portrait](public/portrait.jpg) or [downloadable CV](public/Said-Amanzhol-CV.pdf) in `public/` when their content changes.
 
 The site uses the Next.js App Router, TypeScript, React, Tailwind CSS, and CSS Modules.

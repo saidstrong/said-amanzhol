@@ -2,6 +2,8 @@ import type { FeaturedProjectSlug, Locale } from "@/lib/content";
 
 type ProjectDetail = {
   headline: string;
+  contribution: string;
+  decision: string;
   problemLabel: string;
   problem: string;
   systemLabel: string;
@@ -13,10 +15,17 @@ type ProjectDetail = {
   lessons: string[];
 };
 
+export const caseDecisionSources: Partial<Record<FeaturedProjectSlug, string>> = {
+  "nu-atrium": "https://github.com/saidstrong/NU-Hub/commit/3cf1c2c53b8883102111f989b314a57b17311342",
+  "invitation-platform": "https://github.com/saidstrong/wedding/commit/c36b29ae76cfcd46b4ed443c4183cd1895de4c94",
+};
+
 export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDetail>> = {
   "nu-atrium": {
     en: {
       headline: "One place for campus events, communities, and opportunities.",
+      contribution: "I built marketplace posting and editing flows, including shared fields for rentals and services.",
+      decision: "I limited listing edits and removal to the owner, with ownership checked on the server.",
       problemLabel: "The problem",
       problem:
         "Campus information, communities, listings, opportunities, events, and communication are fragmented across chats, social platforms, spreadsheets, and informal channels.",
@@ -40,6 +49,8 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
     },
     ru: {
       headline: "События, сообщества и возможности кампуса в одном месте.",
+      contribution: "Я разработал формы создания и редактирования объявлений, включая общие поля для аренды и услуг.",
+      decision: "Редактировать и удалять объявление может его владелец. Право на изменение проверяется на сервере.",
       problemLabel: "Задача",
       problem:
         "Информация кампуса, сообщества, объявления, возможности, события и коммуникация распределены между чатами, социальными сетями, таблицами и неформальными каналами.",
@@ -64,49 +75,51 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
   },
   "invitation-platform": {
     en: {
-      headline: "An invitation builder designed for phones.",
+      headline: "Shareable wedding invitations with a built-in RSVP flow.",
+      contribution: "I built the invitation pages, RSVP form, and guest-response dashboard.",
+      decision: "I reused one page component across invitations, with separate content and response lists for each event.",
       problemLabel: "The problem",
       problem:
-        "The product explores what a real invitation-building system could look like beyond fixed templates: mobile-first editing, reusable blocks, media, RSVP, publishing, and monetization logic.",
-      systemLabel: "From editing to RSVP",
+        "Guests need the event details and an easy way to reply from their phones. Organizers need one place to review those replies for their event.",
+      systemLabel: "Invitation and RSVP",
       decisionsLabel: "Key decisions",
       decisions: [
-        "Mobile-first creation",
-        "One responsive design system",
-        "Bounded customization",
-        "Stable versioned publishing",
+        "Responsive invitation page",
+        "Venue directions on the invitation page",
+        "Attendance and guest-count choices in the RSVP form",
+        "Sign-in for the guest-response dashboard",
       ],
       resultLabel: "Outcome",
       result:
-        "The deployed prototype includes the editor, media, guest RSVPs, publishing, sign-in, customization, and payments with paid access.",
-      lessonsLabel: "What I learned",
+        "The deployed prototype includes shareable invitation pages, an RSVP form, and a dashboard where organizers can review replies.",
+      lessonsLabel: "Implementation notes",
       lessons: [
-        "Product flexibility creates architectural complexity quickly.",
-        "Mobile editing is harder than mobile viewing.",
-        "Publishing needs a different mental model from editing.",
+        "Each route has its own invitation title and description for sharing.",
+        "An organizer’s dashboard session is scoped to a specific invitation.",
       ],
     },
     ru: {
-      headline: "Конструктор приглашений для телефона.",
+      headline: "Свадебные приглашения с формой ответа для гостей.",
+      contribution: "Я разработал страницы приглашений, форму ответа и панель для просмотра ответов гостей.",
+      decision: "Для приглашений я использовал общий компонент страницы. У каждого события свои данные и отдельный список ответов.",
       problemLabel: "Задача",
       problem:
-        "Проект исследует создание приглашений за пределами фиксированных шаблонов: удобный редактор для телефона, переиспользуемые блоки, медиа, RSVP, публикация и логика платного доступа.",
-      systemLabel: "От редактора до RSVP",
+        "Гостям нужно узнать детали события и ответить с телефона. Организаторам нужно видеть ответы по своему событию в одном месте.",
+      systemLabel: "Приглашение и ответы гостей",
       decisionsLabel: "Ключевые решения",
       decisions: [
-        "Создание с телефона",
-        "Единая адаптивная система",
-        "Гибкая настройка с понятными границами",
-        "Стабильная публикация с управлением версиями",
+        "Адаптивная страница приглашения",
+        "Ссылка на маршрут до места проведения",
+        "Выбор ответа и числа гостей в форме RSVP",
+        "Вход в панель для просмотра ответов гостей",
       ],
       resultLabel: "Результат",
       result:
-        "В опубликованном прототипе работают редактор, медиа, ответы гостей, публикация, вход в аккаунт, настройки, оплата и платный доступ.",
-      lessonsLabel: "Что я понял",
+        "В опубликованном прототипе есть страницы приглашений, которыми можно делиться, форма ответа и панель для просмотра ответов гостей.",
+      lessonsLabel: "Детали реализации",
       lessons: [
-        "Гибкость продукта быстро усложняет архитектуру.",
-        "Удобный редактор для телефона создать сложнее, чем страницу для просмотра.",
-        "Редактирование и публикация требуют разных подходов к состоянию данных.",
+        "У каждой ссылки на приглашение свои заголовок и описание.",
+        "Сессия организатора в панели привязана к конкретному приглашению.",
       ],
     },
   },
@@ -114,6 +127,8 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
     en: {
       headline:
         "Researching how AI agents could support quantitative trading.",
+      contribution: "The research focuses on market analysis, strategy reasoning, and risk assessment.",
+      decision: "In the proposed workflow, risk checks sit between the agent’s proposal and execution.",
       problemLabel: "Research scope",
       problem:
         "The project explores how AI agents could support market analysis, strategy reasoning, and risk assessment. The diagram presents the research direction.",
@@ -137,6 +152,8 @@ export const caseStudies: Record<FeaturedProjectSlug, Record<Locale, ProjectDeta
     ru: {
       headline:
         "Исследование применения ИИ-агентов в количественном трейдинге.",
+      contribution: "Исследование посвящено анализу рынка, выбору стратегии и оценке рисков.",
+      decision: "В концептуальной схеме проверка рисков следует после предложения агента и перед исполнением сделки.",
       problemLabel: "Цель исследования",
       problem:
         "Проект исследует, как AI-агенты могут помочь с анализом рынка, разработкой стратегий и оценкой рисков. Схема отражает направление исследования.",

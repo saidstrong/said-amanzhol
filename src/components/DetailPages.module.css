@@ -107,6 +107,7 @@
 
 .caseHero {
   position: relative;
+  padding-bottom: clamp(1.8rem, 4vw, 3.35rem);
   border-bottom: 0;
 }
 
@@ -294,6 +295,45 @@
   margin-top: 0.9rem;
 }
 
+.caseBrief {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 1rem clamp(1.5rem, 5vw, 5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.caseBrief dt {
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.caseBrief dd {
+  max-width: 45ch;
+  text-wrap: pretty;
+}
+
+.briefSource {
+  display: flex;
+  width: fit-content;
+  min-height: 2rem;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.briefSource:hover {
+  color: var(--accent);
+}
+
 .caseContents {
   display: none;
 }
@@ -436,6 +476,10 @@
   }
 
   .caseSummary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .caseBrief {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

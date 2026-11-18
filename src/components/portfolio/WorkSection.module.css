@@ -1,5 +1,5 @@
 .work {
-  padding-block: clamp(54px, 7.4vw, 110px) clamp(54px, 7vw, 104px);
+  padding-block: clamp(36px, 5vw, 70px) clamp(54px, 7vw, 104px);
 }
 
 .heading,
@@ -13,15 +13,15 @@
 
 .heading {
   border-bottom: 1px solid var(--ink);
-  padding-bottom: clamp(14px, 2vw, 28px);
-  font-size: clamp(2.5rem, 6vw, 5.6rem);
+  padding-bottom: clamp(14px, 1.6vw, 22px);
+  font-size: clamp(2.5rem, 5.25vw, 5rem);
   line-height: 0.98;
 }
 
 .lead {
   display: grid;
   gap: clamp(18px, 3.8vw, 56px);
-  margin-block: clamp(22px, 4.2vw, 60px) clamp(46px, 8vw, 102px);
+  margin-block: clamp(16px, 2.2vw, 31px) clamp(42px, 6vw, 84px);
 }
 
 .projectCopy,
@@ -30,7 +30,7 @@
 }
 
 .projectTitle {
-  margin-block: 0.27em 0.15em;
+  margin-bottom: 0.24em;
   font-size: clamp(2.05rem, 4.1vw, 3.55rem);
   line-height: 1;
 }
@@ -41,7 +41,8 @@
 }
 
 .status,
-.category {
+.category,
+.researchStatus {
   color: var(--muted);
   font-family: var(--font-mono, monospace);
   font-size: 0.75rem;
@@ -57,7 +58,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-.status [data-status="development"] {
+.researchStatus {
+  margin-bottom: 0.35rem;
   color: var(--accent);
 }
 
@@ -77,13 +79,30 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0 1.2rem;
+  gap: 2px 1rem;
   margin-top: 0.55rem;
 }
 
 .links .caseLink {
   color: var(--accent);
   font-weight: 700;
+}
+
+.links .walkthroughLink {
+  background: var(--accent);
+  color: white;
+  padding-inline: 0.8rem;
+}
+
+.links .walkthroughLink:is(:hover, :focus-visible) {
+  background: var(--accent-dark);
+  color: white;
+  text-decoration: none;
+}
+
+.playIcon {
+  border-block: 4px solid transparent;
+  border-inline-start: 7px solid currentColor;
 }
 
 .caseLink span {
@@ -94,18 +113,22 @@
   translate: 0.22em;
 }
 
-.studies {
-  display: grid;
-  gap: clamp(34px, 5.2vw, 76px);
-}
-
 .study {
   display: grid;
   min-width: 0;
-  align-content: start;
-  gap: clamp(14px, 2vw, 24px);
+  align-items: center;
+  gap: clamp(18px, 4vw, 60px);
   border-top: 1px solid var(--rule);
-  padding-top: 0.9rem;
+  padding-top: clamp(18px, 2.8vw, 40px);
+}
+
+.research {
+  margin-top: clamp(32px, 5vw, 68px);
+  border-top: 1px solid var(--ink);
+}
+
+.research .description {
+  color: var(--ink);
 }
 
 .directory {
@@ -136,7 +159,7 @@
   background: color-mix(in srgb, var(--accent) 4%, transparent);
 }
 
-.directoryIdentity h4 {
+.rowTitle {
   margin: 0;
   font-size: clamp(1.1rem, 2vw, 1.43rem);
   font-weight: 680;
@@ -159,14 +182,6 @@
 }
 
 @media (min-width: 730px) {
-  .studies {
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  }
-
-  .study + .study {
-    margin-top: clamp(20px, 4.6vw, 64px);
-  }
-
   .directoryRow {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(152px, 0.57fr);
     align-items: start;
@@ -176,12 +191,38 @@
   .directoryActions {
     justify-self: end;
   }
+
+  .research {
+    align-items: center;
+  }
 }
 
 @media (min-width: 820px) {
+  .work {
+    padding-block-start: clamp(24px, 2.1vw, 32px);
+  }
+
+  .heading {
+    padding-bottom: 17px;
+    font-size: clamp(3.15rem, 4.65vw, 4.5rem);
+  }
+
   .lead {
     grid-template-columns: minmax(0, 0.57fr) minmax(0, 1fr);
-    align-items: center;
+    align-items: start;
+    margin-block-start: clamp(18px, 1.75vw, 25px);
+  }
+
+  .study {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+
+  .study .projectCopy {
+    grid-area: 1 / 2;
+  }
+
+  .study .visual {
+    grid-area: 1 / 1;
   }
 }
 

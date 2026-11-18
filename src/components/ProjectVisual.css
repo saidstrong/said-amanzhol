@@ -192,12 +192,12 @@
   padding: 6px 7px 6px 10px;
 }
 
-.publishing-stage-release .stage-number {
+.publishing-stage-rsvp .stage-number {
   background: var(--publishing-accent);
   color: #fffaf4;
 }
 
-.publishing-stage-release .publishing-sheet {
+.publishing-stage-rsvp .publishing-sheet {
   background-color: #e4d3c9;
 }
 

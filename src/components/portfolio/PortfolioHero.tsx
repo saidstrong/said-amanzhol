@@ -32,7 +32,7 @@ export function PortfolioHero({ locale }: { locale: Locale }) {
               alt={c.portraitAlt}
               fill
               preload
-              sizes="(min-width: 1288px) 465px, (min-width: 820px) 38vw, (min-width: 640px) 460px, calc(100vw - 36px)"
+              sizes="(min-width: 1288px) 390px, (min-width: 820px) 36vw, (min-width: 640px) 465px, calc(100vw - 36px)"
             />
           </div>
         </div>

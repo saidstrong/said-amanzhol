@@ -18,18 +18,24 @@ const labels = {
       "Jobs",
     ],
     campusFooter: "One identity. Shared campus activity.",
-    publishing: "From creation to response",
+    publishing: "From shared link to guest response",
     publishingAlt:
-      "Invitation Platform: create, customize, preview, publish, then RSVP.",
-    stages: ["Create", "Customize", "Preview", "Publish", "RSVP"],
-    stageNotes: [
-      "Start an invitation",
-      "Shape the details",
-      "Review on mobile",
-      "Share a published version",
-      "Collect guest responses",
+      "The organizer shares an invitation link. The guest opens it, checks the event details, and submits an RSVP. The organizer reviews responses in the dashboard.",
+    stages: [
+      "Share the link",
+      "Open the invitation",
+      "Check event details",
+      "Submit RSVP",
+      "Review responses",
     ],
-    publishingFooter: "Reusable blocks · A distinct published state",
+    stageNotes: [
+      "The organizer sends the invitation",
+      "The guest opens it on their phone",
+      "Date and venue",
+      "The guest indicates whether they’ll attend",
+      "Responses appear in the organizer dashboard",
+    ],
+    publishingFooter: "Mobile invitation · Guest responses",
     quant: "Experimental system direction",
     quantAlt:
       "Conceptual sequence: market data, analysis, agent, risk, execution, evaluation. In development; this diagram does not confirm implemented modules.",
@@ -57,19 +63,24 @@ const labels = {
       "Вакансии",
     ],
     campusFooter: "Один профиль. Общая жизнь кампуса.",
-    publishing: "От создания до ответа гостя",
+    publishing: "От ссылки до ответа гостя",
     publishingAlt:
-      "Invitation Platform: создание, настройка, предпросмотр, публикация и RSVP.",
-    stages: ["Создать", "Настроить", "Просмотреть", "Опубликовать", "RSVP"],
-    stageNotes: [
-      "Начать приглашение",
-      "Добавить свои детали",
-      "Проверить на телефоне",
-      "Поделиться готовой версией",
-      "Собрать ответы гостей",
+      "Организатор делится ссылкой на приглашение. Гость открывает её, знакомится с деталями события и отправляет ответ. Организатор видит ответы в панели управления.",
+    stages: [
+      "Поделиться ссылкой",
+      "Открыть приглашение",
+      "Узнать детали",
+      "Отправить ответ",
+      "Проверить ответы",
     ],
-    publishingFooter:
-      "Переиспользуемые блоки · Отдельная опубликованная версия",
+    stageNotes: [
+      "Организатор отправляет приглашение",
+      "Гость открывает ссылку на телефоне",
+      "Дата и место события",
+      "Гость сообщает, сможет ли прийти",
+      "Ответы доступны в панели организатора",
+    ],
+    publishingFooter: "Мобильное приглашение · Ответы гостей",
     quant: "Направление исследования",
     quantAlt:
       "Концепция: рыночные данные, анализ, агент, риск, исполнение, оценка. В разработке; схема не подтверждает реализацию модулей.",
@@ -195,7 +206,7 @@ export default function ProjectVisual({
           <ol className="publishing-stages">
             {c.stages.map((stage, i) => (
               <li
-                className={`publishing-stage ${i === 3 ? "publishing-stage-release" : ""}`}
+                className={`publishing-stage ${i === 3 ? "publishing-stage-rsvp" : ""}`}
                 key={stage}
                 style={delay(i * 94)}
               >

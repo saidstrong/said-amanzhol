@@ -12,22 +12,64 @@ import {
 } from "@/lib/content";
 import styles from "./WorkSection.module.css";
 
-const [leadProject, ...featuredProjects] = projects.filter((project) => project.featured);
+const featuredProjects = projects.filter((project) => project.featured);
+const [leadProject, ...prototypeStudies] = featuredProjects.filter(
+  (project) => project.status === "prototype",
+);
+const researchProject = featuredProjects.find((project) => project.slug === "quant-trade-ai");
 const otherProjects = projects.filter((project) => !project.featured);
 
-function ProjectLinks({ project, locale }: { project: Project; locale: Locale }) {
+const labels = {
+  en: {
+    watchWalkthrough: "Watch walkthrough",
+    researchStatus: "In progress",
+    researchQuestion:
+      "How could AI agents help analyze markets, develop trading strategies, and assess risk?",
+    researchNotes: "Research notes",
+  },
+  ru: {
+    watchWalkthrough: "Смотреть видеообзор",
+    researchStatus: "В работе",
+    researchQuestion:
+      "Как ИИ-агенты могут помочь в анализе рынков, разработке торговых стратегий и оценке рисков?",
+    researchNotes: "Заметки об исследовании",
+  },
+} satisfies Record<Locale, Record<string, string>>;
+
+function ProjectLinks({
+  project,
+  locale,
+  caseLabel = copy[locale].caseStudy,
+}: {
+  project: Project;
+  locale: Locale;
+  caseLabel?: string;
+}) {
   const c = copy[locale];
+  const walkthroughLabel = labels[locale].watchWalkthrough;
+  const casePath = localePath(locale, `/projects/${project.slug}`);
 
   return (
     <div className={styles.links}>
+      {project.slug === "nu-atrium" && (
+        <Link
+          prefetch={false}
+          className={`linkline ${styles.walkthroughLink}`}
+          href={`${casePath}#walkthrough`}
+          aria-label={`${walkthroughLabel} · ${project.title}`}
+        >
+          <span className={styles.playIcon} aria-hidden="true" />
+          {walkthroughLabel}
+        </Link>
+      )}
       {project.featured && (
         <Link
           prefetch={false}
           className={`linkline ${styles.caseLink}`}
-          href={localePath(locale, `/projects/${project.slug}`)}
-          aria-label={`${c.caseStudy} · ${project.title}`}
+          href={casePath}
+          aria-label={`${caseLabel} · ${project.title}`}
         >
-          {c.caseStudy} <span aria-hidden="true">→</span>
+          {caseLabel} <span aria-hidden="true">→</span>
         </Link>
       )}
       {project.live && (
@@ -61,9 +103,7 @@ function ProjectStatus({ project, locale }: { project: Project; locale: Locale }
     <p className={styles.status}>
       <span>{project.year}</span>
       <span aria-hidden="true">·</span>
-      <span data-status={project.status}>
-        {statusLabel[locale][project.status]}
-      </span>
+      <span>{statusLabel[locale][project.status]}</span>
     </p>
   );
 }
@@ -80,14 +120,31 @@ function FeaturedWork({
   return (
     <article className={lead ? styles.lead : styles.study}>
       <div className={styles.projectCopy}>
-        <ProjectStatus project={project} locale={locale} />
         <h3 className={styles.projectTitle}>{project.title}</h3>
+        <ProjectStatus project={project} locale={locale} />
         <p className={styles.category}>{projectCategory(project, locale)}</p>
         <p className={styles.description}>{copy[locale].featured[project.slug]}</p>
         <ProjectLinks project={project} locale={locale} />
       </div>
       <div className={styles.visual}>
         <ProjectVisual slug={project.slug} locale={locale} compact={!lead} />
+      </div>
+    </article>
+  );
+}
+
+function ResearchEntry({ project, locale }: { project: FeaturedProject; locale: Locale }) {
+  const c = labels[locale];
+
+  return (
+    <article className={`${styles.directoryRow} ${styles.research}`}>
+      <div>
+        <p className={styles.researchStatus}>{c.researchStatus}</p>
+        <h3 className={styles.rowTitle}>{project.title}</h3>
+      </div>
+      <p className={styles.description}>{c.researchQuestion}</p>
+      <div className={styles.directoryActions}>
+        <ProjectLinks project={project} locale={locale} caseLabel={c.researchNotes} />
       </div>
     </article>
   );
@@ -100,18 +157,17 @@ export function WorkSection({ locale }: { locale: Locale }) {
     <section className={`shell ${styles.work}`} id="work" aria-labelledby="work-title">
       <h2 className={styles.heading} id="work-title">{c.selectedWork}</h2>
       {leadProject && <FeaturedWork project={leadProject} locale={locale} lead />}
-      <div className={styles.studies}>
-        {featuredProjects.map((project) => (
-          <FeaturedWork key={project.slug} project={project} locale={locale} />
-        ))}
-      </div>
+      {prototypeStudies.map((project) => (
+        <FeaturedWork key={project.slug} project={project} locale={locale} />
+      ))}
+      {researchProject && <ResearchEntry project={researchProject} locale={locale} />}
       <section className={styles.directory} aria-labelledby="more-work-title">
         <h3 className={styles.directoryHeading} id="more-work-title">{c.moreWork}</h3>
         <ul className={styles.directoryList} role="list">
           {otherProjects.map((project) => (
             <li className={styles.directoryRow} key={project.slug}>
-              <div className={styles.directoryIdentity}>
-                <h4>{project.title}</h4>
+              <div>
+                <h4 className={styles.rowTitle}>{project.title}</h4>
                 <p className={styles.category}>{projectCategory(project, locale)}</p>
               </div>
               <p className={styles.description}>{c.secondary[project.slug]}</p>

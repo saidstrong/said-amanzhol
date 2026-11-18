@@ -1,0 +1,73 @@
+.walkthrough {
+  padding-block: clamp(28px, 5vw, 60px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 24px;
+  margin-bottom: 20px;
+}
+
+.intro h2 {
+  font-size: clamp(1.8rem, 4vw, 3.25rem);
+  line-height: 1.08;
+}
+
+.intro p {
+  max-width: 44ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.walkthrough figure {
+  max-width: 900px;
+}
+
+.walkthrough video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background-color: #141414;
+  border: 1px solid var(--rule);
+}
+
+.walkthrough figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.76rem;
+}
+
+.transcript {
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+.transcript summary {
+  width: fit-content;
+  min-height: 44px;
+  padding-block: 11px;
+  color: var(--accent);
+  font-weight: 570;
+  cursor: pointer;
+}
+
+.transcript summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.transcript ol {
+  display: grid;
+  gap: 8px;
+  max-width: 66ch;
+  padding-inline-start: 1.35rem;
+  color: var(--muted);
+  line-height: 1.55;
+  list-style: decimal;
+}
