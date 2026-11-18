@@ -1,23 +1,35 @@
 export type Locale = "en" | "ru";
-export type ProjectSlug =
+export type FeaturedProjectSlug =
   | "nu-atrium"
   | "invitation-platform"
-  | "quant-trade-ai"
+  | "quant-trade-ai";
+
+type OtherProjectSlug =
   | "overhead-club"
   | "hawaii-miami"
   | "xy-school"
   | "volunteer-platform";
 
-export type Project = {
-  slug: ProjectSlug;
+export type ProjectSlug = FeaturedProjectSlug | OtherProjectSlug;
+
+type ProjectDetails = {
   title: string;
   year: string;
   category: string;
   status: "prototype" | "deployed" | "development";
   live?: string;
   github?: string;
-  featured: boolean;
 };
+
+export type FeaturedProject = ProjectDetails & {
+  slug: FeaturedProjectSlug;
+  featured: true;
+};
+
+export type Project = FeaturedProject | (ProjectDetails & {
+  slug: OtherProjectSlug;
+  featured: false;
+});
 
 export const projects: Project[] = [
   {
@@ -127,23 +139,20 @@ export const copy = {
       cv: "CV",
       contact: "Contact",
     },
-    heroEyebrow: "Technology · Economics · Strategy",
-    heroStatement:
-      "Building products at the intersection of technology, economics, and strategy.",
+    name: ["Said", "Amanzhol"],
+    heroEyebrow: "Product development & economics",
     heroSub:
-      "Economics student at Nazarbayev University, building products across technology, markets, and digital systems.",
+      "I study economics at Nazarbayev University and build software for education, communities, and operations.",
     viewWork: "View work",
     viewCV: "View CV",
     selectedWork: "Selected work",
-    selectedNote: "Three systems. Three different product questions.",
-    moreNote: "Further work in education, hospitality, and operations.",
+    moreNote: "Products for education, hospitality, and community operations.",
     moreWork: "More work",
     milestones: "Selected milestones",
     experience: "Experience",
     about: "About",
     education: "Education",
     contact: "Let’s connect.",
-    scroll: "Scroll to explore",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     menu: "Menu",
@@ -153,14 +162,13 @@ export const copy = {
     switchLanguage: "Switch to Russian",
     skipContent: "Skip to content",
     portraitAlt: "Said Amanzhol in a burgundy and blue academic robe",
-    email: "Email",
     live: "Live",
     github: "GitHub",
     caseStudy: "Case study",
     concept: "Concept / system direction",
-    footerLocation: "Astana, Kazakhstan · 2026",
+    location: "Astana, Kazakhstan",
     aboutBody:
-      "I study economics and build software. My projects sit between product development, operational problems, markets, and emerging technologies.",
+      "I’m interested in how technology can simplify the way teams work. My projects span campus services, education, and business operations. As technical lead at SapaSpeakers, I work on internal systems and technology strategy.",
     featured: {
       "nu-atrium":
         "A full-stack campus platform designed for the Nazarbayev University community, bringing communities, marketplace, events, jobs, messaging, and student activity into one system.",
@@ -187,24 +195,21 @@ export const copy = {
       cv: "CV",
       contact: "Контакты",
     },
-    heroEyebrow: "Технологии · Экономика · Стратегия",
-    heroStatement:
-      "Создаю продукты на пересечении технологий, экономики и стратегии.",
+    name: ["Саид", "Аманжол"],
+    heroEyebrow: "Разработка продуктов и экономика",
     heroSub:
-      "Студент экономики Назарбаев Университета. Создаю цифровые продукты на стыке технологий, рынков и прикладных систем.",
+      "Я изучаю экономику в Назарбаев Университете и разрабатываю цифровые продукты для образования, сообществ и бизнеса.",
     viewWork: "Смотреть проекты",
     viewCV: "Открыть CV",
     selectedWork: "Избранные проекты",
-    selectedNote: "Три системы. Три разные продуктовые задачи.",
     moreNote:
-      "Другие работы в образовании, гостеприимстве и операционных процессах.",
+      "Продукты для образования, сферы гостеприимства и работы сообществ.",
     moreWork: "Другие проекты",
     milestones: "Ключевые этапы",
     experience: "Опыт",
     about: "Обо мне",
     education: "Образование",
     contact: "Связаться со мной.",
-    scroll: "Листать дальше",
     openMenu: "Открыть меню",
     closeMenu: "Закрыть меню",
     menu: "Меню",
@@ -215,14 +220,13 @@ export const copy = {
     skipContent: "Перейти к содержимому",
     portraitAlt:
       "Саид Аманжол в синей академической мантии с бордовыми деталями",
-    email: "Почта",
     live: "Сайт",
     github: "GitHub",
     caseStudy: "Кейс",
     concept: "Концепция / направление системы",
-    footerLocation: "Астана, Казахстан · 2026",
+    location: "Астана, Казахстан",
     aboutBody:
-      "Я изучаю экономику и создаю программные продукты. Большинство моих проектов находятся на пересечении продуктовой разработки, операционных задач, рынков и новых технологий.",
+      "Мне интересно, как технологии помогают командам работать проще. Я создаю сервисы для студентов, образовательные платформы и инструменты для бизнеса. В SapaSpeakers отвечаю за внутренние системы и технологическую стратегию.",
     featured: {
       "nu-atrium":
         "Полноценная кампус-платформа для сообщества Назарбаев Университета: сообщества, маркетплейс, события, вакансии, сообщения и студенческая активность в одной системе.",
@@ -243,5 +247,3 @@ export const copy = {
     },
   },
 } as const;
-
-export type Copy = (typeof copy)[Locale];

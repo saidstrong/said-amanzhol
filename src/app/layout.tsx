@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Playfair_Display } from "next/font/google";
 import DocumentLanguage from "@/components/DocumentLanguage";
 import "./globals.css";
 
 const geist = Geist({
   subsets: ["latin", "cyrillic"],
   variable: "--font-geist",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin", "cyrillic"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -19,7 +25,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={`${geist.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
         <DocumentLanguage />
         {children}

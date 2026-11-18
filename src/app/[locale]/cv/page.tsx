@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import styles from "@/components/DetailPages.module.css";
 import SiteHeader from "@/components/SiteHeader";
 import {
   copy,
@@ -7,10 +9,49 @@ import {
   projectCategory,
   projects,
   statusLabel,
-  type Locale,
 } from "@/lib/content";
-import { resume } from "@/lib/resume";
 import { pageMetadata } from "@/lib/metadata";
+import { contact, resume } from "@/lib/resume";
+
+const cvPdf = "/Said-Amanzhol-CV.pdf";
+const cvProfiles = contact.profiles.filter(({ name }) =>
+  ["LinkedIn", "GitHub", "Telegram"].includes(name),
+);
+
+function CvSection({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className={styles.cvSection} aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className={styles.sectionTitle}>
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+function Timeline({ records }: { records: [string, string, string][] }) {
+  return (
+    <ul className={styles.records}>
+      {records.map(([date, title, description]) => (
+        <li key={`${date}-${title}`} className={styles.timelineItem}>
+          <p className={styles.recordMeta}>{date}</p>
+          <div>
+            <h3 className={styles.recordTitle}>{title}</h3>
+            <p className={styles.recordDescription}>{description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export async function generateMetadata({
   params,
@@ -25,6 +66,7 @@ export async function generateMetadata({
     locale === "ru"
       ? "Образование, опыт, проекты и навыки Саида Аманжола. Скачать CV в PDF."
       : "Education, experience, projects, and skills of Said Amanzhol. Download the PDF CV.",
+    "/cv",
   );
 }
 
@@ -35,162 +77,123 @@ export default async function CVPage({
 }) {
   const { locale } = await params;
   if (locale !== "en" && locale !== "ru") notFound();
-  const currentLocale: Locale = locale;
   const ru = locale === "ru";
   const c = copy[locale];
   const r = resume[locale];
 
   return (
     <>
-      <SiteHeader locale={currentLocale} currentPath="/cv" />
-      <main id="content" tabIndex={-1} className="cv-page">
-        <div className="shell cv-shell">
-          <div className="cv-topline">
-            <Link prefetch={false} href={localePath(currentLocale)}>
-              ← {ru ? "На главную" : "Back home"}
+      <SiteHeader locale={locale} currentPath="/cv" />
+      <main id="content" tabIndex={-1} className={`${styles.page} ${styles.cv}`}>
+        <div className="shell">
+          <div className={styles.topline}>
+            <Link prefetch={false} href={localePath(locale)}>
+              <span aria-hidden="true">←</span> {ru ? "Портфолио" : "Portfolio"}
             </Link>
-            <span>{ru ? "CV · 2026" : "Document · 2026"}</span>
+            <p>{ru ? "Резюме" : "Curriculum vitae"}</p>
           </div>
-          <div className="cv-layout">
-            <aside className="cv-intro">
-              <div className="eyebrow">CV / Said Amanzhol</div>
-              <h1 className="display cv-title">
-                Said
-                <br />
-                Amanzhol
+          <header className={styles.cvHero}>
+            <div>
+              <h1 className={styles.pageTitle}>
+                {ru ? "Саид Аманжол" : "Said Amanzhol"}
               </h1>
-              <p className="muted cv-tagline">
+              <p className={styles.cvTagline}>
                 {ru
                   ? "Экономика · Технологии · Продукты"
                   : "Economics · Technology · Product"}
               </p>
-              <div className="cv-actions">
-                <a
-                  className="linkline linkline-strong"
-                  href="/Said-Amanzhol-CV.pdf"
-                  download
-                >
-                  {ru ? "Скачать CV · PDF" : "Download CV · PDF"}{" "}
-                  <span aria-hidden="true">↓</span>
-                </a>
-                <a
-                  className="linkline"
-                  target="_blank"
-                  rel="noreferrer"
-                  href="https://www.linkedin.com/in/said-amanzhol-83038b315"
-                >
-                  LinkedIn <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-              <div className="cv-contact muted">
-                <a href="mailto:said.amanzhol@nu.edu.kz">
-                  said.amanzhol@nu.edu.kz
-                </a>
-                <div>@sherlockzini</div>
-                <div>{ru ? "Астана, Казахстан" : "Astana, Kazakhstan"}</div>
-              </div>
-            </aside>
-            <div className="cv-content">
-              <section className="cv-section" aria-labelledby="cv-profile">
-                <h2 id="cv-profile" className="eyebrow cv-section-label">
-                  {ru ? "Профиль" : "Profile"}
-                </h2>
-                <p className="cv-lead">{c.heroSub}</p>
-              </section>
-              <section className="cv-section" aria-labelledby="cv-experience">
-                <h2 id="cv-experience" className="eyebrow cv-section-label">
-                  {c.experience}
-                </h2>
-                <div className="cv-record-list">
-                  {r.experience.map(([date, role, organisation]) => (
-                    <div key={role} className="cv-record">
-                      <div className="eyebrow">{date}</div>
-                      <div className="cv-record-main">
-                        <h3 className="text-lg">{role}</h3>
-                        <div className="muted cv-record-detail">
-                          {organisation}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <section className="cv-section" aria-labelledby="cv-projects">
-                <h2 id="cv-projects" className="eyebrow cv-section-label">
-                  {ru ? "Проекты" : "Selected projects"}
-                </h2>
-                <div className="cv-project-list">
+            </div>
+            <a
+              className={`button button-primary ${styles.primaryLink}`}
+              href={cvPdf}
+              download
+            >
+              {ru ? "Скачать PDF" : "Download PDF"}{" "}
+              <span aria-hidden="true">↓</span>
+            </a>
+          </header>
+          <div className={styles.cvLayout}>
+            <div className={styles.cvProfile}>
+              <CvSection id="cv-profile" title={ru ? "Профиль" : "Profile"}>
+                <p className={styles.profileLead}>{c.heroSub}</p>
+                <address className={styles.cvContact}>
+                  <p>{ru ? "Астана, Казахстан" : "Astana, Kazakhstan"}</p>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                  <div className={styles.socialLinks}>
+                    {cvProfiles.map(({ name, href }) => (
+                      <a key={name} href={href} target="_blank" rel="noreferrer">
+                        {name} <span className="arrow-up-right" aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
+                </address>
+              </CvSection>
+            </div>
+            <div className={styles.cvContent}>
+              <CvSection id="cv-experience" title={c.experience}>
+                <Timeline records={r.experience} />
+              </CvSection>
+              <CvSection id="cv-education" title={c.education}>
+                <Timeline records={r.education} />
+              </CvSection>
+              <CvSection
+                id="cv-projects"
+                title={ru ? "Проекты" : "Selected projects"}
+              >
+                <ul className={styles.records}>
                   {projects.map((project) => (
-                    <div key={project.slug} className="cv-project-row">
+                    <li key={project.slug} className={styles.cvProject}>
                       <div>
-                        <h3 className="text-lg">{project.title}</h3>
-                        <div className="eyebrow mt-2">
-                          {projectCategory(project, currentLocale)}
-                        </div>
+                        <h3 className={styles.recordTitle}>
+                          {project.featured ? (
+                            <Link
+                              href={localePath(locale, `/projects/${project.slug}`)}
+                              prefetch={false}
+                            >
+                              {project.title} <span aria-hidden="true">→</span>
+                            </Link>
+                          ) : (
+                            project.title
+                          )}
+                        </h3>
+                        <p className={styles.recordDescription}>
+                          {projectCategory(project, locale)}
+                        </p>
                       </div>
-                      <div className="cv-project-meta">
-                        <span className="eyebrow">{project.year}</span>
-                        <span
-                          className={`eyebrow ${project.status === "development" ? "status-development" : ""}`}
-                        >
-                          {statusLabel[currentLocale][project.status]}
-                        </span>
-                      </div>
-                    </div>
+                      <p className={styles.recordMeta}>
+                        {project.year} · {statusLabel[locale][project.status]}
+                      </p>
+                    </li>
                   ))}
-                </div>
-              </section>
-              <section className="cv-section" aria-labelledby="cv-milestones">
-                <h2 id="cv-milestones" className="eyebrow cv-section-label">
-                  {c.milestones}
-                </h2>
-                <div className="cv-milestones">
+                </ul>
+              </CvSection>
+              <CvSection id="cv-milestones" title={c.milestones}>
+                <ul className={styles.records}>
                   {r.milestones.map(([title, description]) => (
-                    <div key={title}>
-                      <h3 className="text-lg">{title}</h3>
-                      <p className="muted">{description}</p>
-                    </div>
+                    <li key={title}>
+                      <h3 className={styles.recordTitle}>{title}</h3>
+                      <p className={styles.recordDescription}>{description}</p>
+                    </li>
                   ))}
-                </div>
-              </section>
-              <section className="cv-section" aria-labelledby="cv-education">
-                <h2 id="cv-education" className="eyebrow cv-section-label">
-                  {c.education}
-                </h2>
-                <div className="cv-record-list">
-                  {r.education.map(([date, school, degree]) => (
-                    <div key={degree} className="cv-record">
-                      <div className="eyebrow">{date}</div>
-                      <div className="cv-record-main">
-                        <h3 className="text-lg">{school}</h3>
-                        <div className="muted cv-record-detail">{degree}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <section className="cv-section" aria-labelledby="cv-skills">
-                <h2 id="cv-skills" className="eyebrow cv-section-label">
-                  {ru ? "Навыки" : "Skills"}
-                </h2>
-                <ul className="skill-list">
+                </ul>
+              </CvSection>
+              <CvSection id="cv-skills" title={ru ? "Навыки" : "Skills"}>
+                <ul className={styles.skills}>
                   {r.skills.map((skill) => (
                     <li key={skill}>{skill}</li>
                   ))}
                 </ul>
-              </section>
+              </CvSection>
             </div>
           </div>
-          <div className="cv-bottomline">
-            <Link
-              prefetch={false}
-              className="linkline"
-              href={localePath(currentLocale)}
-            >
-              ← {ru ? "К портфолио" : "Back to portfolio"}
+          <div className={styles.cvBottom}>
+            <Link prefetch={false} href={localePath(locale)}>
+              <span aria-hidden="true">←</span>{" "}
+              {ru ? "К портфолио" : "Back to portfolio"}
             </Link>
-            <a className="linkline" href="/Said-Amanzhol-CV.pdf" download>
-              {ru ? "Скачать PDF" : "Download PDF"} ↓
+            <a href={cvPdf} download>
+              {ru ? "Скачать PDF" : "Download PDF"}{" "}
+              <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, type CSSProperties } from "react";
-import { useInView } from "framer-motion";
-import type { Locale, ProjectSlug } from "@/lib/content";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import type { FeaturedProjectSlug, Locale } from "@/lib/content";
+import "./ProjectVisual.css";
 
 const labels = {
   en: {
@@ -88,13 +88,16 @@ const labels = {
 };
 
 const nodePositions = [
-  [50, 10],
-  [20, 31],
-  [80, 31],
-  [20, 72],
-  [80, 72],
-  [50, 93],
+  [50, 9],
+  [24, 29],
+  [76, 29],
+  [24, 71],
+  [76, 71],
+  [50, 91],
 ];
+const campusOutline = [0, 2, 4, 5, 3, 1]
+  .map((index) => nodePositions[index].join(","))
+  .join(" ");
 const delay = (index: number): CSSProperties =>
   ({ "--step": index }) as CSSProperties;
 
@@ -103,12 +106,27 @@ export default function ProjectVisual({
   locale,
   compact = false,
 }: {
-  slug: ProjectSlug;
+  slug: FeaturedProjectSlug;
   locale: Locale;
   compact?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const revealed = useInView(ref, { once: true, amount: 0.25 });
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const figure = ref.current;
+    if (!figure || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio < 0.25) return;
+      setRevealed(true);
+      observer.disconnect();
+    }, { threshold: 0.25 });
+
+    observer.observe(figure);
+    return () => observer.disconnect();
+  }, []);
+
   const c = labels[locale];
   const variant =
     slug === "nu-atrium"
@@ -132,9 +150,9 @@ export default function ProjectVisual({
     >
       <div className="visual-kicker" aria-hidden="true">
         <span>{c[variant]}</span>
-        <span>
-          {variant === "campus" ? "01" : variant === "publishing" ? "02" : "03"}
-        </span>
+        {variant === "quant" && (
+          <span className="development-stamp">{c.development}</span>
+        )}
       </div>
       {variant === "campus" ? (
         <div className="network-stage" aria-hidden="true">
@@ -143,19 +161,19 @@ export default function ProjectVisual({
             preserveAspectRatio="none"
             className="network-links"
           >
+            <polygon
+              className="network-perimeter"
+              points={campusOutline}
+            />
             {nodePositions.map(([x, y], i) => (
               <path
-                key={i}
+                key={`${x}-${y}`}
                 pathLength="1"
                 className="network-connection"
                 style={delay(i)}
-                d={`M50 51 L${x} ${y}`}
+                d={`M50 50 L${x} ${y}`}
               />
             ))}
-            <path
-              className="network-perimeter"
-              d="M20 31 L50 10 L80 31 L80 72 L50 93 L20 72 Z"
-            />
           </svg>
           <div className="network-core">
             <span>NU</span>
@@ -188,30 +206,22 @@ export default function ProjectVisual({
                 <span className="publishing-title">{stage}</span>
                 <span className="publishing-note">{c.stageNotes[i]}</span>
               </div>
-              {i < 4 && <span className="publishing-arrow">↓</span>}
             </li>
           ))}
         </ol>
       ) : (
-        <>
-          <div className="quant-direction" aria-hidden="true">
-            <span>01 → 06</span>
-            <span className="development-stamp">{c.development}</span>
-          </div>
-          <ol className="quant-pipeline" aria-hidden="true">
-            {c.pipeline.map((stage, i) => (
-              <li
-                className={`pipeline-stage ${i === 2 || i === 3 ? "pipeline-stage-emphasis" : ""}`}
-                key={stage}
-                style={delay(i)}
-              >
-                <span className="stage-number">0{i + 1}</span>
-                <span>{stage}</span>
-                {i < 5 && <span className="pipeline-arrow">→</span>}
-              </li>
-            ))}
-          </ol>
-        </>
+        <ol className="quant-pipeline" aria-hidden="true">
+          {c.pipeline.map((stage, i) => (
+            <li
+              className={`pipeline-stage ${i === 2 || i === 3 ? "pipeline-stage-emphasis" : ""}`}
+              key={stage}
+              style={delay(i)}
+            >
+              <span className="stage-number">0{i + 1}</span>
+              <span>{stage}</span>
+            </li>
+          ))}
+        </ol>
       )}
       <figcaption className="visual-footer" aria-hidden="true">
         {variant === "campus"

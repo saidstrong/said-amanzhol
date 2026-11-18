@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import PortfolioSite from "@/components/PortfolioSite";
-import type { Locale } from "@/lib/content";
 import { copy } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -27,5 +26,5 @@ export default async function LocalePage({
 }) {
   const { locale } = await params;
   if (locale !== "en" && locale !== "ru") notFound();
-  return <PortfolioSite locale={locale as Locale} />;
+  return <PortfolioSite locale={locale} />;
 }

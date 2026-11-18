@@ -1,5 +1,15 @@
 import type { Locale } from "@/lib/content";
 
+export const contact = {
+  email: "said.amanzhol@nu.edu.kz",
+  profiles: [
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/said-amanzhol-83038b315" },
+    { name: "GitHub", href: "https://github.com/saidstrong" },
+    { name: "Telegram", href: "https://t.me/sherlockzini" },
+    { name: "Instagram", href: "https://www.instagram.com/sherlockzini/" },
+  ],
+};
+
 // Shared by the portfolio and CV so dates and translations stay consistent.
 export const resume = {
   en: {
@@ -97,9 +107,9 @@ export const resume = {
 } satisfies Record<
   Locale,
   {
-    experience: string[][];
-    milestones: string[][];
-    education: string[][];
+    experience: [string, string, string][];
+    milestones: [string, string][];
+    education: [string, string, string][];
     skills: string[];
   }
 >;
