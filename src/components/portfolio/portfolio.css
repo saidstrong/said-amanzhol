@@ -1,11 +1,11 @@
 .portfolio-hero {
-  --focus-color: var(--leaf);
+  --focus-color: var(--highlight);
   position: relative;
   overflow: clip;
   padding-block: calc(var(--header-height) + clamp(36px, 5.5vw, 78px)) clamp(52px, 6vw, 84px);
   color: var(--night-text);
   background:
-    radial-gradient(ellipse at 86% 24%, #2b3426 0%, transparent 47%),
+    radial-gradient(ellipse at 86% 24%, #293649 0%, transparent 47%),
     var(--night);
 }
 
@@ -26,14 +26,14 @@
   align-items: center;
   gap: 0.7rem;
   margin-bottom: clamp(20px, 2.6vw, 35px);
-  color: #cbd0bf;
+  color: var(--night-muted);
 }
 
 .hero-location::before {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--leaf);
+  background: var(--highlight);
   content: "";
 }
 
@@ -65,14 +65,14 @@
   height: 0.15em;
   margin-inline-start: 0.10em;
   border-radius: 50%;
-  background: var(--leaf);
+  background: var(--highlight);
   content: "";
 }
 
 .hero-intro {
   max-width: 41ch;
   margin-top: clamp(18px, 2.75vw, 37px);
-  color: #cbd0bf;
+  color: var(--night-muted);
   font-size: clamp(1.02rem, 1.58vw, 1.22rem);
   line-height: 1.64;
 }
@@ -86,17 +86,17 @@
 }
 
 .hero-actions .button {
-  --focus-color: var(--leaf);
+  --focus-color: var(--highlight);
   gap: clamp(14px, 2vw, 32px);
   padding-inline: 1.3rem;
-  border-color: var(--leaf);
-  background: var(--leaf);
+  border-color: var(--highlight);
+  background: var(--highlight);
   color: var(--night);
 }
 
 .hero-actions .button:hover {
-  border-color: #ecffc3;
-  background: #ecffc3;
+  border-color: var(--highlight-bright);
+  background: var(--highlight-bright);
 }
 
 .hero-cv {
@@ -104,7 +104,7 @@
 }
 
 .hero-cv:hover {
-  color: var(--leaf);
+  color: var(--highlight);
 }
 
 .hero-work-arrow,
@@ -134,7 +134,7 @@
   z-index: -1;
   inset: -7% -11% -7% 5%;
   transform: rotate(-24deg);
-  border: 1px solid #77856952;
+  border: 1px solid #91a6c552;
   border-radius: 50%;
   pointer-events: none;
 }
@@ -142,7 +142,7 @@
 .hero-orbit::before,
 .hero-orbit::after {
   position: absolute;
-  border: 1px solid #77856952;
+  border: 1px solid #91a6c552;
   border-radius: 50%;
   content: "";
 }
@@ -153,10 +153,10 @@
 .hero-portrait {
   position: relative;
   padding: 8px;
-  border: 1px solid #d8e7cc3b;
+  border: 1px solid #c9d6eb3b;
   border-radius: 28px;
-  background: #f5f3e912;
-  box-shadow: 0 22px 70px #090c0866;
+  background: #f2f4f712;
+  box-shadow: 0 22px 70px #090e1866;
 }
 
 .hero-portrait-image {
@@ -164,14 +164,14 @@
   overflow: hidden;
   aspect-ratio: 1.02;
   border-radius: 20px;
-  background: #aaa7ad;
+  background: #9ba0ab;
 }
 
 .hero-portrait-image::after {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(0deg, #22282042, transparent 44%);
+  background: linear-gradient(0deg, #1a223142, transparent 44%);
   pointer-events: none;
   content: "";
 }
@@ -179,15 +179,15 @@
 .hero-portrait img {
   object-fit: cover;
   object-position: 52% 42%;
-  filter: saturate(0.78);
+  filter: grayscale(0.8);
 }
 
 .portfolio-profile {
-  --rule: #cbd1be;
+  --rule: #ced6e2;
   border-block: 1px solid var(--rule);
   background:
-    radial-gradient(ellipse at 12% 0%, #f4f6e4, transparent 51%),
-    #e8eadc;
+    radial-gradient(ellipse at 12% 0%, #f5f7fa, transparent 51%),
+    #e7ebf2;
 }
 
 .profile-grid {
@@ -212,14 +212,14 @@
 
 .profile-about .linkline {
   padding-inline: 1.1rem;
-  border: 1px solid #9ca792;
+  border: 1px solid #9faec2;
   border-radius: 999px;
   color: var(--accent);
 }
 
 .profile-about .linkline:is(:hover, :focus-visible) {
   border-color: var(--accent);
-  background: #dce5c9;
+  background: #dbe4f0;
   text-decoration: none;
 }
 
@@ -231,9 +231,9 @@
 
 .profile-records {
   padding: clamp(18px, 2.45vw, 34px);
-  border: 1px solid #bfc8b543;
+  border: 1px solid #acb8ca7a;
   border-radius: 20px;
-  background: #f8faed9e;
+  background: #fbfcfe9e;
 }
 
 .profile-subtitle {
@@ -280,10 +280,10 @@
 }
 
 .portfolio-footer {
-  --focus-color: var(--leaf);
+  --focus-color: var(--highlight);
   color: var(--night-text);
   background:
-    radial-gradient(ellipse at 90% -10%, #33472c, transparent 58%),
+    radial-gradient(ellipse at 90% -10%, #2b3d55, transparent 58%),
     var(--night);
   padding-block: clamp(73px, 9vw, 134px) 26px;
 }
@@ -297,7 +297,7 @@
 }
 
 .footer-contact h2 {
-  color: var(--leaf);
+  color: var(--highlight);
   font-size: clamp(3.45rem, 9.1vw, 8rem);
   line-height: 0.96;
   overflow-wrap: anywhere;
@@ -306,7 +306,7 @@
 .footer-email {
   min-height: 50px;
   padding-inline: 1.1rem;
-  border: 1px solid #929c83;
+  border: 1px solid #8595ac;
   border-radius: 999px;
   font-size: clamp(0.91rem, 2vw, 1.19rem);
   overflow-wrap: anywhere;
@@ -320,12 +320,12 @@
 }
 
 .portfolio-footer .linkline:hover {
-  color: var(--leaf);
+  color: var(--highlight);
 }
 
 .footer-email:hover {
-  border-color: var(--leaf);
-  background: #daf28f15;
+  border-color: var(--highlight);
+  background: #b1cbed15;
   text-decoration: none;
 }
 
@@ -342,9 +342,9 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 7px 1rem;
-  border-top: 1px solid #858e7d70;
+  border-top: 1px solid #8193ad70;
   padding-top: 20px;
-  color: #cbd0bf;
+  color: var(--night-muted);
   font-family: var(--font-mono), monospace;
   font-size: 0.73rem;
 }

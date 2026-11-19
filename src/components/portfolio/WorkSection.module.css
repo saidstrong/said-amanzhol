@@ -1,10 +1,10 @@
 .work {
-  --work-ink: #151815;
-  --work-paper: #f5f3e9;
-  --work-pine: #275644;
-  --work-leaf: #daf28f;
-  --work-muted: #50574c;
-  --work-line: #bdc2b4;
+  --work-ink: var(--night);
+  --work-paper: var(--night-text);
+  --work-accent: var(--accent);
+  --work-highlight: var(--highlight);
+  --work-muted: var(--muted);
+  --work-line: #c7cfdb;
   color: var(--work-ink);
   padding-block: clamp(38px, 6.2vw, 94px) clamp(56px, 8vw, 116px);
 }
@@ -39,7 +39,7 @@
 }
 
 .lead {
-  --focus-color: var(--work-leaf);
+  --focus-color: var(--work-highlight);
   padding: clamp(16px, 3.2vw, 47px);
   background: var(--work-ink);
   color: var(--work-paper);
@@ -106,22 +106,22 @@
 .contribution {
   max-width: 42ch;
   margin-block-start: clamp(14px, 1.65vw, 23px);
-  border-inline-start: 1px solid var(--work-pine);
+  border-inline-start: 1px solid var(--work-accent);
   padding-inline-start: 0.85rem;
   font-size: clamp(0.89rem, 1.19vw, 1.05rem);
   line-height: 1.55;
 }
 
 .lead .description {
-  color: #e4e9df;
+  color: #e3eaf4;
 }
 
 .lead :is(.status, .contribution) {
-  color: #c0cabe;
+  color: var(--night-muted);
 }
 
 .lead .contribution {
-  border-inline-color: var(--work-leaf);
+  border-inline-color: var(--work-highlight);
 }
 
 .links {
@@ -133,7 +133,7 @@
 }
 
 .links .caseLink {
-  color: var(--work-pine);
+  color: var(--work-accent);
   font-weight: 730;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .lead .links :is(.caseLink, a:hover, a:focus-visible) {
-  color: var(--work-leaf);
+  color: var(--work-highlight);
 }
 
 .campusFigure,
@@ -153,19 +153,19 @@
 
 .campusFigure {
   position: relative;
-  border: 1px solid #51645a;
+  border: 1px solid var(--night-rule);
   padding: clamp(7px, 1.35vw, 19px);
-  background-color: #293a32;
+  background-color: #28374b;
 }
 
 .walkthroughLink {
   display: block;
-  color: var(--work-leaf);
+  color: var(--work-highlight);
 }
 
 .screen {
   overflow: hidden;
-  border: 1px solid #52665c;
+  border: 1px solid var(--night-rule);
   background: #141927;
 }
 
@@ -202,29 +202,30 @@
 }
 
 .campusCaption {
-  border-block-start: 1px solid #51645a;
+  border-block-start: 1px solid var(--night-rule);
   padding-block-start: 0.54rem;
   padding-inline: clamp(1px, 0.55vw, 8px);
-  color: #d0dacf;
+  color: #d1dce9;
 }
 
 .invitationFigure {
-  border: 1px solid #c4c8b8;
+  border: 1px solid #c6ceda;
   padding: clamp(6px, 1.15vw, 16px);
-  background: #e8eadf;
+  background: #e7ecf4;
 }
 
 .invitationImage {
   position: relative;
   aspect-ratio: 3 / 2;
   overflow: hidden;
-  border: 1px solid #c4c8b7;
-  background: #dfe3d6;
+  border: 1px solid #c6ceda;
+  background: #dfe6ef;
 }
 
 .invitationImage img {
   object-fit: cover;
   object-position: center;
+  filter: grayscale(0.82);
 }
 
 .invitationCaption {
@@ -240,10 +241,10 @@
 
 .research {
   margin-block-start: clamp(42px, 7.5vw, 100px);
-  border-block: 1px solid #abb9a7;
-  border-inline-start: 4px solid var(--work-pine);
+  border-block: 1px solid #b0bed2;
+  border-inline-start: 4px solid var(--work-accent);
   padding: clamp(15px, 2.4vw, 34px);
-  background: #e7ecdf;
+  background: #e6ecf5;
 }
 
 .research .description,
@@ -255,7 +256,7 @@
 
 .researchStatus {
   margin-block-end: 0.4rem;
-  color: var(--work-pine);
+  color: var(--work-accent);
 }
 
 .directory {
@@ -278,7 +279,7 @@
 }
 
 .directoryRow:is(:hover, :focus-within) {
-  background: #2756440b;
+  background: #3159830b;
 }
 
 .rowTitle {

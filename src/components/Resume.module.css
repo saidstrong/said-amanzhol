@@ -4,13 +4,13 @@
 }
 
 .masthead {
-  --focus-color: var(--leaf, #daf28f);
-  --masthead-muted: #c0c3b5;
-  --masthead-rule: rgb(245 243 233 / 23%);
+  --focus-color: var(--highlight);
+  --masthead-muted: var(--night-muted);
+  --masthead-rule: var(--night-rule);
   background:
-    radial-gradient(ellipse at 88% 20%, #293326, transparent 56%),
+    radial-gradient(ellipse at 88% 20%, #293649, transparent 56%),
     var(--night);
-  color: var(--night-text, #f5f3e9);
+  color: var(--night-text);
 }
 
 .topline {
@@ -29,7 +29,7 @@
 }
 
 .topline a:hover {
-  color: var(--leaf, #daf28f);
+  color: var(--highlight);
 }
 
 .header {
@@ -70,14 +70,14 @@
   width: fit-content;
   max-width: 100%;
   align-self: start;
-  border-color: var(--leaf, #daf28f);
-  background: var(--leaf, #daf28f);
-  color: var(--night, #151815);
+  border-color: var(--highlight);
+  background: var(--highlight);
+  color: var(--night);
 }
 
 .download:hover {
-  border-color: var(--night-text, #f5f3e9);
-  background: var(--night-text, #f5f3e9);
+  border-color: var(--night-text);
+  background: var(--night-text);
 }
 
 .portrait {
@@ -89,12 +89,13 @@
   overflow: hidden;
   border: 1px solid var(--masthead-rule);
   border-radius: 20px;
-  background: #2a2d24;
+  background: #273244;
 }
 
 .portrait img {
   object-fit: cover;
   object-position: 53% 38%;
+  filter: grayscale(0.8);
 }
 
 .contacts,
@@ -117,14 +118,14 @@
   display: inline-flex;
   min-height: 2rem;
   align-items: center;
-  color: var(--night-text, #f5f3e9);
+  color: var(--night-text);
   text-decoration: underline;
   text-decoration-color: var(--masthead-rule);
   text-underline-offset: 0.24em;
 }
 
 .contacts a:hover {
-  color: var(--leaf, #daf28f);
+  color: var(--highlight);
   text-decoration-color: currentColor;
 }
 
@@ -308,7 +309,7 @@
   .resume {
     --ink: #111;
     --muted: #333;
-    --accent: #1936a1;
+    --accent: #315983;
     --rule: #bbb;
     padding: 0;
     background: #fff;

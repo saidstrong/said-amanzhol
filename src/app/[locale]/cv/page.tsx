@@ -11,6 +11,7 @@ import { contact, resume } from "@/lib/resume";
 const cvProfiles = contact.profiles.filter(({ name }) =>
   name === "GitHub" || name === "LinkedIn",
 );
+const cvPdf = "/Said-Amanzhol-CV.pdf";
 
 function ResumeSection({
   id,
@@ -81,7 +82,6 @@ export default async function CVPage({
   const ru = locale === "ru";
   const c = copy[locale];
   const r = resume[locale];
-  const cvPdf = ru ? "/Said-Amanzhol-CV-RU.pdf" : "/Said-Amanzhol-CV.pdf";
   const portfolioLabel = ru ? "Портфолио" : "Portfolio";
 
   return (
@@ -102,7 +102,8 @@ export default async function CVPage({
                 <p>{r.summary}</p>
               </div>
               <a className={`button ${styles.download}`} href={cvPdf} download>
-                {ru ? "Скачать PDF" : "Download PDF"} <span aria-hidden="true">↓</span>
+                {ru ? "Скачать PDF (EN)" : "Download PDF"}{" "}
+                <span aria-hidden="true">↓</span>
               </a>
               <div className={styles.portrait}>
                 <Image

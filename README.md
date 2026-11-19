@@ -28,7 +28,7 @@ Run `npm start` to serve the production build locally.
 | Route | Content |
 | --- | --- |
 | `/en`, `/ru` | Portfolio, projects, milestones, experience, and contact links |
-| `/en/cv`, `/ru/cv` | Web CV and respective English or Russian PDF download |
+| `/en/cv`, `/ru/cv` | Localized web CV with a download of Said’s original English PDF |
 | `/{locale}/projects/{slug}` | Case study for NU Atrium, Invitation Platform, or Quant-Trade AI Agent |
 
 - Update translated site copy, project links, and statuses in [`src/lib/content.ts`](src/lib/content.ts).
@@ -38,9 +38,9 @@ Run `npm start` to serve the production build locally.
 - The [Invitation Platform cover](public/project-media/invitation-cover.webp) is a generated concept illustration.
 - The [portrait](public/portrait.jpg) also appears in the localized [link preview covers](public/share).
 
-## Updating the CV downloads
+## CV files
 
-Edit the shared content in [`src/lib/resume.ts`](src/lib/resume.ts), then build and serve the site. Print each CV page to A4 with 10 mm margins and browser headers and footers disabled. Save the English version to `public/Said-Amanzhol-CV.pdf` and the Russian version to `public/Said-Amanzhol-CV-RU.pdf`. Check that each PDF fits on one page and that the text can be selected.
+The Download PDF button on both CV pages serves Said’s original English CV from [`public/Said-Amanzhol-CV.pdf`](public/Said-Amanzhol-CV.pdf). The [Russian print edition](public/Said-Amanzhol-CV-RU.pdf) is also available by direct link. To refresh the Russian edition after editing [`src/lib/resume.ts`](src/lib/resume.ts), build and serve the site, then print `/ru/cv` to A4 with 10 mm margins and browser headers and footers disabled.
 
 The site uses the Next.js App Router, TypeScript, React, Tailwind CSS, and CSS Modules.
 

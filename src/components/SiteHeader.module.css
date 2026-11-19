@@ -1,5 +1,5 @@
 .header {
-  --focus-color: var(--leaf);
+  --focus-color: var(--highlight);
   --header-rule: color-mix(in srgb, var(--night-text) 17%, var(--night));
   --header-muted: color-mix(in srgb, var(--night-text) 72%, var(--night));
   --header-fill: color-mix(in srgb, var(--night-text) 5%, var(--night));
@@ -42,7 +42,7 @@
   height: 34px;
   place-items: center;
   border-radius: 50%;
-  background: var(--leaf);
+  background: var(--highlight);
   color: var(--night);
   font-size: 0.78rem;
   font-weight: 760;
@@ -52,11 +52,11 @@
 }
 
 .brand:is(:hover, :focus-visible) {
-  color: var(--leaf);
+  color: var(--highlight);
 }
 
 .brand:is(:hover, :focus-visible) .brandMark {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--leaf) 22%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--highlight) 22%, transparent);
 }
 
 .desktopNav {
@@ -83,8 +83,8 @@
 .currentLanguage {
   padding: 5px 7px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--leaf) 13%, var(--night));
-  color: var(--leaf);
+  background: color-mix(in srgb, var(--highlight) 13%, var(--night));
+  color: var(--highlight);
 }
 
 .languageLink {
@@ -98,7 +98,7 @@
 }
 
 .languageLink:is(:hover, :focus-visible) {
-  color: var(--leaf);
+  color: var(--highlight);
 }
 
 .menuToggle,
@@ -121,9 +121,9 @@
 
 .menuToggle:is(:hover, :focus-visible),
 .closeButton:is(:hover, :focus-visible) {
-  border-color: color-mix(in srgb, var(--leaf) 52%, var(--night));
-  background: color-mix(in srgb, var(--leaf) 12%, var(--night));
-  color: var(--leaf);
+  border-color: color-mix(in srgb, var(--highlight) 52%, var(--night));
+  background: color-mix(in srgb, var(--highlight) 12%, var(--night));
+  color: var(--highlight);
 }
 
 .menuIcon {
@@ -213,7 +213,7 @@
 .mobileNav a:is(:hover, :focus-visible, [aria-current="page"]) {
   border-color: var(--header-rule);
   background: var(--header-fill);
-  color: var(--leaf);
+  color: var(--highlight);
 }
 
 .mobileArrow {
@@ -224,7 +224,7 @@
   place-items: center;
   border: 1px solid var(--header-rule);
   border-radius: 50%;
-  color: var(--leaf);
+  color: var(--highlight);
   font-size: 0.45em;
   font-weight: 450;
 }
@@ -235,7 +235,7 @@
   inset: 10px auto auto 18px;
   padding: 12px 16px;
   border-radius: 8px;
-  background: var(--leaf);
+  background: var(--highlight);
   color: var(--night);
   transform: translateY(-150%);
 }
@@ -302,8 +302,8 @@
   }
 
   .desktopNav a:is(:hover, :focus-visible, [aria-current="page"]) {
-    background: color-mix(in srgb, var(--leaf) 9%, var(--night));
-    color: var(--leaf);
+    background: color-mix(in srgb, var(--highlight) 9%, var(--night));
+    color: var(--highlight);
   }
 
   .desktopNav a:focus-visible {
