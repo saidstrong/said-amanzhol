@@ -1,0 +1,360 @@
+.header {
+  --focus-color: var(--highlight);
+  --header-rule: color-mix(in srgb, var(--night-text) 17%, var(--night));
+  --header-muted: color-mix(in srgb, var(--night-text) 72%, var(--night));
+  --header-fill: color-mix(in srgb, var(--night-text) 5%, var(--night));
+  position: fixed;
+  z-index: 50;
+  inset: 0 0 auto;
+  border-bottom: 1px solid var(--header-rule);
+  background: var(--night);
+  background: color-mix(in srgb, var(--night) 92%, transparent);
+  color: var(--night-text);
+  backdrop-filter: blur(16px);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: calc(var(--header-height) - 1px);
+}
+
+.brand {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-self: start;
+  gap: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.brandMark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--highlight);
+  color: var(--night);
+  font-size: 0.78rem;
+  font-weight: 760;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  transition: box-shadow 180ms ease;
+}
+
+.brand:is(:hover, :focus-visible) {
+  color: var(--highlight);
+}
+
+.brand:is(:hover, :focus-visible) .brandMark {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--highlight) 22%, transparent);
+}
+
+.desktopNav {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: clamp(4px, 1.4vw, 18px);
+}
+
+.languages {
+  display: flex;
+  flex: none;
+  align-items: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.currentLanguage {
+  padding: 5px 7px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--highlight) 13%, var(--night));
+  color: var(--highlight);
+}
+
+.languageLink {
+  display: grid;
+  min-width: 44px;
+  min-height: 44px;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--header-muted);
+  transition: color 160ms ease;
+}
+
+.languageLink:is(:hover, :focus-visible) {
+  color: var(--highlight);
+}
+
+.menuToggle,
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding-inline: 11px;
+  border: 1px solid var(--header-rule);
+  border-radius: 999px;
+  background: var(--header-fill);
+  color: var(--night-text);
+  font-size: 0.78rem;
+  font-weight: 560;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+}
+
+.menuToggle:is(:hover, :focus-visible),
+.closeButton:is(:hover, :focus-visible) {
+  border-color: color-mix(in srgb, var(--highlight) 52%, var(--night));
+  background: color-mix(in srgb, var(--highlight) 12%, var(--night));
+  color: var(--highlight);
+}
+
+.menuIcon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.menuIcon::before {
+  transform: translateY(-3px);
+}
+
+.menuIcon::after {
+  transform: translateY(2px);
+}
+
+.closeButton .menuIcon::before {
+  transform: rotate(45deg);
+}
+
+.closeButton .menuIcon::after {
+  transform: rotate(-45deg);
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-top: calc(var(--header-height) + 8px);
+  border: 0;
+  background: var(--night);
+  color: var(--night-text);
+}
+
+.mobileMenu::backdrop {
+  background: var(--night);
+}
+
+.dialogHeader {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  border-bottom: 1px solid var(--header-rule);
+  background: var(--night);
+}
+
+.mobileNav {
+  display: grid;
+  gap: 8px;
+  padding-block: clamp(25px, 8dvh, 80px) 32px;
+}
+
+.mobileNav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 70px;
+  padding: 10px clamp(13px, 3.8vw, 28px);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  font-size: clamp(2.15rem, 7.3vw, 4.3rem);
+  font-weight: 570;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.mobileNav a:is(:hover, :focus-visible, [aria-current="page"]) {
+  border-color: var(--header-rule);
+  background: var(--header-fill);
+  color: var(--highlight);
+}
+
+.mobileArrow {
+  display: grid;
+  width: clamp(36px, 7vw, 52px);
+  aspect-ratio: 1;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--header-rule);
+  border-radius: 50%;
+  color: var(--highlight);
+  font-size: 0.45em;
+  font-weight: 450;
+}
+
+.skipLink {
+  position: fixed;
+  z-index: 1;
+  inset: 10px auto auto 18px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--highlight);
+  color: var(--night);
+  transform: translateY(-150%);
+}
+
+.skipLink:focus {
+  outline: 2px solid var(--night-text);
+  transform: none;
+}
+
+@media (max-width: 374px) {
+  .brandName {
+    display: none;
+  }
+}
+
+@media (max-width: 819px) and (max-height: 480px) {
+  .mobileNav {
+    gap: 5px;
+    padding-block: 12px;
+  }
+
+  .mobileNav a {
+    min-height: 52px;
+    padding-block: 6px;
+    font-size: clamp(1.75rem, 6.2vw, 2.4rem);
+  }
+
+  .mobileArrow {
+    width: 34px;
+  }
+}
+
+@media (min-width: 820px) {
+  .headerInner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .brandMark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .desktopNav {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding-inline: 4px;
+    border: 1px solid var(--header-rule);
+    border-radius: 999px;
+    background: var(--header-fill);
+  }
+
+  .desktopNav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: clamp(14px, 1.5vw, 22px);
+    border-radius: 999px;
+    color: var(--header-muted);
+    font-size: 0.85rem;
+    font-weight: 520;
+    transition: color 160ms ease, background-color 160ms ease;
+  }
+
+  .desktopNav a:is(:hover, :focus-visible, [aria-current="page"]) {
+    background: color-mix(in srgb, var(--highlight) 9%, var(--night));
+    color: var(--highlight);
+  }
+
+  .desktopNav a:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .menuToggle {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mobileMenu[open] .mobileNav a {
+    animation: menu-row-enter 260ms var(--motion-ease, ease-out) backwards;
+  }
+
+  .mobileMenu[open] .mobileNav a:nth-child(2) {
+    animation-delay: 24ms;
+  }
+
+  .mobileMenu[open] .mobileNav a:nth-child(3) {
+    animation-delay: 48ms;
+  }
+
+  .mobileMenu[open] .mobileNav a:nth-child(4) {
+    animation-delay: 72ms;
+  }
+
+  .mobileArrow {
+    transition: transform 200ms var(--motion-ease, ease-out);
+  }
+
+  .mobileNav a:is(:focus-visible, :hover) .mobileArrow {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes menu-row-enter {
+  from {
+    opacity: 0.65;
+    transform: translateY(9px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media print {
+  .header {
+    display: none;
+  }
+}

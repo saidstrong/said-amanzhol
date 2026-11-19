@@ -1,5 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#0d0b0c"/>
-  <path d="M16 19h32M16 32h32M16 45h32" stroke="#6f1f2b" stroke-width="3"/>
-  <text x="32" y="37" fill="#f1ece7" font-family="Georgia,serif" font-size="16" text-anchor="middle">SA</text>
+  <rect width="64" height="64" rx="32" fill="#141922"/>
+  <path
+    d="M27 23a8 8 0 0 0-6.2-2.7c-4 0-6.5 2.2-6.5 5.2 0 6.7 13.7 4.6 13.7 11.9 0 3.5-3 6.3-7.4 6.3a9 9 0 0 1-7.3-3.1M34 43.5l8.2-23 8.3 23M37 35.5h10.3"
+    fill="none"
+    stroke="#b1cbed"
+    stroke-width="4.3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
 </svg>

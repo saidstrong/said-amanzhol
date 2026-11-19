@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, type CSSProperties } from "react";
-import { useInView } from "framer-motion";
-import type { Locale, ProjectSlug } from "@/lib/content";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import type { FeaturedProjectSlug, Locale } from "@/lib/content";
+import "./ProjectVisual.css";
 
 const labels = {
   en: {
@@ -18,18 +18,24 @@ const labels = {
       "Jobs",
     ],
     campusFooter: "One identity. Shared campus activity.",
-    publishing: "From creation to response",
+    publishing: "From shared link to guest response",
     publishingAlt:
-      "Invitation Platform: create, customize, preview, publish, then RSVP.",
-    stages: ["Create", "Customize", "Preview", "Publish", "RSVP"],
-    stageNotes: [
-      "Start an invitation",
-      "Shape the details",
-      "Review on mobile",
-      "Share a published version",
-      "Collect guest responses",
+      "The organizer shares an invitation link. The guest opens it, checks the event details, and submits an RSVP. The organizer reviews responses in the dashboard.",
+    stages: [
+      "Share the link",
+      "Open the invitation",
+      "Check event details",
+      "Submit RSVP",
+      "Review responses",
     ],
-    publishingFooter: "Reusable blocks · A distinct published state",
+    stageNotes: [
+      "The organizer sends the invitation",
+      "The guest opens it on their phone",
+      "Date and venue",
+      "The guest indicates whether they’ll attend",
+      "Responses appear in the organizer dashboard",
+    ],
+    publishingFooter: "Mobile invitation · Guest responses",
     quant: "Experimental system direction",
     quantAlt:
       "Conceptual sequence: market data, analysis, agent, risk, execution, evaluation. In development; this diagram does not confirm implemented modules.",
@@ -57,19 +63,24 @@ const labels = {
       "Вакансии",
     ],
     campusFooter: "Один профиль. Общая жизнь кампуса.",
-    publishing: "От создания до ответа гостя",
+    publishing: "От ссылки до ответа гостя",
     publishingAlt:
-      "Invitation Platform: создание, настройка, предпросмотр, публикация и RSVP.",
-    stages: ["Создать", "Настроить", "Просмотреть", "Опубликовать", "RSVP"],
-    stageNotes: [
-      "Начать приглашение",
-      "Добавить свои детали",
-      "Проверить на телефоне",
-      "Поделиться готовой версией",
-      "Собрать ответы гостей",
+      "Организатор делится ссылкой на приглашение. Гость открывает её, знакомится с деталями события и отправляет ответ. Организатор видит ответы в панели управления.",
+    stages: [
+      "Поделиться ссылкой",
+      "Открыть приглашение",
+      "Узнать детали",
+      "Отправить ответ",
+      "Проверить ответы",
     ],
-    publishingFooter:
-      "Переиспользуемые блоки · Отдельная опубликованная версия",
+    stageNotes: [
+      "Организатор отправляет приглашение",
+      "Гость открывает ссылку на телефоне",
+      "Дата и место события",
+      "Гость сообщает, сможет ли прийти",
+      "Ответы доступны в панели организатора",
+    ],
+    publishingFooter: "Мобильное приглашение · Ответы гостей",
     quant: "Направление исследования",
     quantAlt:
       "Концепция: рыночные данные, анализ, агент, риск, исполнение, оценка. В разработке; схема не подтверждает реализацию модулей.",
@@ -88,27 +99,46 @@ const labels = {
 };
 
 const nodePositions = [
-  [50, 10],
-  [20, 31],
-  [80, 31],
-  [20, 72],
-  [80, 72],
-  [50, 93],
+  [17.5, 17],
+  [82.5, 17],
+  [17.5, 50],
+  [82.5, 50],
+  [17.5, 83],
+  [82.5, 83],
 ];
-const delay = (index: number): CSSProperties =>
-  ({ "--step": index }) as CSSProperties;
+const delay = (milliseconds: number): CSSProperties =>
+  ({ "--visual-delay": `${milliseconds}ms` }) as CSSProperties;
 
 export default function ProjectVisual({
   slug,
   locale,
   compact = false,
 }: {
-  slug: ProjectSlug;
+  slug: FeaturedProjectSlug;
   locale: Locale;
   compact?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const revealed = useInView(ref, { once: true, amount: 0.25 });
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const figure = ref.current;
+    if (
+      !figure ||
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio < 0.25) return;
+      setRevealed(true);
+      observer.disconnect();
+    }, { threshold: 0.25 });
+
+    observer.observe(figure);
+    return () => observer.disconnect();
+  }, []);
+
   const c = labels[locale];
   const variant =
     slug === "nu-atrium"
@@ -132,9 +162,9 @@ export default function ProjectVisual({
     >
       <div className="visual-kicker" aria-hidden="true">
         <span>{c[variant]}</span>
-        <span>
-          {variant === "campus" ? "01" : variant === "publishing" ? "02" : "03"}
-        </span>
+        {variant === "quant" && (
+          <span className="development-stamp">{c.development}</span>
+        )}
       </div>
       {variant === "campus" ? (
         <div className="network-stage" aria-hidden="true">
@@ -145,17 +175,13 @@ export default function ProjectVisual({
           >
             {nodePositions.map(([x, y], i) => (
               <path
-                key={i}
+                key={`${x}-${y}`}
                 pathLength="1"
                 className="network-connection"
-                style={delay(i)}
-                d={`M50 51 L${x} ${y}`}
+                style={delay(Math.floor(i / 2) * 125)}
+                d={`M50 50 H${x < 50 ? 36 : 64} V${y} H${x}`}
               />
             ))}
-            <path
-              className="network-perimeter"
-              d="M20 31 L50 10 L80 31 L80 72 L50 93 L20 72 Z"
-            />
           </svg>
           <div className="network-core">
             <span>NU</span>
@@ -168,7 +194,7 @@ export default function ProjectVisual({
               style={{
                 left: `${nodePositions[index][0]}%`,
                 top: `${nodePositions[index][1]}%`,
-                ...delay(index),
+                ...delay(250 + Math.floor(index / 2) * 125),
               }}
             >
               {label}
@@ -176,42 +202,43 @@ export default function ProjectVisual({
           ))}
         </div>
       ) : variant === "publishing" ? (
-        <ol className="publishing-stages" aria-hidden="true">
-          {c.stages.map((stage, i) => (
-            <li
-              className={`publishing-stage ${i === 3 ? "publishing-stage-release" : ""}`}
-              key={stage}
-              style={delay(i)}
-            >
-              <span className="stage-number">0{i + 1}</span>
-              <div className="publishing-sheet">
-                <span className="publishing-title">{stage}</span>
-                <span className="publishing-note">{c.stageNotes[i]}</span>
-              </div>
-              {i < 4 && <span className="publishing-arrow">↓</span>}
-            </li>
-          ))}
-        </ol>
-      ) : (
-        <>
-          <div className="quant-direction" aria-hidden="true">
-            <span>01 → 06</span>
-            <span className="development-stamp">{c.development}</span>
-          </div>
-          <ol className="quant-pipeline" aria-hidden="true">
-            {c.pipeline.map((stage, i) => (
+        <div className="publishing-compose" aria-hidden="true">
+          <ol className="publishing-stages">
+            {c.stages.map((stage, i) => (
               <li
-                className={`pipeline-stage ${i === 2 || i === 3 ? "pipeline-stage-emphasis" : ""}`}
+                className={`publishing-stage ${i === 3 ? "publishing-stage-rsvp" : ""}`}
                 key={stage}
-                style={delay(i)}
+                style={delay(i * 94)}
               >
                 <span className="stage-number">0{i + 1}</span>
-                <span>{stage}</span>
-                {i < 5 && <span className="pipeline-arrow">→</span>}
+                <div className="publishing-sheet">
+                  <span className="publishing-title">{stage}</span>
+                  <span className="publishing-note">{c.stageNotes[i]}</span>
+                </div>
               </li>
             ))}
           </ol>
-        </>
+          <div className="publishing-art">
+            <div className="publishing-envelope">
+              <span className="publishing-letter"><span>RSVP</span></span>
+              <span className="publishing-fold" />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <ol className="quant-pipeline" aria-hidden="true">
+          {c.pipeline.map((stage, i) => (
+            <li
+              className={`pipeline-stage ${i === 3 ? "pipeline-stage-gate" : ""}`}
+              key={stage}
+              style={delay(i * 112 + (i > 3 ? 100 : 0))}
+            >
+              <span className="stage-number">0{i + 1}</span>
+              <span>{stage}</span>
+              {i < c.pipeline.length - 1 && <span className="pipeline-connector" />}
+            </li>
+          ))}
+        </ol>
       )}
       <figcaption className="visual-footer" aria-hidden="true">
         {variant === "campus"

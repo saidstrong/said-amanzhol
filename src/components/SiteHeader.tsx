@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { copy, localePath, type Locale } from "@/lib/content";
+import styles from "./SiteHeader.module.css";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -11,6 +12,29 @@ type SiteHeaderProps = {
 
 function rememberLocale(locale: Locale) {
   document.cookie = `portfolio-locale=${locale}; max-age=31536000; path=/; samesite=lax`;
+}
+
+function HomeLink({
+  locale,
+  onNavigate,
+}: {
+  locale: Locale;
+  onNavigate?: () => void;
+}) {
+  return (
+    <Link
+      prefetch={false}
+      href={localePath(locale)}
+      className={styles.brand}
+      aria-label={copy[locale].homeLabel}
+      onClick={onNavigate}
+    >
+      <span className={styles.brandMark} aria-hidden="true">
+        SA
+      </span>
+      <span className={styles.brandName}>{copy[locale].name.join(" ")}</span>
+    </Link>
+  );
 }
 
 function LanguageSwitch({
@@ -31,23 +55,29 @@ function LanguageSwitch({
       window.location.hash;
   }
   return (
-    // A native language boundary preserves fragments without reusing a cached
-    // client-router canonical URL. Other site links retain client navigation.
-    <a
-      href={localePath(other, currentPath)}
-      hrefLang={other}
-      onClick={(event) => {
-        prepareNavigation(event.currentTarget);
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
-          return;
-        onNavigate?.();
-      }}
-      onAuxClick={(event) => prepareNavigation(event.currentTarget)}
-      className="language-switch"
-      aria-label={copy[locale].switchLanguage}
-    >
-      {locale.toUpperCase()} <span>/</span> {other.toUpperCase()}
-    </a>
+    <div className={styles.languages}>
+      <span className={styles.currentLanguage} aria-hidden="true">
+        {locale.toUpperCase()}
+      </span>
+      {/* Native navigation preserves query strings and fragments across locales. */}
+      <a
+        href={localePath(other, currentPath)}
+        hrefLang={other}
+        onClick={(event) => {
+          prepareNavigation(event.currentTarget);
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+            return;
+          onNavigate?.();
+        }}
+        onAuxClick={(event) => {
+          if (event.button === 1) prepareNavigation(event.currentTarget);
+        }}
+        className={styles.languageLink}
+        aria-label={copy[locale].switchLanguage}
+      >
+        {other.toUpperCase()}
+      </a>
+    </div>
   );
 }
 
@@ -64,10 +94,14 @@ export default function SiteHeader({
   const links = [
     { label: c.nav.work, href: currentPath ? `${home}#work` : "#work" },
     {
-      label: c.nav.milestones,
-      href: currentPath ? `${home}#milestones` : "#milestones",
+      label: c.about,
+      href: currentPath ? `${home}#about` : "#about",
     },
-    { label: c.nav.cv, href: localePath(locale, "/cv") },
+    {
+      label: c.nav.cv,
+      href: localePath(locale, "/cv"),
+      current: currentPath === "/cv",
+    },
     {
       label: c.nav.contact,
       href: currentPath ? `${home}#contact` : "#contact",
@@ -77,10 +111,12 @@ export default function SiteHeader({
   function closeMenu() {
     dialog.current?.close();
     restoreScroll.current?.();
-    restoreScroll.current = null;
   }
 
   function openMenu() {
+    const menu = dialog.current;
+    if (!menu || menu.open) return;
+
     const scrollY = window.scrollY;
     const bodyStyle = document.body.style;
     const previous = {
@@ -89,6 +125,7 @@ export default function SiteHeader({
       width: bodyStyle.width,
       overflow: bodyStyle.overflow,
     };
+    menu.showModal();
     Object.assign(bodyStyle, {
       position: "fixed",
       top: `-${scrollY}px`,
@@ -96,11 +133,11 @@ export default function SiteHeader({
       overflow: "hidden",
     });
     restoreScroll.current = () => {
+      restoreScroll.current = null;
       Object.assign(bodyStyle, previous);
       window.scrollTo({ top: scrollY, behavior: "instant" });
     };
-    dialog.current?.showModal();
-    closer.current?.focus();
+    closer.current?.focus({ preventScroll: true });
   }
 
   useEffect(() => {
@@ -109,7 +146,6 @@ export default function SiteHeader({
       if (desktop.matches) {
         dialog.current?.close();
         restoreScroll.current?.();
-        restoreScroll.current = null;
       }
     };
     desktop.addEventListener("change", onResize);
@@ -120,45 +156,44 @@ export default function SiteHeader({
   }, []);
 
   return (
-    <header className="site-header">
-      <a className="skip-link" href="#content">
+    <header className={styles.header}>
+      <a className={styles.skipLink} href="#content">
         {c.skipContent}
       </a>
-      <div className="shell header-inner">
-        <Link
-          prefetch={false}
-          href={home}
-          className="brand-mark"
-          aria-label={c.homeLabel}
-        >
-          SAID
-        </Link>
-        <nav className="desktop-nav" aria-label={c.navigation}>
+      <div className={`shell ${styles.headerInner}`}>
+        <HomeLink locale={locale} />
+        <nav className={styles.desktopNav} aria-label={c.navigation}>
           {links.map((link) => (
-            <Link prefetch={false} href={link.href} key={link.label}>
+            <Link
+              prefetch={false}
+              href={link.href}
+              key={link.href}
+              aria-current={link.current ? "page" : undefined}
+            >
               {link.label}
             </Link>
           ))}
         </nav>
-        <div className="header-actions">
+        <div className={styles.actions}>
           <LanguageSwitch locale={locale} currentPath={currentPath} />
           <button
             type="button"
             ref={opener}
-            className="menu-toggle"
+            className={styles.menuToggle}
             aria-controls="mobile-navigation"
             aria-haspopup="dialog"
             aria-label={c.openMenu}
             onClick={openMenu}
           >
             {c.menu}
+            <span className={styles.menuIcon} aria-hidden="true" />
           </button>
         </div>
       </div>
       <dialog
         ref={dialog}
         id="mobile-navigation"
-        className="mobile-menu"
+        className={styles.mobileMenu}
         aria-label={c.navigation}
         onKeyDown={(event) => {
           if (event.key !== "Tab") return;
@@ -177,52 +212,46 @@ export default function SiteHeader({
         }}
         onClose={() => {
           restoreScroll.current?.();
-          restoreScroll.current = null;
-          opener.current?.focus({ preventScroll: true });
+          if (opener.current?.getClientRects().length) {
+            opener.current.focus({ preventScroll: true });
+          }
         }}
       >
-        <div className="shell header-inner">
-          <Link
-            prefetch={false}
-            href={home}
-            className="brand-mark"
-            aria-label={c.homeLabel}
-            onClick={closeMenu}
-          >
-            SAID
-          </Link>
-          <div className="header-actions">
-            <LanguageSwitch
-              locale={locale}
-              currentPath={currentPath}
-              onNavigate={closeMenu}
-            />
-            <button
-              type="button"
-              className="menu-toggle"
-              aria-label={c.closeMenu}
-              ref={closer}
-              onClick={closeMenu}
-            >
-              {c.close}
-            </button>
-          </div>
-        </div>
-        <nav className="shell mobile-nav" aria-label={c.navigation}>
-          <div className="mobile-nav-inner">
-            {links.map((link, index) => (
-              <Link
-                prefetch={false}
-                href={link.href}
-                key={link.label}
+        <div className={styles.dialogHeader}>
+          <div className={`shell ${styles.headerInner}`}>
+            <HomeLink locale={locale} onNavigate={closeMenu} />
+            <div className={styles.actions}>
+              <LanguageSwitch
+                locale={locale}
+                currentPath={currentPath}
+                onNavigate={closeMenu}
+              />
+              <button
+                type="button"
+                className={styles.closeButton}
+                aria-label={c.closeMenu}
+                ref={closer}
                 onClick={closeMenu}
               >
-                <span>0{index + 1}</span>
-                {link.label}
-              </Link>
-            ))}
+                {c.close}
+                <span className={styles.menuIcon} aria-hidden="true" />
+              </button>
+            </div>
           </div>
-          <span className="mobile-menu-handle">@sherlockzini</span>
+        </div>
+        <nav className={`shell ${styles.mobileNav}`} aria-label={c.navigation}>
+          {links.map((link) => (
+            <Link
+              prefetch={false}
+              href={link.href}
+              key={link.href}
+              onClick={closeMenu}
+              aria-current={link.current ? "page" : undefined}
+            >
+              {link.label}
+              <span className={styles.mobileArrow} aria-hidden="true">→</span>
+            </Link>
+          ))}
         </nav>
       </dialog>
     </header>

@@ -1,30 +1,42 @@
 export type Locale = "en" | "ru";
-export type ProjectSlug =
+export type FeaturedProjectSlug =
   | "nu-atrium"
   | "invitation-platform"
-  | "quant-trade-ai"
+  | "quant-trade-ai";
+
+type OtherProjectSlug =
   | "overhead-club"
   | "hawaii-miami"
   | "xy-school"
   | "volunteer-platform";
 
-export type Project = {
-  slug: ProjectSlug;
+export type ProjectSlug = FeaturedProjectSlug | OtherProjectSlug;
+
+type ProjectDetails = {
   title: string;
   year: string;
   category: string;
   status: "prototype" | "deployed" | "development";
   live?: string;
   github?: string;
-  featured: boolean;
 };
+
+export type FeaturedProject = ProjectDetails & {
+  slug: FeaturedProjectSlug;
+  featured: true;
+};
+
+export type Project = FeaturedProject | (ProjectDetails & {
+  slug: OtherProjectSlug;
+  featured: false;
+});
 
 export const projects: Project[] = [
   {
     slug: "nu-atrium",
     title: "NU Atrium",
     year: "2026",
-    category: "Product · Design · Engineering",
+    category: "Campus Platform · Community",
     status: "prototype",
     live: "https://nu-atrium.vercel.app",
     github: "https://github.com/saidstrong/NU-Hub",
@@ -34,7 +46,7 @@ export const projects: Project[] = [
     slug: "invitation-platform",
     title: "Invitation Platform",
     year: "2026",
-    category: "Product System · UX · Engineering",
+    category: "Event Invitations · RSVP",
     status: "prototype",
     live: "https://shaqyru.website",
     github: "https://github.com/saidstrong/wedding",
@@ -44,7 +56,7 @@ export const projects: Project[] = [
     slug: "quant-trade-ai",
     title: "Quant-Trade AI Agent",
     year: "2026",
-    category: "AI · Quantitative Finance · Engineering",
+    category: "AI · Quantitative Finance",
     status: "development",
     featured: true,
   },
@@ -52,7 +64,7 @@ export const projects: Project[] = [
     slug: "overhead-club",
     title: "Overhead Club",
     year: "2026",
-    category: "Web Experience · Motion · Product",
+    category: "Live Music · Interactive Web",
     status: "deployed",
     live: "https://tap2link.vercel.app/",
     github: "https://github.com/saidstrong/OverHead",
@@ -62,7 +74,7 @@ export const projects: Project[] = [
     slug: "hawaii-miami",
     title: "Hawaii–Miami Inventory System",
     year: "2026",
-    category: "Operations · Inventory · Full-Stack",
+    category: "Hospitality · Inventory",
     status: "deployed",
     live: "https://hawaii-miami.vercel.app/",
     github: "https://github.com/saidstrong/hawaii-miami",
@@ -72,7 +84,7 @@ export const projects: Project[] = [
     slug: "xy-school",
     title: "XY-School",
     year: "2026",
-    category: "EdTech · AI · Full-Stack",
+    category: "Education · AI Assistant",
     status: "deployed",
     live: "https://xy-school.vercel.app/",
     github: "https://github.com/saidstrong/ent-platform",
@@ -82,7 +94,7 @@ export const projects: Project[] = [
     slug: "volunteer-platform",
     title: "Volunteer Platform",
     year: "2026",
-    category: "Operations · Community · Product",
+    category: "Volunteering · Event Operations",
     status: "deployed",
     live: "https://sapa-speakers.vercel.app/",
     github: "https://github.com/saidstrong/sapa-speakers",
@@ -104,13 +116,13 @@ export const statusLabel: Record<Locale, Record<Project["status"], string>> = {
 };
 
 const russianCategories: Record<ProjectSlug, string> = {
-  "nu-atrium": "Продукт · Дизайн · Разработка",
-  "invitation-platform": "Продуктовая система · UX · Разработка",
-  "quant-trade-ai": "AI · Количественные финансы · Разработка",
-  "overhead-club": "Веб · Анимация · Продукт",
-  "hawaii-miami": "Операции · Учет запасов · Full-stack",
-  "xy-school": "Образование · AI · Full-stack",
-  "volunteer-platform": "Операции · Сообщество · Продукт",
+  "nu-atrium": "Кампус · Студенческие сообщества",
+  "invitation-platform": "Приглашения · RSVP",
+  "quant-trade-ai": "ИИ · Количественные финансы",
+  "overhead-club": "Живая музыка · Интерактивный сайт",
+  "hawaii-miami": "Рестораны · Учёт запасов",
+  "xy-school": "Образование · ИИ-помощник",
+  "volunteer-platform": "Волонтёрство · Мероприятия",
 };
 
 export function projectCategory(project: Project, locale: Locale) {
@@ -123,27 +135,21 @@ export const copy = {
   en: {
     nav: {
       work: "Work",
-      milestones: "Milestones",
       cv: "CV",
       contact: "Contact",
     },
-    heroEyebrow: "Technology · Economics · Strategy",
-    heroStatement:
-      "Building products at the intersection of technology, economics, and strategy.",
+    name: ["Said", "Amanzhol"],
     heroSub:
-      "Economics student at Nazarbayev University, building products across technology, markets, and digital systems.",
+      "I study economics at Nazarbayev University and build full-stack software for campus life, events, and operations.",
     viewWork: "View work",
     viewCV: "View CV",
     selectedWork: "Selected work",
-    selectedNote: "Three systems. Three different product questions.",
-    moreNote: "Further work in education, hospitality, and operations.",
     moreWork: "More work",
     milestones: "Selected milestones",
     experience: "Experience",
     about: "About",
     education: "Education",
-    contact: "Let’s connect.",
-    scroll: "Scroll to explore",
+    contact: "Say hello.",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     menu: "Menu",
@@ -153,58 +159,50 @@ export const copy = {
     switchLanguage: "Switch to Russian",
     skipContent: "Skip to content",
     portraitAlt: "Said Amanzhol in a burgundy and blue academic robe",
-    email: "Email",
     live: "Live",
     github: "GitHub",
     caseStudy: "Case study",
     concept: "Concept / system direction",
-    footerLocation: "Astana, Kazakhstan · 2026",
+    location: "Astana, Kazakhstan",
     aboutBody:
-      "I study economics and build software. My projects sit between product development, operational problems, markets, and emerging technologies.",
+      "I like starting with a problem I can see up close. At SapaSpeakers, that meant building software for event registration, attendance, volunteer hours, and certificates. In my independent projects, I take the same approach to campus services and everyday operations.",
     featured: {
       "nu-atrium":
-        "A full-stack campus platform designed for the Nazarbayev University community, bringing communities, marketplace, events, jobs, messaging, and student activity into one system.",
+        "A campus platform for Nazarbayev University students to find events and RSVP, browse listings, and join student groups.",
       "invitation-platform":
-        "A mobile-first event invitation builder with deep customization, reusable blocks, publishing, RSVP, media, and payment-gated access.",
+        "A shareable wedding invitation guests can open on their phones, with an RSVP form and a dashboard for the organizer.",
       "quant-trade-ai":
-        "An experimental autonomous trading-agent project exploring AI-driven market analysis, strategy reasoning, risk-aware execution, and quantitative evaluation.",
+        "Research into how an AI trading agent could analyze markets, evaluate strategies, and check risk before execution.",
     },
     secondary: {
       "overhead-club":
-        "Premium bar web experience built around cinematic motion, nightlife atmosphere, events, and cocktail-inspired interactions.",
+        "A bar website with a scroll-driven cocktail scene, an interactive menu, and live music listings.",
       "hawaii-miami":
-        "Internal operations system designed to replace fragmented inventory and request workflows across bars, kitchens, restaurants, and warehouse operations.",
+        "An internal app for daily stock requests, distribution, and inventory counts across bars, kitchens, and restaurants.",
       "xy-school":
-        "Online education platform with an AI tutor that answers student questions and generates exercises and explanations.",
+        "A prep platform for Kazakhstan’s university entrance exam, with lessons, homework submissions, and an AI assistant that can cite course materials.",
       "volunteer-platform":
-        "Digital system for volunteer coordination and organizational workflows.",
+        "A SapaSpeakers platform for volunteer applications, event registration, attendance tracking, and certificate issuance.",
     },
   },
   ru: {
     nav: {
       work: "Проекты",
-      milestones: "Этапы",
       cv: "CV",
       contact: "Контакты",
     },
-    heroEyebrow: "Технологии · Экономика · Стратегия",
-    heroStatement:
-      "Создаю продукты на пересечении технологий, экономики и стратегии.",
+    name: ["Саид", "Аманжол"],
     heroSub:
-      "Студент экономики Назарбаев Университета. Создаю цифровые продукты на стыке технологий, рынков и прикладных систем.",
+      "Я изучаю экономику в Назарбаев Университете и разрабатываю веб-приложения для жизни кампуса, мероприятий и работы команд.",
     viewWork: "Смотреть проекты",
     viewCV: "Открыть CV",
     selectedWork: "Избранные проекты",
-    selectedNote: "Три системы. Три разные продуктовые задачи.",
-    moreNote:
-      "Другие работы в образовании, гостеприимстве и операционных процессах.",
     moreWork: "Другие проекты",
     milestones: "Ключевые этапы",
     experience: "Опыт",
     about: "Обо мне",
     education: "Образование",
-    contact: "Связаться со мной.",
-    scroll: "Листать дальше",
+    contact: "Напишите мне.",
     openMenu: "Открыть меню",
     closeMenu: "Закрыть меню",
     menu: "Меню",
@@ -215,33 +213,30 @@ export const copy = {
     skipContent: "Перейти к содержимому",
     portraitAlt:
       "Саид Аманжол в синей академической мантии с бордовыми деталями",
-    email: "Почта",
     live: "Сайт",
     github: "GitHub",
     caseStudy: "Кейс",
     concept: "Концепция / направление системы",
-    footerLocation: "Астана, Казахстан · 2026",
+    location: "Астана, Казахстан",
     aboutBody:
-      "Я изучаю экономику и создаю программные продукты. Большинство моих проектов находятся на пересечении продуктовой разработки, операционных задач, рынков и новых технологий.",
+      "Я начинаю с задач, которые вижу вокруг. В SapaSpeakers я разработал систему регистрации на мероприятия, учёта посещаемости и волонтёрских часов, а также выдачи сертификатов. В самостоятельных проектах я применяю тот же подход к задачам кампуса и повседневной работы команд.",
     featured: {
       "nu-atrium":
-        "Полноценная кампус-платформа для сообщества Назарбаев Университета: сообщества, маркетплейс, события, вакансии, сообщения и студенческая активность в одной системе.",
+        "Платформа для студентов Назарбаев Университета. Здесь можно найти мероприятия и отметить участие, посмотреть объявления и вступить в студенческие сообщества.",
       "invitation-platform":
-        "Платформа для создания приглашений с телефона: гибкая настройка, переиспользуемые блоки, медиа, публикация, RSVP и управление платным доступом.",
+        "Гости открывают свадебное приглашение по ссылке на телефоне и отмечают, смогут ли прийти. Организатор видит ответы в отдельной панели.",
       "quant-trade-ai":
-        "Экспериментальный автономный торговый AI-агент: исследование анализа рынка, принятия стратегических решений, исполнения с учетом рисков и количественной оценки.",
+        "Исследование роли ИИ-агента в анализе рынка, оценке стратегий и контроле рисков перед исполнением сделок.",
     },
     secondary: {
       "overhead-club":
-        "Сайт бара с кинематографичной анимацией, афишей событий и интерактивными элементами, вдохновленными коктейльной культурой.",
+        "Сайт бара с анимацией приготовления коктейля при прокрутке, интерактивным меню и афишей живой музыки.",
       "hawaii-miami":
-        "Внутренняя операционная система для замены фрагментированных процессов заявок и учета запасов в барах, кухнях, ресторанах и на складе.",
+        "Внутреннее приложение для ежедневных заявок на пополнение запасов, распределения и ревизий в барах, кухнях и ресторанах.",
       "xy-school":
-        "Онлайн-платформа обучения с AI-тьютором, который отвечает на вопросы студентов и генерирует упражнения и объяснения.",
+        "Платформа подготовки к ЕНТ с уроками, отправкой домашних заданий и ИИ-помощником, который ссылается на материалы курса.",
       "volunteer-platform":
-        "Цифровая система для координации волонтеров и организационных процессов.",
+        "Платформа SapaSpeakers для приёма заявок от волонтёров, регистрации на мероприятия, учёта посещаемости и выдачи сертификатов.",
     },
   },
 } as const;
-
-export type Copy = (typeof copy)[Locale];

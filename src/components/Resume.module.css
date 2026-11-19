@@ -1,0 +1,456 @@
+.resume {
+  padding-top: var(--header-height);
+  background: var(--paper);
+}
+
+.masthead {
+  --focus-color: var(--highlight);
+  --masthead-muted: var(--night-muted);
+  --masthead-rule: var(--night-rule);
+  background:
+    radial-gradient(ellipse at 88% 20%, #293649, transparent 56%),
+    var(--night);
+  color: var(--night-text);
+}
+
+.topline {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border-bottom: 1px solid var(--masthead-rule);
+}
+
+.topline p {
+  color: var(--masthead-muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+}
+
+.topline a:hover {
+  color: var(--highlight);
+}
+
+.header {
+  display: grid;
+  grid-template-areas: "intro intro" "download portrait" "contacts contacts";
+  grid-template-columns: minmax(0, 1fr) clamp(4.6rem, 24vw, 8.75rem);
+  align-items: center;
+  gap: 1.4rem 1rem;
+  padding-block: clamp(2.5rem, 5.5vw, 5rem) clamp(1.5rem, 4.4vw, 3.7rem);
+}
+
+.intro {
+  grid-area: intro;
+  min-width: 0;
+}
+
+.intro h1 {
+  max-width: 10ch;
+  font-family: var(--font-display, inherit);
+  font-size: clamp(3rem, 9vw, 8.6rem);
+  font-weight: 730;
+  letter-spacing: -0.052em;
+  line-height: 0.9;
+  overflow-wrap: anywhere;
+}
+
+.intro p {
+  max-width: 44ch;
+  margin-top: clamp(1.1rem, 2.6vw, 2rem);
+  color: var(--masthead-muted);
+  font-size: clamp(1rem, 1.55vw, 1.3rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.download {
+  grid-area: download;
+  width: fit-content;
+  max-width: 100%;
+  align-self: start;
+  border-color: var(--highlight);
+  background: var(--highlight);
+  color: var(--night);
+}
+
+.download:hover {
+  border-color: var(--night-text);
+  background: var(--night-text);
+}
+
+.portrait {
+  position: relative;
+  grid-area: portrait;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  align-self: center;
+  overflow: hidden;
+  border: 1px solid var(--masthead-rule);
+  border-radius: 20px;
+  background: #273244;
+}
+
+.portrait img {
+  object-fit: cover;
+  object-position: 53% 38%;
+}
+
+.contacts,
+.contacts > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 1rem;
+}
+
+.contacts {
+  grid-area: contacts;
+  color: var(--masthead-muted);
+  font-size: 0.875rem;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+.contacts a {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  color: var(--night-text);
+  text-decoration: underline;
+  text-decoration-color: var(--masthead-rule);
+  text-underline-offset: 0.24em;
+}
+
+.contacts a:hover {
+  color: var(--highlight);
+  text-decoration-color: currentColor;
+}
+
+.printPath {
+  display: none;
+}
+
+.sheet {
+  padding-block: clamp(2.6rem, 6vw, 5.25rem) clamp(3.6rem, 8vw, 7rem);
+}
+
+.primary,
+.secondary {
+  min-width: 0;
+}
+
+.section {
+  padding-block: clamp(1.65rem, 3.1vw, 2.7rem);
+  border-top: 1px solid var(--rule);
+}
+
+.section h2 {
+  margin-bottom: clamp(1.05rem, 2.8vw, 2.2rem);
+  color: var(--accent);
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1.85rem, 3.7vw, 3.35rem);
+  font-weight: 690;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.secondary .section h2 {
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+}
+
+.records {
+  min-width: 0;
+  list-style: none;
+}
+
+.records li + li {
+  margin-top: 1.12rem;
+  padding-top: 1.12rem;
+  border-top: 1px solid var(--rule);
+}
+
+.recordHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.28rem 0.75rem;
+}
+
+.records h3,
+.skills dt {
+  min-width: 0;
+  color: var(--ink);
+  font-size: clamp(1.01rem, 1.55vw, 1.265rem);
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.records h3 a {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.22em;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.records h3 a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+.records h3 a span {
+  margin-inline-start: 0.12em;
+  color: var(--accent);
+  font-size: 0.76em;
+}
+
+.records li > p,
+.skills dd {
+  max-width: 66ch;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.date {
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.73rem;
+  white-space: nowrap;
+}
+
+.skills {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.skills dt {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.77rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.skills dd {
+  margin-top: 0.2rem;
+}
+
+@media screen and (min-width: 840px) {
+  .header {
+    grid-template-areas: "intro portrait" "download portrait" "contacts portrait";
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.57fr);
+    grid-template-rows: auto min-content min-content;
+    gap: 1.3rem clamp(2.5rem, 8vw, 8.5rem);
+    padding-block: clamp(2.5rem, 3.8vw, 3.45rem) clamp(2rem, 3vw, 3rem);
+  }
+
+  .intro {
+    align-self: end;
+  }
+
+  .intro h1 {
+    max-width: none;
+    font-size: clamp(3.5rem, 7.1vw, 6rem);
+    line-height: 0.98;
+  }
+
+  .portrait {
+    max-width: 21rem;
+    justify-self: end;
+    aspect-ratio: 1.06;
+  }
+
+  .contacts {
+    align-self: start;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .sheet {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5.5vw, 5.2rem);
+  }
+
+  .secondary {
+    padding-inline-start: clamp(1.5rem, 3.4vw, 3.4rem);
+    border-inline-start: 1px solid var(--rule);
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .intro {
+    animation: resume-intro-in 560ms var(--motion-ease, ease-out) both;
+  }
+
+  .portrait img {
+    animation: resume-portrait-in 780ms var(--motion-ease, ease-out) both;
+  }
+}
+
+@keyframes resume-intro-in {
+  from { transform: translateY(8px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes resume-portrait-in {
+  from { transform: scale(1.025); }
+  to { transform: scale(1); }
+}
+
+@media print {
+  .resume {
+    --ink: #111;
+    --muted: #333;
+    --accent: #315983;
+    --rule: #bbb;
+    padding: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--font-geist, Arial), sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .resume .mastheadInner,
+  .resume .sheet {
+    width: 100%;
+    max-width: none;
+  }
+
+  .masthead {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .topline,
+  .download,
+  .portrait,
+  .screenLabel {
+    display: none;
+  }
+
+  .printPath {
+    display: inline;
+  }
+
+  .header {
+    display: block;
+    padding: 0 0 0.62rem;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .intro h1 {
+    max-width: none;
+    font-family: inherit;
+    font-size: 29pt;
+    font-weight: 630;
+    line-height: 0.99;
+    letter-spacing: -0.045em;
+  }
+
+  .intro p {
+    max-width: none;
+    margin-top: 0.4rem;
+    color: var(--muted);
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .contacts {
+    display: grid;
+    gap: 0;
+    margin-top: 0.3rem;
+    color: var(--muted);
+    font-size: 9pt;
+  }
+
+  .contacts > div {
+    gap: 0 0.7rem;
+  }
+
+  .contacts a {
+    display: inline;
+    min-height: auto;
+    color: var(--ink);
+    text-decoration-color: var(--rule);
+  }
+
+  .sheet {
+    display: block;
+    padding: 0;
+  }
+
+  .section {
+    padding-block: 0.65rem;
+    border-top: 0;
+    border-bottom: 1px solid var(--rule);
+    break-inside: avoid;
+  }
+
+  .section h2,
+  .secondary .section h2 {
+    margin-bottom: 0.25rem;
+    font-family: inherit;
+    font-size: 10pt;
+    font-weight: 620;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .recordHeader {
+    display: block;
+  }
+
+  .recordHeader h3,
+  .date,
+  .skills dt,
+  .skills dd {
+    display: inline;
+  }
+
+  .date::before {
+    content: " · ";
+  }
+
+  .records h3,
+  .skills dt {
+    font-family: inherit;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .records li + li {
+    margin-top: 0.35rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .records li > p,
+  .skills dd {
+    max-width: none;
+    margin-top: 0.08rem;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .date {
+    font: inherit;
+    font-size: 9pt;
+  }
+
+  .skills {
+    display: block;
+  }
+
+  .skills dt {
+    margin-inline-end: 0.7em;
+  }
+}
