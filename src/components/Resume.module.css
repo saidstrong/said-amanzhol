@@ -95,7 +95,6 @@
 .portrait img {
   object-fit: cover;
   object-position: 53% 38%;
-  filter: grayscale(0.8);
 }
 
 .contacts,

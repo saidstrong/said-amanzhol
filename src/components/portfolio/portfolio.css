@@ -171,7 +171,7 @@
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(0deg, #1a223142, transparent 44%);
+  background: linear-gradient(0deg, #22282042, transparent 44%);
   pointer-events: none;
   content: "";
 }
@@ -179,7 +179,7 @@
 .hero-portrait img {
   object-fit: cover;
   object-position: 52% 42%;
-  filter: grayscale(0.8);
+  filter: saturate(0.78);
 }
 
 .portfolio-profile {

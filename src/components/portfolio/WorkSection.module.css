@@ -225,7 +225,6 @@
 .invitationImage img {
   object-fit: cover;
   object-position: center;
-  filter: grayscale(0.82);
 }
 
 .invitationCaption {

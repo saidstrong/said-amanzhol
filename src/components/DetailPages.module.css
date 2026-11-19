@@ -175,7 +175,6 @@
   border-radius: 13px;
   background: #29374a;
   object-fit: cover;
-  filter: grayscale(0.82);
 }
 
 .caseCover figcaption {
