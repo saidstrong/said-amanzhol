@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "@/components/Resume.module.css";
@@ -87,92 +88,109 @@ export default async function CVPage({
     <>
       <SiteHeader locale={locale} currentPath="/cv" />
       <main id="content" tabIndex={-1} className={styles.resume}>
-        <div className={`shell ${styles.sheet}`}>
-          <div className={styles.topline}>
-            <Link prefetch={false} href={localePath(locale)} className="linkline">
-              <span aria-hidden="true">←</span> {portfolioLabel}
-            </Link>
-            <p className="eyebrow">{ru ? "Резюме" : "Curriculum vitae"}</p>
-          </div>
-          <header className={styles.header}>
-            <div className={styles.intro}>
-              <h1>{ru ? "Саид Аманжол" : "Said Amanzhol"}</h1>
-              <p>{r.summary}</p>
+        <header className={styles.masthead}>
+          <div className={`shell ${styles.mastheadInner}`}>
+            <div className={styles.topline}>
+              <Link prefetch={false} href={localePath(locale)} className="linkline">
+                <span aria-hidden="true">←</span> {portfolioLabel}
+              </Link>
+              <p>{ru ? "Резюме" : "Curriculum vitae"}</p>
             </div>
-            <a className={`button button-primary ${styles.download}`} href={cvPdf} download>
-              {ru ? "Скачать PDF" : "Download PDF"} <span aria-hidden="true">↓</span>
-            </a>
-            <address className={styles.contacts}>
-              <div>
-                <span>{c.location}</span>
-                <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                <ContactLink name={portfolioLabel} href={localizedUrls()[locale]} />
+            <div className={styles.header}>
+              <div className={styles.intro}>
+                <h1>{ru ? "Саид Аманжол" : "Said Amanzhol"}</h1>
+                <p>{r.summary}</p>
               </div>
-              <div>
-                {cvProfiles.map(({ name, href }) => (
-                  <ContactLink key={name} name={name} href={href} />
-                ))}
+              <a className={`button ${styles.download}`} href={cvPdf} download>
+                {ru ? "Скачать PDF" : "Download PDF"} <span aria-hidden="true">↓</span>
+              </a>
+              <div className={styles.portrait}>
+                <Image
+                  src="/portrait.jpg"
+                  alt={c.portraitAlt}
+                  fill
+                  preload
+                  sizes="(min-width: 1200px) 336px, (min-width: 840px) 32vw, 26vw"
+                />
               </div>
-            </address>
-          </header>
-          <ResumeSection id="cv-projects" title={ru ? "Избранные проекты" : "Selected projects"}>
-            <ul className={styles.records} role="list">
-              {r.projects.map(({ slug, contribution }) => {
-                const project = projects.find((entry) => entry.slug === slug);
-                if (!project) return null;
-                const href = project.featured
-                  ? localePath(locale, `/projects/${slug}`)
-                  : project.github;
-                const printHref = project.featured
-                  ? localizedUrls(`/projects/${slug}`)[locale]
-                  : href;
-                return (
-                  <li key={slug}>
-                    <div className={styles.recordHeader}>
-                      <h3>
-                        {href && printHref ? (
-                          <>
-                            <Link className={styles.screenLabel} prefetch={false} href={href}>
-                              {project.title}
-                            </Link>
-                            <a className={styles.printPath} href={printHref}>{project.title}</a>
-                          </>
-                        ) : project.title}
-                      </h3>
-                      <p className={styles.date}>{project.year}</p>
-                    </div>
-                    <p>{contribution}</p>
-                  </li>
-                );
-              })}
-            </ul>
-          </ResumeSection>
-          <ResumeSection id="cv-experience" title={c.experience}>
-            <Timeline records={r.experience} />
-          </ResumeSection>
-          <ResumeSection id="cv-milestones" title={ru ? "Руководство командой" : "Leadership"}>
-            <ul className={styles.records} role="list">
-              {r.milestones.map(([title, description]) => (
-                <li key={title}>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </li>
-              ))}
-            </ul>
-          </ResumeSection>
-          <ResumeSection id="cv-education" title={c.education}>
-            <Timeline records={r.education} />
-          </ResumeSection>
-          <ResumeSection id="cv-skills" title={ru ? "Технические навыки" : "Technical skills"}>
-            <dl className={styles.skills}>
-              {r.skills.map(([label, tools]) => (
-                <div key={label}>
-                  <dt>{label}</dt>
-                  <dd>{tools}</dd>
+              <address className={styles.contacts}>
+                <div>
+                  <span>{c.location}</span>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                  <ContactLink name={portfolioLabel} href={localizedUrls()[locale]} />
                 </div>
-              ))}
-            </dl>
-          </ResumeSection>
+                <div>
+                  {cvProfiles.map(({ name, href }) => (
+                    <ContactLink key={name} name={name} href={href} />
+                  ))}
+                </div>
+              </address>
+            </div>
+          </div>
+        </header>
+        <div className={`shell ${styles.sheet}`}>
+          <div className={styles.primary}>
+            <ResumeSection id="cv-projects" title={ru ? "Избранные проекты" : "Selected projects"}>
+              <ul className={styles.records} role="list">
+                {r.projects.map(({ slug, contribution }) => {
+                  const project = projects.find((entry) => entry.slug === slug);
+                  if (!project) return null;
+                  const href = project.featured
+                    ? localePath(locale, `/projects/${slug}`)
+                    : project.github;
+                  const printHref = project.featured
+                    ? localizedUrls(`/projects/${slug}`)[locale]
+                    : href;
+                  return (
+                    <li key={slug}>
+                      <div className={styles.recordHeader}>
+                        <h3>
+                          {href && printHref ? (
+                            <>
+                              <Link className={styles.screenLabel} prefetch={false} href={href}>
+                                {project.title} <span className="arrow-up-right" aria-hidden="true" />
+                              </Link>
+                              <a className={styles.printPath} href={printHref}>{project.title}</a>
+                            </>
+                          ) : project.title}
+                        </h3>
+                        <p className={styles.date}>{project.year}</p>
+                      </div>
+                      <p>{contribution}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </ResumeSection>
+            <ResumeSection id="cv-experience" title={c.experience}>
+              <Timeline records={r.experience} />
+            </ResumeSection>
+          </div>
+          <div className={styles.secondary}>
+            <ResumeSection id="cv-milestones" title={ru ? "Руководство командой" : "Leadership"}>
+              <ul className={styles.records} role="list">
+                {r.milestones.map(([title, description]) => (
+                  <li key={title}>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </li>
+                ))}
+              </ul>
+            </ResumeSection>
+            <ResumeSection id="cv-education" title={c.education}>
+              <Timeline records={r.education} />
+            </ResumeSection>
+            <ResumeSection id="cv-skills" title={ru ? "Технические навыки" : "Technical skills"}>
+              <dl className={styles.skills}>
+                {r.skills.map(([label, tools]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{tools}</dd>
+                  </div>
+                ))}
+              </dl>
+            </ResumeSection>
+          </div>
         </div>
       </main>
     </>

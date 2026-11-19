@@ -30,7 +30,7 @@ function HomeLink({
       onClick={onNavigate}
     >
       <span className={styles.brandMark} aria-hidden="true">
-        SA<span>.</span>
+        SA
       </span>
       <span className={styles.brandName}>{copy[locale].name.join(" ")}</span>
     </Link>
@@ -160,7 +160,7 @@ export default function SiteHeader({
       <a className={styles.skipLink} href="#content">
         {c.skipContent}
       </a>
-      <div className={styles.headerInner}>
+      <div className={`shell ${styles.headerInner}`}>
         <HomeLink locale={locale} />
         <nav className={styles.desktopNav} aria-label={c.navigation}>
           {links.map((link) => (
@@ -218,7 +218,7 @@ export default function SiteHeader({
         }}
       >
         <div className={styles.dialogHeader}>
-          <div className={styles.headerInner}>
+          <div className={`shell ${styles.headerInner}`}>
             <HomeLink locale={locale} onNavigate={closeMenu} />
             <div className={styles.actions}>
               <LanguageSwitch
@@ -239,7 +239,7 @@ export default function SiteHeader({
             </div>
           </div>
         </div>
-        <nav className={styles.mobileNav} aria-label={c.navigation}>
+        <nav className={`shell ${styles.mobileNav}`} aria-label={c.navigation}>
           {links.map((link) => (
             <Link
               prefetch={false}
@@ -249,7 +249,7 @@ export default function SiteHeader({
               aria-current={link.current ? "page" : undefined}
             >
               {link.label}
-              <span aria-hidden="true">→</span>
+              <span className={styles.mobileArrow} aria-hidden="true">→</span>
             </Link>
           ))}
         </nav>

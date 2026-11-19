@@ -11,7 +11,7 @@ export function PortfolioHero({ locale }: { locale: Locale }) {
       <div className="shell hero-grid">
         <div className="hero-copy">
           <p className="eyebrow hero-location">{c.location}</p>
-          <h1 className="hero-name" id="hero-title">
+          <h1 className="display hero-name" id="hero-title">
             <span className="hero-line"><span>{givenName}</span></span>{" "}
             <span className="hero-line hero-family"><span>{familyName}</span></span>
           </h1>
@@ -21,19 +21,22 @@ export function PortfolioHero({ locale }: { locale: Locale }) {
               {c.viewWork} <span className="hero-work-arrow" aria-hidden="true">↓</span>
             </a>
             <Link prefetch={false} className="linkline hero-cv" href={localePath(locale, "/cv")}>
-              {c.viewCV} <span aria-hidden="true">→</span>
+              {c.viewCV} <span className="arrow-up-right" aria-hidden="true" />
             </Link>
           </div>
         </div>
-        <div className="hero-portrait">
-          <div className="hero-portrait-image">
-            <Image
-              src="/portrait.jpg"
-              alt={c.portraitAlt}
-              fill
-              preload
-              sizes="(min-width: 1288px) 390px, (min-width: 700px) 36vw, (min-width: 500px) 465px, calc(100vw - 36px)"
-            />
+        <div className="hero-art">
+          <div className="hero-orbit" aria-hidden="true" />
+          <div className="hero-portrait">
+            <div className="hero-portrait-image">
+              <Image
+                src="/portrait.jpg"
+                alt={c.portraitAlt}
+                fill
+                preload
+                sizes="(min-width: 1328px) 500px, (min-width: 700px) 42vw, calc(100vw - 52px)"
+              />
+            </div>
           </div>
         </div>
       </div>

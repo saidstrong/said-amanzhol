@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import ProjectVisual from "@/components/ProjectVisual";
 import { caseStudies } from "@/lib/case-studies";
 import {
   copy,
@@ -14,8 +14,9 @@ import {
 import styles from "./WorkSection.module.css";
 
 const featuredProjects = projects.filter((project) => project.featured);
-const [leadProject, ...prototypeStudies] = featuredProjects.filter(
-  (project) => project.status === "prototype",
+const leadProject = featuredProjects.find((project) => project.slug === "nu-atrium");
+const invitationProject = featuredProjects.find(
+  (project) => project.slug === "invitation-platform",
 );
 const researchProject = featuredProjects.find((project) => project.slug === "quant-trade-ai");
 const otherProjects = projects.filter((project) => !project.featured);
@@ -25,6 +26,10 @@ const labels = {
     watchWalkthrough: "Watch walkthrough",
     openPrototype: "Open prototype",
     invitationExample: "View example invitation",
+    eventScreenAlt: "The NU Atrium screen listing campus events, dates, and locations",
+    eventScreenCaption: "Events screen with sample data",
+    invitationAlt: "Wedding stationery arranged as an invitation suite",
+    invitationCaption: "Wedding invitation illustration",
     researchStatus: "In progress",
     researchQuestion:
       "How could AI agents help analyze markets, develop trading strategies, and assess risk?",
@@ -34,6 +39,10 @@ const labels = {
     watchWalkthrough: "Смотреть видеообзор",
     openPrototype: "Открыть прототип",
     invitationExample: "Пример приглашения",
+    eventScreenAlt: "Список мероприятий в NU Atrium с датами и местами проведения",
+    eventScreenCaption: "Список мероприятий с демонстрационными данными",
+    invitationAlt: "Свадебное приглашение с сопутствующими печатными материалами",
+    invitationCaption: "Иллюстрация свадебного приглашения",
     researchStatus: "В работе",
     researchQuestion:
       "Как ИИ-агенты могут помочь в анализе рынков, разработке торговых стратегий и оценке рисков?",
@@ -51,7 +60,7 @@ function ProjectLinks({
   caseLabel?: string;
 }) {
   const c = copy[locale];
-  const { watchWalkthrough, openPrototype, invitationExample } = labels[locale];
+  const { openPrototype, invitationExample } = labels[locale];
   const casePath = localePath(locale, `/projects/${project.slug}`);
   const liveLabel =
     project.slug === "nu-atrium"
@@ -62,17 +71,6 @@ function ProjectLinks({
 
   return (
     <div className={styles.links}>
-      {project.slug === "nu-atrium" && (
-        <Link
-          prefetch={false}
-          className={`linkline ${styles.walkthroughLink}`}
-          href={`${casePath}#walkthrough`}
-          aria-label={`${watchWalkthrough} · ${project.title}`}
-        >
-          <span className={styles.playIcon} aria-hidden="true" />
-          {watchWalkthrough}
-        </Link>
-      )}
       {project.featured && (
         <Link
           prefetch={false}
@@ -119,28 +117,79 @@ function ProjectStatus({ project, locale }: { project: Project; locale: Locale }
   );
 }
 
-function FeaturedWork({
-  project,
-  locale,
-  lead = false,
-}: {
-  project: FeaturedProject;
-  locale: Locale;
-  lead?: boolean;
-}) {
+function ProjectHeader({ project, locale }: { project: FeaturedProject; locale: Locale }) {
   return (
-    <article className={lead ? styles.lead : styles.study}>
-      <div className={styles.projectCopy}>
-        <h3 className={styles.projectTitle}>{project.title}</h3>
-        <ProjectStatus project={project} locale={locale} />
-        <p className={styles.category}>{projectCategory(project, locale)}</p>
-        <p className={styles.description}>{copy[locale].featured[project.slug]}</p>
-        <p className={styles.contribution}>{caseStudies[project.slug][locale].contribution}</p>
-        <ProjectLinks project={project} locale={locale} />
-      </div>
-      <div className={styles.visual}>
-        <ProjectVisual slug={project.slug} locale={locale} compact={!lead} />
-      </div>
+    <header className={styles.projectHeader}>
+      <ProjectStatus project={project} locale={locale} />
+      <h3 className={styles.projectTitle} id={`work-${project.slug}`}>{project.title}</h3>
+    </header>
+  );
+}
+
+function ProjectInfo({ project, locale }: { project: FeaturedProject; locale: Locale }) {
+  return (
+    <div className={styles.projectInfo}>
+      <p className={styles.description}>{copy[locale].featured[project.slug]}</p>
+      <p className={styles.contribution}>{caseStudies[project.slug][locale].contribution}</p>
+      <ProjectLinks project={project} locale={locale} />
+    </div>
+  );
+}
+
+function CampusSpread({ project, locale }: { project: FeaturedProject; locale: Locale }) {
+  const c = labels[locale];
+  const walkthroughPath = localePath(locale, `/projects/${project.slug}#walkthrough`);
+
+  return (
+    <article className={styles.lead} aria-labelledby={`work-${project.slug}`}>
+      <ProjectHeader project={project} locale={locale} />
+      <figure className={styles.campusFigure}>
+        <Link
+          prefetch={false}
+          className={styles.walkthroughLink}
+          href={walkthroughPath}
+          aria-label={`${c.watchWalkthrough} · ${project.title}`}
+        >
+          <div className={styles.screen}>
+            <Image
+              src="/project-media/nu-atrium-events.webp"
+              alt={c.eventScreenAlt}
+              width={1280}
+              height={720}
+              sizes="(max-width: 819px) calc(100vw - 80px), (max-width: 1279px) 53vw, 700px"
+            />
+          </div>
+          <span className={styles.watchLabel}>
+            <span className={styles.playIcon} aria-hidden="true" />
+            {c.watchWalkthrough}
+            <span className={styles.watchArrow} aria-hidden="true">→</span>
+          </span>
+        </Link>
+        <figcaption className={styles.campusCaption}>{c.eventScreenCaption}</figcaption>
+      </figure>
+      <ProjectInfo project={project} locale={locale} />
+    </article>
+  );
+}
+
+function InvitationSpread({ project, locale }: { project: FeaturedProject; locale: Locale }) {
+  const c = labels[locale];
+
+  return (
+    <article className={styles.study} aria-labelledby={`work-${project.slug}`}>
+      <ProjectHeader project={project} locale={locale} />
+      <figure className={styles.invitationFigure}>
+        <div className={styles.invitationImage}>
+          <Image
+            src="/project-media/invitation-cover.webp"
+            alt={c.invitationAlt}
+            fill
+            sizes="(max-width: 819px) calc(100vw - 36px), (max-width: 1279px) 54vw, 690px"
+          />
+        </div>
+        <figcaption className={styles.invitationCaption}>{c.invitationCaption}</figcaption>
+      </figure>
+      <ProjectInfo project={project} locale={locale} />
     </article>
   );
 }
@@ -149,10 +198,10 @@ function ResearchEntry({ project, locale }: { project: FeaturedProject; locale: 
   const c = labels[locale];
 
   return (
-    <article className={`${styles.directoryRow} ${styles.research}`}>
+    <article className={styles.research} aria-labelledby={`work-${project.slug}`}>
       <div>
         <p className={styles.researchStatus}>{c.researchStatus}</p>
-        <h3 className={styles.rowTitle}>{project.title}</h3>
+        <h3 className={styles.rowTitle} id={`work-${project.slug}`}>{project.title}</h3>
       </div>
       <p className={styles.description}>{c.researchQuestion}</p>
       <div className={styles.directoryActions}>
@@ -168,10 +217,8 @@ export function WorkSection({ locale }: { locale: Locale }) {
   return (
     <section className={`shell ${styles.work}`} id="work" aria-labelledby="work-title">
       <h2 className={styles.heading} id="work-title">{c.selectedWork}</h2>
-      {leadProject && <FeaturedWork project={leadProject} locale={locale} lead />}
-      {prototypeStudies.map((project) => (
-        <FeaturedWork key={project.slug} project={project} locale={locale} />
-      ))}
+      {leadProject && <CampusSpread project={leadProject} locale={locale} />}
+      {invitationProject && <InvitationSpread project={invitationProject} locale={locale} />}
       {researchProject && <ResearchEntry project={researchProject} locale={locale} />}
       <section className={styles.directory} aria-labelledby="more-work-title">
         <h3 className={styles.directoryHeading} id="more-work-title">{c.moreWork}</h3>
